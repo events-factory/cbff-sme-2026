@@ -17,9 +17,10 @@ function calc() {
 function pad(n: number) { return String(n).padStart(2, "0"); }
 
 export default function CountdownTimer() {
-  const [t, setT] = useState(calc());
+  const [t, setT] = useState({ d: 0, h: 0, m: 0, s: 0 });
 
   useEffect(() => {
+    setT(calc());
     const id = setInterval(() => setT(calc()), 1000);
     return () => clearInterval(id);
   }, []);

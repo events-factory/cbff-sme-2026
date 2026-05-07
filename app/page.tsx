@@ -2,14 +2,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import CountdownTimer from "@/components/CountdownTimer";
-import { MapPin, Calendar, Users, Globe, Mic2, Navigation, Briefcase, Store, UserCheck } from "lucide-react";
+import { MapPin, Calendar, Users, Globe, Mic2, Navigation, Briefcase, Store, UserCheck, CheckCircle, Building2, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { t } from "@/locales/translations";
 
 const exploreIcons = [Globe, Mic2, Navigation, Briefcase, Store, UserCheck];
 const exploreHrefs = ["/about", "/speakers", "/destination", "/sponsors", "/exhibition", "/registration"];
-const consortiumLogos = ["/net-kigali.webp", "/rebird_logo.png", null, null];
-const consortiumInitials = [null, null, "SBPME-UEMOA", "CC"];
+const consortiumLogos = ["/net-kigali.webp", "/rebird_logo.png", "/cropped-Main-Logo.png", null];
+const consortiumInitials = [null, null, null, "CC"];
 
 export default function Home() {
   const { lang } = useLanguage();
@@ -90,9 +90,34 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ── 2026 Forum Themes ─────────────────────── */}
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/bg-4.jpeg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(10,25,47,.88)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
+          <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 10 }}>{T.themesLabel}</p>
+          <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 700, color: "var(--white)", marginBottom: 18 }}>{T.themesTitle}</h2>
+          <div style={{ width: 60, height: 3, background: "var(--gold)", marginBottom: 40 }} />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }} className="themes-grid">
+            {T.themes.map((theme) => (
+              <div key={theme.title} style={{ borderLeft: "3px solid var(--gold)", background: "rgba(255,255,255,.05)", padding: "22px 22px 22px 20px" }}>
+                <h4 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 14, fontWeight: 700, color: "var(--gold)", marginBottom: 8 }}>{theme.title}</h4>
+                <p style={{ fontSize: 13.5, color: "rgba(255,255,255,.65)", lineHeight: 1.65 }}>{theme.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Executive Message ──────────────────────── */}
-      <section style={{ padding: "80px 0" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/bg-2.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(255,255,255,.93)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
           <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 10 }}>{T.executiveMessage}</p>
           <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 700, color: "var(--navy)", marginBottom: 18 }}>{T.africaLacksPipelines}</h2>
           <div style={{ width: 60, height: 3, background: "var(--gold)", marginBottom: 28 }} />
@@ -132,14 +157,85 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ── Three Days of Impact ──────────────────── */}
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/banner1.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(255,255,255,.94)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
+          <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 10 }}>{T.threeDaysLabel}</p>
+          <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 700, color: "var(--navy)", marginBottom: 18 }}>{T.threeDaysTitle}</h2>
+          <div style={{ width: 60, height: 3, background: "var(--gold)", marginBottom: 40 }} />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }} className="three-days-grid">
+            {T.threeDays.map((day) => (
+              <div key={day.label} style={{ border: "1px solid var(--border)", borderTop: "3px solid var(--gold)", padding: "28px 24px", background: "var(--light)" }}>
+                <div style={{ display: "inline-block", background: "var(--gold)", color: "var(--white)", fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", padding: "4px 12px", marginBottom: 14 }}>{day.label}</div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                  <Calendar size={14} color="var(--muted)" />
+                  <span style={{ fontSize: 13, color: "var(--muted)" }}>{day.date}</span>
+                </div>
+                <h3 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 16, fontWeight: 700, color: "var(--navy)", marginBottom: 16, lineHeight: 1.3 }}>{day.theme}</h3>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+                  {day.bullets.map((bullet) => (
+                    <li key={bullet} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+                      <CheckCircle size={14} color="var(--gold)" style={{ flexShrink: 0, marginTop: 2 }} />
+                      <span style={{ fontSize: 13, color: "var(--text)", lineHeight: 1.5 }}>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Deal Room 2026 ─────────────────────────── */}
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/53831513627_c4fcc73361_b.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(244,247,251,.95)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center", position: "relative", zIndex: 1 }} className="deal-room-grid">
+          <div>
+            <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 10 }}>{T.dealRoomLabel}</p>
+            <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 700, color: "var(--navy)", marginBottom: 18 }}>{T.dealRoomTitle}</h2>
+            <div style={{ width: 60, height: 3, background: "var(--gold)", marginBottom: 24 }} />
+            <p style={{ fontSize: 15, color: "var(--text)", lineHeight: 1.8, marginBottom: 20 }}>{T.dealRoomBody}</p>
+            <p style={{ fontSize: 13.5, color: "var(--muted)", lineHeight: 1.7, marginBottom: 32, borderLeft: "3px solid var(--gold)", paddingLeft: 16 }}>{T.dealRoomNote}</p>
+            <Link href="/registration" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "13px 32px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", borderRadius: 2, background: "var(--gold)", color: "var(--white)", textDecoration: "none" }}>
+              {T.dealRoomCTA} <ArrowRight size={14} />
+            </Link>
+          </div>
+          <div style={{ background: "var(--navy2)", border: "1px solid var(--gold)", padding: "36px 32px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 28 }}>
+              <Building2 size={20} color="var(--gold)" />
+              <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, color: "var(--gold)", letterSpacing: 2, textTransform: "uppercase" }}>{T.dealRoomTitle}</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+              {T.dealRoomStats.map((stat) => (
+                <div key={stat.num} style={{ borderBottom: "1px solid rgba(255,255,255,.1)", paddingBottom: 20 }}>
+                  <div style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 800, color: "var(--gold)", lineHeight: 1, marginBottom: 6 }}>{stat.num}</div>
+                  <div style={{ fontSize: 13, color: "rgba(255,255,255,.65)" }}>{stat.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Consortium cards ───────────────────────── */}
-      <section style={{ padding: "80px 0", background: "var(--light)" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/banner3.jpeg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(244,247,251,.95)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
           <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 10 }}>{T.consortium}</p>
           <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 700, color: "var(--navy)", marginBottom: 18 }}>{T.ourOrganisingConsortium}</h2>
           <div style={{ width: 60, height: 3, background: "var(--gold)", marginBottom: 40 }} />
         </div>
-        <div style={{ background: "var(--navy)", padding: "48px 24px" }}>
+        <div style={{ background: "var(--navy)", padding: "48px 24px", position: "relative", zIndex: 2 }}>
           <div style={{ maxWidth: 1160, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }} className="consortium-cards">
             {T.consortiumMembers.map((c, idx) => (
               <div key={c.name} style={{ border: "1px solid rgba(255,255,255,.15)", padding: "22px 16px", textAlign: "center" }}>
@@ -184,16 +280,47 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Venue & Date Banner ────────────────────── */}
+      <section style={{ background: "var(--navy2)", borderBottom: "3px solid var(--gold)", padding: "64px 0" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 32 }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+              <MapPin size={18} color="var(--gold)" />
+              <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(20px,2.5vw,28px)", fontWeight: 800, color: "var(--white)", margin: 0 }}>{T.venueTitle}</h2>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+              <Calendar size={14} color="var(--gold)" />
+              <span style={{ fontSize: 14, color: "var(--gold)", fontFamily: "var(--font-poppins),sans-serif", fontWeight: 600 }}>{T.venueAddress}</span>
+            </div>
+            <p style={{ fontSize: 14, color: "rgba(255,255,255,.65)", maxWidth: 520, lineHeight: 1.7, margin: 0 }}>{T.venueTagline}</p>
+          </div>
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+            <Link href="/registration" style={{ display: "inline-block", padding: "13px 28px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", borderRadius: 2, background: "var(--gold)", color: "var(--white)", textDecoration: "none" }}>
+              {lang === "fr" ? "S'inscrire" : "Register Now"}
+            </Link>
+            <Link href="/program" style={{ display: "inline-block", padding: "13px 28px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", borderRadius: 2, border: "2px solid var(--white)", color: "var(--white)", textDecoration: "none" }}>
+              {lang === "fr" ? "Voir le Programme" : "View Program"}
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <style>{`
         @media (max-width: 640px) {
           .grid-2 { grid-template-columns: 1fr !important; }
           .stats-grid { grid-template-columns: 1fr !important; }
           .consortium-cards { grid-template-columns: 1fr !important; }
           .explore-grid { grid-template-columns: 1fr !important; }
+          .themes-grid { grid-template-columns: 1fr !important; }
+          .three-days-grid { grid-template-columns: 1fr !important; }
+          .deal-room-grid { grid-template-columns: 1fr !important; }
         }
         @media (min-width: 641px) and (max-width: 900px) {
           .consortium-cards { grid-template-columns: repeat(2,1fr) !important; }
           .explore-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .themes-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .three-days-grid { grid-template-columns: 1fr !important; }
+          .deal-room-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </>

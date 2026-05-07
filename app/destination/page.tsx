@@ -1,5 +1,6 @@
 "use client";
 import SectionHeader from "@/components/SectionHeader";
+import Image from "next/image";
 import Link from "next/link";
 import { Plane, Wifi, Shield, TrendingUp, Sun, MapPin, Building2, DollarSign, Landmark, Clock, ShoppingBag, Zap, Phone, PhoneCall, Store } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -16,11 +17,10 @@ export default function DestinationPage() {
   return (
     <>
       {/* Hero */}
-      <div style={{
-        background: "linear-gradient(135deg, var(--navy2) 0%, var(--navy) 60%, #1a4a7a 100%)",
-        padding: "120px 24px 60px",
-      }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
+      <div style={{ position: "relative", minHeight: 420, display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
+        <Image src="/banner2.jpg" alt="Kigali, Rwanda" fill style={{ objectFit: "cover", objectPosition: "center" }} priority />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,25,47,.95) 0%, rgba(10,25,47,.6) 60%, rgba(10,25,47,.3) 100%)" }} />
+        <div style={{ position: "relative", maxWidth: 1160, margin: "0 auto", width: "100%", padding: "80px 24px 60px" }}>
           <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>{T.eyebrow}</p>
           <h1 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(36px,5vw,64px)", fontWeight: 800, color: "var(--white)", lineHeight: 1.1, marginBottom: 8 }}>
             {T.title}
@@ -32,8 +32,12 @@ export default function DestinationPage() {
       </div>
 
       {/* Why Kigali */}
-      <section style={{ padding: "80px 0" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/banner1.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(255,255,255,.93)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
           <SectionHeader eyebrow={T.whyKigaliEyebrow} title={T.whyKigaliTitle} />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }} className="why-grid">
             {T.whyKigaliReasons.map((r, i) => {
@@ -53,8 +57,12 @@ export default function DestinationPage() {
       </section>
 
       {/* Getting There */}
-      <section style={{ padding: "80px 0", background: "var(--light)" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/53831513627_c4fcc73361_b.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(244,247,251,.94)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
           <SectionHeader eyebrow={T.gettingThereEyebrow} title={T.gettingThereTitle} />
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40 }} className="two-col">
             <div>
@@ -122,9 +130,13 @@ export default function DestinationPage() {
       </section>
 
       {/* Climate + Venue */}
-      <section style={{ padding: "80px 0", background: "var(--navy)" }}>
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/bg-4.jpeg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(10,25,47,.9)" }} />
+        </div>
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48 }} className="two-col">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, position: "relative", zIndex: 1 }} className="two-col">
             <div>
               <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>{T.climateEyebrow}</p>
               <div style={{ display: "flex", gap: 14, alignItems: "flex-start", marginBottom: 8 }}>
@@ -171,8 +183,12 @@ export default function DestinationPage() {
       </section>
 
       {/* Travel Tips */}
-      <section style={{ padding: "80px 0", background: "var(--light)" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/bg-2.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(244,247,251,.95)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
           <SectionHeader eyebrow={T.travelTipsEyebrow} title={T.travelTipsTitle} lead={T.travelTipsLead} />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }} className="tips-grid">
             {T.travelTips.map((tip, i) => {

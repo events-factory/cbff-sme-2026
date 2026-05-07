@@ -2,6 +2,12 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "app.smartevent.rw" },
+      { protocol: "https", hostname: "mimafrica.rw" },
+    ],
+  },
   turbopack: {
     root: __dirname,
     resolveAlias: {

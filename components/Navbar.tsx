@@ -11,12 +11,13 @@ export default function Navbar() {
   const T = t[lang].nav;
 
   const links = [
-    { href: "/about",        label: T.about },
-    { href: "/speakers",     label: T.speakers },
-    { href: "/program",      label: T.program },
-    { href: "/destination",  label: T.destination },
-    { href: "/sponsors",     label: T.sponsor },
-    { href: "/exhibition",   label: T.exhibition },
+    { href: "/about",          label: T.about },
+    { href: "/speakers",       label: T.speakers },
+    { href: "/program",        label: T.program },
+    { href: "/destination",    label: T.destination },
+    { href: "/accommodation",  label: T.accommodation },
+    { href: "/sponsors",       label: T.sponsor },
+    { href: "/exhibition",     label: T.exhibition },
   ];
 
   const [open, setOpen] = useState(false);

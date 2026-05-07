@@ -8,6 +8,12 @@ import { t } from "@/locales/translations";
 
 const benefitIcons = [Eye, Users, Star, TrendingUp];
 
+const boothImages = [
+  "https://app.smartevent.rw/gallery/exhibition/packages/659eb15b5ec05_65e7744fc56e1.png",
+  "https://app.smartevent.rw/gallery/exhibition/packages/659eb15b5ec05_65e824a325986.png",
+  "https://app.smartevent.rw/gallery/exhibition/packages/659eb15b5ec05_65e824f085ff6.png",
+];
+
 export default function ExhibitionPage() {
   const { lang } = useLanguage();
   const T = t[lang].exhibition;
@@ -42,7 +48,7 @@ export default function ExhibitionPage() {
               </p>
               {[
                 { label: lang === "fr" ? "Dates du Forum" : "Forum Dates", val: lang === "fr" ? "9–11 Août 2026" : "August 9–11, 2026" },
-                { label: lang === "fr" ? "Lieu" : "Location", val: "Kigali, Rwanda" },
+                { label: lang === "fr" ? "Lieu" : "Venue", val: "Kigali Serena Hotel" },
                 { label: lang === "fr" ? "Délai d'Inscription" : "Booking Deadline", val: lang === "fr" ? "30 Juin 2026" : "June 30, 2026" },
                 { label: lang === "fr" ? "Stands Disponibles" : "Stands Available", val: lang === "fr" ? "Limité" : "Limited" },
               ].map((item) => (
@@ -61,13 +67,14 @@ export default function ExhibitionPage() {
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
           <SectionHeader eyebrow={T.packagesEyebrow} title={T.packagesTitle} lead={T.packagesLead} />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }} className="packages-grid">
-            {T.packages.map((pkg) => (
+            {T.packages.map((pkg, i) => (
               <ExhibitionPackage
                 key={pkg.title}
                 title={pkg.title}
                 size={pkg.size}
                 sqm={pkg.sqm}
                 includes={pkg.includes}
+                image={boothImages[i]}
                 highlighted={pkg.highlighted}
                 ctaLabel={C.enquireNow}
               />
@@ -176,11 +183,13 @@ export default function ExhibitionPage() {
           .two-col       { grid-template-columns: 1fr !important; }
           .packages-grid { grid-template-columns: 1fr !important; }
           .benefits-grid { grid-template-columns: 1fr !important; }
+          .booth-grid    { grid-template-columns: 1fr !important; }
         }
         @media (min-width: 641px) and (max-width: 900px) {
           .two-col       { grid-template-columns: 1fr !important; }
           .packages-grid { grid-template-columns: 1fr !important; }
           .benefits-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .booth-grid    { grid-template-columns: repeat(2,1fr) !important; }
         }
       `}</style>
     </>
