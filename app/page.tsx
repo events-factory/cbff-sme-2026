@@ -8,8 +8,9 @@ import { t } from "@/locales/translations";
 
 const exploreIcons = [Globe, Mic2, Navigation, Briefcase, Store, UserCheck];
 const exploreHrefs = ["/about", "/speakers", "/destination", "/sponsors", "/exhibition", "/registration"];
-const consortiumLogos = ["/net-kigali.webp", "/rebird_logo.png", "/cropped-Main-Logo.png", null];
-const consortiumInitials = [null, null, null, "CC"];
+const consortiumLogos = ["/net-kigali.webp", "/rebird_logo.png", "/logos/sbpme-uemoa.png", "/logos/congruence-consulting.jpeg"];
+const consortiumInitials = [null, null, null, null];
+const consortiumInvert = [true, true, false, false];
 
 export default function Home() {
   const { lang } = useLanguage();
@@ -18,7 +19,7 @@ export default function Home() {
 
   const heroInfo = [
     { Icon: MapPin,   strong: "Kigali, Rwanda",      sub: T.hostCity },
-    { Icon: Calendar, strong: lang === "fr" ? "9 – 11 août 2026" : "August 9 – 11, 2026", sub: T.threeDaysForum },
+    { Icon: Calendar, strong: lang === "fr" ? "10 – 11 août 2026" : "August 10 – 11, 2026", sub: T.twoDaysForum },
     { Icon: Users,    strong: T.dealRoomNetworking,  sub: T.investmentMatchmaking },
   ];
 
@@ -45,9 +46,23 @@ export default function Home() {
         <h1 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(28px,5vw,58px)", fontWeight: 800, color: "var(--white)", lineHeight: 1.15, marginBottom: 16, position: "relative" }}>
           {T.title1}<br /><span style={{ color: "var(--gold)" }}>{T.title2}</span>
         </h1>
-        <p style={{ fontSize: "clamp(14px,2vw,18px)", color: "rgba(255,255,255,.8)", fontStyle: "italic", maxWidth: 680, margin: "0 auto 36px", position: "relative" }}>
+        <p style={{ fontSize: "clamp(14px,2vw,18px)", color: "rgba(255,255,255,.8)", fontStyle: "italic", maxWidth: 680, margin: "0 auto 24px", position: "relative" }}>
           {T.tagline}
         </p>
+
+        {/* MINICOM host badge */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 36, position: "relative", background: "rgba(201,151,43,.12)", border: "1px solid rgba(201,151,43,.4)", padding: "8px 20px" }}>
+          <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,.5)" }}>
+            {lang === "fr" ? "Sous l'égide de" : "Under the auspices of"}
+          </span>
+          <span style={{ width: 1, height: 16, background: "rgba(201,151,43,.5)" }} />
+          <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 800, color: "var(--gold)", letterSpacing: 1 }}>
+            MINICOM
+          </span>
+          <span style={{ fontSize: 12, color: "rgba(255,255,255,.6)" }}>
+            {lang === "fr" ? "— Ministère du Commerce, Rwanda" : "— Ministry of Trade & Industry, Rwanda"}
+          </span>
+        </div>
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 32, flexWrap: "wrap", marginBottom: 48, position: "relative" }}>
           {heroInfo.map((m) => (
@@ -77,11 +92,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Consortium bar ─────────────────────────── */}
+      {/* ── Host + Consortium bar ──────────────────── */}
       <div style={{ background: "var(--navy2)", borderBottom: "2px solid var(--gold)", padding: "14px 0" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
-          <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "var(--gold)", marginRight: 12 }}>{T.consortium}</span>
-          {["NET Kigali", "Re-bird Belgium", "SBPME-UEMOA", "Congruence Consulting"].map((m, i, arr) => (
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "center", gap: 16, flexWrap: "wrap" }}>
+          {/* Institutional host */}
+          <span style={{ display: "flex", alignItems: "center", gap: 8, paddingRight: 16, borderRight: "1px solid rgba(255,255,255,.15)" }}>
+            <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,.45)" }}>
+              {lang === "fr" ? "Hôte institutionnel" : "Institutional Host"}
+            </span>
+            <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 12, fontWeight: 800, color: "var(--gold)", letterSpacing: 1 }}>MINICOM</span>
+          </span>
+          {/* Consortium */}
+          <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "var(--gold)" }}>{T.consortium}</span>
+          {["Netkigali", "Re-bird Belgium", "SBPME-UEMOA", "Congruence Consulting"].map((m, i, arr) => (
             <span key={m} style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,.85)", padding: "4px 14px", border: "1px solid rgba(255,255,255,.15)" }}>{m}</span>
               {i < arr.length - 1 && <span style={{ color: "var(--gold)", fontSize: 18 }}>·</span>}
@@ -241,7 +264,13 @@ export default function Home() {
               <div key={c.name} style={{ border: "1px solid rgba(255,255,255,.15)", padding: "22px 16px", textAlign: "center" }}>
                 <div style={{ width: 96, height: 56, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 14px", overflow: "hidden" }}>
                   {consortiumLogos[idx] ? (
-                    <Image src={consortiumLogos[idx]!} alt={c.name} width={80} height={44} style={{ objectFit: "contain", maxWidth: "100%", maxHeight: "100%", filter: "brightness(0) invert(1)" }} />
+                    consortiumInvert[idx] ? (
+                      <Image src={consortiumLogos[idx]!} alt={c.name} width={80} height={44} style={{ objectFit: "contain", maxWidth: "100%", maxHeight: "100%", filter: "brightness(0) invert(1)" }} />
+                    ) : (
+                      <div style={{ background: "#fff", borderRadius: 4, padding: "4px 6px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <Image src={consortiumLogos[idx]!} alt={c.name} width={76} height={44} style={{ objectFit: "contain", maxWidth: "100%", maxHeight: "100%" }} />
+                      </div>
+                    )
                   ) : (
                     <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 800, color: "var(--gold)", letterSpacing: 1, textAlign: "center", lineHeight: 1.3 }}>{consortiumInitials[idx]}</span>
                   )}

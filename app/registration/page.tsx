@@ -15,6 +15,15 @@ import {
 
 const SMARTEVENT_API = '/api/smartevent';
 
+function decodeHtml(str: string): string {
+  return str
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'");
+}
+
 interface RegistrationCategory {
   id: number;
   name_english: string;
@@ -241,7 +250,7 @@ export default function RegistrationPage() {
           orderId: paymentData.orderId,
           amount: parseFeeAmount(selectedCategory.fee),
           currency: extractCurrency(selectedCategory.fee),
-          categoryName: selectedCategory.name_english,
+          categoryName: decodeHtml(selectedCategory.name_english),
           categoryId: selectedCategory.id,
           attendenceType: attendanceType || 'PHYSICAL',
           customerEmail,
@@ -263,7 +272,7 @@ export default function RegistrationPage() {
           orderId: paymentData.orderId,
           amount: parseFeeAmount(selectedCategory.fee),
           currency: extractCurrency(selectedCategory.fee),
-          categoryName: selectedCategory.name_english,
+          categoryName: decodeHtml(selectedCategory.name_english),
         });
 
         setShowPaymentModal(false);
@@ -578,7 +587,7 @@ export default function RegistrationPage() {
                         </div>
                       )}
                       <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--navy)', fontFamily: 'var(--font-poppins),sans-serif' }}>
-                        {category.name_english}
+                        {decodeHtml(category.name_english)}
                       </h3>
                       <p className="text-2xl font-bold mb-4" style={{ color: isFree ? '#16a34a' : 'var(--gold)' }}>
                         {category.fee}
@@ -727,7 +736,7 @@ export default function RegistrationPage() {
           session={paymentSession}
           amount={parseFeeAmount(selectedCategory?.fee || '0')}
           currency={extractCurrency(selectedCategory?.fee || 'USD')}
-          categoryName={selectedCategory?.name_english || ''}
+          categoryName={decodeHtml(selectedCategory?.name_english || '')}
           customerEmail={(formValues['input_id_52307'] as string) || ''}
           isOpen={showPaymentModal}
           onClose={() => {

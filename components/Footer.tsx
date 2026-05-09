@@ -19,9 +19,9 @@ export default function Footer() {
   ];
 
   const zones = [
-    { zone: "Belgium", contact: "Dorence", phone: "+32 487 568 199", email: "" },
-    { zone: "Cameroon", contact: T.toBeConfirmed, phone: "", email: "" },
-    { zone: "West Africa (UEMOA)", contact: "SBPME-UEMOA", phone: "", email: "info@sbpme-uemoa.org" },
+    { zone: "Belgium", contact: "Dorence", phone: "", email: "mdorence@congruence.be" },
+    { zone: "Cameroon", contact: "M. Yves Bitama", phone: "", email: T.toBeConfirmed },
+    { zone: "West Africa (UEMOA)", contact: "SBPME-UEMOA", phone: "", email: "partenariat@salonpmeuemoa.org" },
   ];
 
   return (
@@ -67,7 +67,7 @@ export default function Footer() {
               {T.consortium}
             </h4>
             <ul style={{ listStyle: "none", padding: 0 }}>
-              {["NET Kigali", "Re-bird Belgium", "SBPME-UEMOA", "Congruence Consulting"].map((txt) => (
+              {["Netkigali", "Re-bird Belgium", "SBPME-UEMOA", "Congruence Consulting"].map((txt) => (
                 <li key={txt} style={{ padding: "4px 0", fontSize: 13 }}>{txt}</li>
               ))}
             </ul>

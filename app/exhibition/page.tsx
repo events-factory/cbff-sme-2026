@@ -47,7 +47,7 @@ export default function ExhibitionPage() {
                 {lang === "fr" ? "Dates Clés" : "Key Dates"}
               </p>
               {[
-                { label: lang === "fr" ? "Dates du Forum" : "Forum Dates", val: lang === "fr" ? "9–11 Août 2026" : "August 9–11, 2026" },
+                { label: lang === "fr" ? "Dates du Forum" : "Forum Dates", val: lang === "fr" ? "10–11 Août 2026" : "August 10–11, 2026" },
                 { label: lang === "fr" ? "Lieu" : "Venue", val: "Kigali Serena Hotel" },
                 { label: lang === "fr" ? "Délai d'Inscription" : "Booking Deadline", val: lang === "fr" ? "30 Juin 2026" : "June 30, 2026" },
                 { label: lang === "fr" ? "Stands Disponibles" : "Stands Available", val: lang === "fr" ? "Limité" : "Limited" },
@@ -73,6 +73,7 @@ export default function ExhibitionPage() {
                 title={pkg.title}
                 size={pkg.size}
                 sqm={pkg.sqm}
+                price={"price" in pkg ? (pkg as { price: string }).price : undefined}
                 includes={pkg.includes}
                 image={boothImages[i]}
                 highlighted={pkg.highlighted}
