@@ -22,7 +22,7 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   title: "CBFF-SME 2026 | Cross-Border Finance Forum for SMEs — Kigali, Rwanda",
   description:
-    "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. Kigali, Rwanda — August 9–11, 2026.",
+    "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. Kigali, Rwanda — August 10–11, 2026.",
 };
 
 export default function RootLayout({

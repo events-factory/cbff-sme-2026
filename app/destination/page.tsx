@@ -18,7 +18,7 @@ export default function DestinationPage() {
     <>
       {/* Hero */}
       <div style={{ position: "relative", minHeight: 420, display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
-        <Image src="/banner2.jpg" alt="Kigali, Rwanda" fill style={{ objectFit: "cover", objectPosition: "center" }} priority />
+        <Image src="/banner1.jpeg" alt="Kigali, Rwanda" fill style={{ objectFit: "cover", objectPosition: "center" }} priority />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,25,47,.95) 0%, rgba(10,25,47,.6) 60%, rgba(10,25,47,.3) 100%)" }} />
         <div style={{ position: "relative", maxWidth: 1160, margin: "0 auto", width: "100%", padding: "80px 24px 60px" }}>
           <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>{T.eyebrow}</p>
