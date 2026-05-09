@@ -51,7 +51,23 @@ export default function AboutPage() {
                 {T.publicInstitutions}
               </h4>
               <ul style={{ listStyle: "none", padding: 0 }}>
-                {["Member States' Ministries of the UEMOA", "UEMOA Regional Consultative Chamber", "BOAD — West African Development Bank", "BCEAO — Central Bank of West African States", "FAGACE", "FAPSFD UEMOA", "AUF — Agence Universitaire de la Francophonie"].map((item) => (
+                {[
+                  "Commission de l'UEMOA",
+                  "CCR UEMOA — Chambre Consulaire Régionale",
+                  "Ministères des États membres de l'UEMOA",
+                  "FAPEBF UEMOA (Fédération des Banques)",
+                  "FAPSFD UEMOA (Fédération des Microfinances)",
+                  "BADEA",
+                  "OAPI",
+                  "Universités et Écoles de Commerce",
+                  "BCEAO — Banque Centrale des États de l'Afrique de l'Ouest",
+                  "BRVM (Bourse)",
+                  "FAGACE",
+                  "BOAD — Banque Ouest Africaine de Développement",
+                  "FSA — Fonds Africain de Solidarité",
+                  "AGF Group — African Guarantee Fund West Africa S.A.",
+                  "AUF — Agence Universitaire de la Francophonie",
+                ].map((item) => (
                   <li key={item} style={{ fontSize: 13, color: "var(--muted)", padding: "5px 0", borderBottom: "1px solid var(--border)" }}>
                     <span style={{ color: "var(--gold)", marginRight: 6 }}>•</span>{item}
                   </li>
@@ -63,7 +79,28 @@ export default function AboutPage() {
                 {T.bankingSector}
               </h4>
               <ul style={{ listStyle: "none", padding: 0 }}>
-                {["CORIS Banque", "ECOBANK", "ORABANK", "UBA — United Bank for Africa", "VISTA GROUP", "BDNDA — Banque Nationale de Développement Agricole du Mali", "Banque Agricole du Faso"].map((item) => (
+                {[
+                  "BIS — Banque Islamique du Sénégal",
+                  "CBI — Coris Bank International",
+                  "BOA — Bank Of Africa",
+                  "ECOBANK",
+                  "ORABANK",
+                  "VISTA Bank",
+                  "BNDA — Banque Nationale de Développement Agricole",
+                  "BADF — Banque Agricole Du Faso",
+                  "Banque Atlantique",
+                  "WBI — Wendkuni Bank International",
+                  "BDU — Banque De l'Union",
+                  "IB Bank — International Business Bank",
+                  "BCB — Banque Commerciale du Burkina",
+                  "UBA — United Bank for Africa",
+                  "BAO-GB",
+                  "BSIC",
+                  "SUNU Bank",
+                  "COFINA",
+                  "FCPB — Fédération des Caisses Populaires du Burkina",
+                  "Institutions de Microfinance",
+                ].map((item) => (
                   <li key={item} style={{ fontSize: 13, color: "var(--muted)", padding: "5px 0", borderBottom: "1px solid var(--border)" }}>
                     <span style={{ color: "var(--gold)", marginRight: 6 }}>•</span>{item}
                   </li>
@@ -75,7 +112,16 @@ export default function AboutPage() {
                 {T.privateSector}
               </h4>
               <ul style={{ listStyle: "none", padding: 0 }}>
-                {["UEMOA Entrepreneurs' Associations", "ASKY Airlines", "International technical partners", "Regional economic operators"].map((item) => (
+                {[
+                  "Chambres Consulaires et Associations de PME de l'UEMOA",
+                  "Partenaires techniques internationaux",
+                  "Opérateurs économiques régionaux",
+                  "ASKY Airlines",
+                  "Air Burkina",
+                  "Air Côte d'Ivoire",
+                  "Air Sénégal",
+                  "Royal Air Maroc",
+                ].map((item) => (
                   <li key={item} style={{ fontSize: 13, color: "var(--muted)", padding: "5px 0", borderBottom: "1px solid var(--border)" }}>
                     <span style={{ color: "var(--gold)", marginRight: 6 }}>•</span>{item}
                   </li>

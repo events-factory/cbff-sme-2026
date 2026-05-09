@@ -6,13 +6,14 @@ interface ExhibitionPackageProps {
   title: string;
   size: string;
   sqm: string;
+  price?: string;
   includes: string[];
   image?: string;
   highlighted?: boolean;
   ctaLabel: string;
 }
 
-export default function ExhibitionPackage({ title, size, sqm, includes, image, highlighted, ctaLabel }: ExhibitionPackageProps) {
+export default function ExhibitionPackage({ title, size, sqm, price, includes, image, highlighted, ctaLabel }: ExhibitionPackageProps) {
   return (
     <div style={{
       border: highlighted ? "2px solid var(--gold)" : "1px solid var(--border)",
@@ -96,14 +97,17 @@ export default function ExhibitionPackage({ title, size, sqm, includes, image, h
 
         <div style={{
           padding: "12px 16px",
-          background: "var(--light)",
-          border: "1px solid var(--border)",
+          background: highlighted ? "rgba(201,151,43,.08)" : "var(--light)",
+          border: `1px solid ${highlighted ? "var(--gold)" : "var(--border)"}`,
           marginBottom: 20,
-          fontSize: 12.5,
-          color: "var(--muted)",
-          fontStyle: "italic",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
         }}>
-          Pricing available upon request — contact us for a tailored quote.
+          <span style={{ fontSize: 12, color: "var(--muted)", textTransform: "uppercase", letterSpacing: 1, fontFamily: "var(--font-poppins),sans-serif", fontWeight: 700 }}>
+            Price
+          </span>
+          <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 18, fontWeight: 800, color: "var(--navy)" }}>
+            {price ?? "On request"}
+          </span>
         </div>
 
         <Link
