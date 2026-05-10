@@ -20,7 +20,7 @@ export default function Footer() {
 
   const zones = [
     { zone: "Belgium", contact: "Dorence", phone: "", email: "mdorence@congruence.be" },
-    { zone: "Cameroon", contact: "M. Yves Bitama", phone: "", email: T.toBeConfirmed },
+    { zone: "Cameroon", contact: "M. Yves Bitama", phone: "+1 (514) 607-5264", email: "" },
     { zone: "West Africa (UEMOA)", contact: "SBPME-UEMOA", phone: "", email: "partenariat@salonpmeuemoa.org" },
   ];
 
