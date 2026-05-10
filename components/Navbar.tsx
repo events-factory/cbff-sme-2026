@@ -45,7 +45,7 @@ export default function Navbar() {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 68 }}>
           {/* Brand */}
           <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
-            <Image src="/CBFF_logo_gold.png" alt="CBFF-SME" width={120} height={60} style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+            <Image src="/logos/CBFF-SME Logo Website White.png" alt="CBFF-SME" width={120} height={60} style={{ objectFit: "contain" }} />
           </Link>
 
           {/* Desktop links */}
