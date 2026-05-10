@@ -23,6 +23,10 @@ export const metadata: Metadata = {
   title: "CBFF-SME 2026 | Cross-Border Finance Forum for SMEs — Kigali, Rwanda",
   description:
     "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. Kigali, Rwanda — August 10–11, 2026.",
+  icons: {
+    icon: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }],
+  },
 };
 
 export default function RootLayout({
