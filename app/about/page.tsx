@@ -1,6 +1,7 @@
 "use client";
 import SectionHeader from "@/components/SectionHeader";
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/lib/LanguageContext";
 import { t } from "@/locales/translations";
 
@@ -12,8 +13,10 @@ export default function AboutPage() {
   return (
     <>
       {/* Page hero */}
-      <div style={{ background: "linear-gradient(135deg, var(--navy2) 0%, var(--navy) 100%)", padding: "120px 24px 60px", marginBottom: 0 }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
+      <div style={{ position: "relative", padding: "120px 24px 60px", marginBottom: 0, overflow: "hidden" }}>
+        <Image src="/events/gallery-hall.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center top" }} priority />
+        <div style={{ position: "absolute", inset: 0, background: "rgba(10,25,47,.88)" }} />
+        <div style={{ maxWidth: 1160, margin: "0 auto", position: "relative", zIndex: 1 }}>
           <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>{T.eyebrow}</p>
           <h1 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 800, color: "var(--white)", lineHeight: 1.2, maxWidth: 700 }}>
             {T.title}
@@ -132,19 +135,43 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Past Editions Gallery */}
+      <section style={{ padding: "80px 0" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
+          <SectionHeader eyebrow={lang === "fr" ? "Éditions Passées" : "Past Editions"} title={lang === "fr" ? "Un bilan éprouvé" : "A Proven Track Record"} />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 12 }} className="gallery-grid">
+            {[
+              { src: "/events/gallery-dignitaries.jpg", alt: "VIP delegates applauding" },
+              { src: "/events/speaker-podium.jpg",      alt: "Speaker at SBPME podium" },
+              { src: "/events/gallery-networking.jpg",  alt: "Delegates networking" },
+              { src: "/events/speaker-female.jpg",      alt: "Speaker address" },
+            ].map((img) => (
+              <div key={img.src} style={{ position: "relative", height: 240, overflow: "hidden" }}>
+                <Image src={img.src} alt={img.alt} fill style={{ objectFit: "cover", objectPosition: "center" }} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Key Lessons */}
       <section style={{ padding: "80px 0" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
           <SectionHeader eyebrow={T.sbpmeEyebrow} title={T.lessonsTitle} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20 }} className="grid-2">
-            {T.lessons.map((l, i) => (
-              <div key={i} style={{ background: "var(--white)", border: "1px solid var(--border)", padding: "24px" }}>
-                <h4 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 14, fontWeight: 700, color: "var(--navy)", marginBottom: 6 }}>
-                  {i + 1}. {l.title}
-                </h4>
-                <p style={{ fontSize: 13.5, color: "var(--muted)" }}>{l.desc}</p>
-              </div>
-            ))}
+          <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: 32, alignItems: "start" }} className="lessons-layout">
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20 }} className="grid-2">
+              {T.lessons.map((l, i) => (
+                <div key={i} style={{ background: "var(--white)", border: "1px solid var(--border)", padding: "24px" }}>
+                  <h4 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 14, fontWeight: 700, color: "var(--navy)", marginBottom: 6 }}>
+                    {i + 1}. {l.title}
+                  </h4>
+                  <p style={{ fontSize: 13.5, color: "var(--muted)" }}>{l.desc}</p>
+                </div>
+              ))}
+            </div>
+            <div style={{ position: "relative", minHeight: 420, overflow: "hidden" }}>
+              <Image src="/events/panel-discussion.jpg" alt="Panel discussion at SBPME-UEMOA" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+            </div>
           </div>
         </div>
       </section>
@@ -207,13 +234,18 @@ export default function AboutPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          .two-col { grid-template-columns: 1fr !important; }
-          .grid-2      { grid-template-columns: 1fr !important; }
-          .grid-3      { grid-template-columns: 1fr !important; }
-          .impact-grid { grid-template-columns: 1fr !important; }
+          .two-col       { grid-template-columns: 1fr !important; }
+          .grid-2        { grid-template-columns: 1fr !important; }
+          .grid-3        { grid-template-columns: 1fr !important; }
+          .impact-grid   { grid-template-columns: 1fr !important; }
+          .gallery-grid  { grid-template-columns: 1fr !important; }
+          .lessons-layout { grid-template-columns: 1fr !important; }
+          .lessons-layout > div:last-child { min-height: 260px !important; }
         }
         @media (min-width: 641px) and (max-width: 900px) {
           .grid-3 { grid-template-columns: repeat(2,1fr) !important; }
+          .lessons-layout { grid-template-columns: 1fr !important; }
+          .lessons-layout > div:last-child { min-height: 300px !important; }
         }
       `}</style>
     </>

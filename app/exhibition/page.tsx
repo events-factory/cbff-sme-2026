@@ -2,6 +2,7 @@
 import SectionHeader from "@/components/SectionHeader";
 import ExhibitionPackage from "@/components/ExhibitionPackage";
 import Link from "next/link";
+import Image from "next/image";
 import { Eye, Users, Star, TrendingUp } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { t } from "@/locales/translations";
@@ -62,6 +63,21 @@ export default function ExhibitionPage() {
         </div>
       </section>
 
+      {/* Past editions photo banner */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", height: 320 }} className="photo-banner">
+        {[
+          { src: "/events/registration-desk.jpg", caption: lang === "fr" ? "Accréditations — SBPME-UEMOA" : "Accreditation — SBPME-UEMOA" },
+          { src: "/events/gallery-audience.jpg",  caption: lang === "fr" ? "500+ participants attendus en 2026" : "500+ participants expected in 2026" },
+        ].map((item) => (
+          <div key={item.src} style={{ position: "relative", overflow: "hidden" }}>
+            <Image src={item.src} alt={item.caption} fill style={{ objectFit: "cover", objectPosition: "center" }} />
+            <div style={{ position: "absolute", inset: 0, background: "rgba(10,25,47,.55)", display: "flex", alignItems: "flex-end", padding: "20px 24px" }}>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,.9)", fontFamily: "var(--font-poppins),sans-serif", fontWeight: 600 }}>{item.caption}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {/* Exhibition Packages */}
       <section style={{ padding: "80px 0" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
@@ -117,8 +133,9 @@ export default function ExhibitionPage() {
                 {lang === "fr" ? "Téléchargez le manuel complet de l'exposant et le plan de la salle d'exposition." : "Download the complete exhibitor manual and exhibition hall floor plan."}
               </p>
             </div>
-            <Link
-              href="mailto:info@netkigali.com?subject=Exhibition Manual Request"
+            <a
+              href="/CBFF 2026 At Serena Hotel Kigali -Rwanda-1.pdf"
+              download
               style={{
                 display: "inline-block", padding: "10px 24px",
                 fontFamily: "var(--font-poppins),sans-serif",
@@ -128,8 +145,8 @@ export default function ExhibitionPage() {
                 textDecoration: "none", whiteSpace: "nowrap",
               }}
             >
-              {lang === "fr" ? "Demander le Manuel →" : "Request Manual →"}
-            </Link>
+              {lang === "fr" ? "Télécharger le Manuel →" : "Download Manual →"}
+            </a>
           </div>
         </div>
       </section>
@@ -185,6 +202,8 @@ export default function ExhibitionPage() {
           .packages-grid { grid-template-columns: 1fr !important; }
           .benefits-grid { grid-template-columns: 1fr !important; }
           .booth-grid    { grid-template-columns: 1fr !important; }
+          .photo-banner  { grid-template-columns: 1fr !important; height: auto !important; }
+          .photo-banner > div { height: 220px; }
         }
         @media (min-width: 641px) and (max-width: 900px) {
           .two-col       { grid-template-columns: 1fr !important; }
