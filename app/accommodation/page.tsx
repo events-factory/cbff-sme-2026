@@ -28,12 +28,12 @@ export default function AccommodationPage() {
       {/* Booking iframe */}
       <section style={{ padding: "48px 0 80px" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
-          <div style={{ borderTop: "3px solid var(--gold)", overflow: "hidden", boxShadow: "0 4px 32px rgba(0,0,0,.1)" }}>
+          <div style={{ borderTop: "3px solid var(--gold)", overflow: "hidden", boxShadow: "0 4px 32px rgba(0,0,0,.1)", height: "100vh" }}>
             <iframe
               src={BOOKING_URL}
               title="SmartBookings — CBFF-SME 2026 Hotels"
               width="100%"
-              height="900"
+              height="100%"
               style={{ display: "block", border: "none" }}
               allow="payment"
             />

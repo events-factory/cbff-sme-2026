@@ -180,6 +180,33 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ── Past Editions ─────────────────────────── */}
+      <section style={{ padding: "80px 0", background: "var(--light)" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
+          <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 10 }}>
+            {lang === "fr" ? "Éditions Passées" : "Past Editions"}
+          </p>
+          <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 700, color: "var(--navy)", marginBottom: 18 }}>
+            {lang === "fr" ? "Plus d'une décennie à connecter PME & banques africaines" : "Over a Decade of Connecting African SMEs & Banks"}
+          </h2>
+          <div style={{ width: 60, height: 3, background: "var(--gold)", marginBottom: 40 }} />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }} className="past-editions-grid">
+            {[
+              { src: "/events/gallery-audience.jpg", caption: lang === "fr" ? "200+ délégués, Guinée-Bissau 2024" : "200+ delegates, Guinée-Bissau 2024" },
+              { src: "/events/exhibition-booth.jpg", caption: lang === "fr" ? "Espace exposition, SBPME-UEMOA" : "Exhibition floor, SBPME-UEMOA" },
+              { src: "/events/networking-side.jpg",  caption: lang === "fr" ? "Networking & opportunités d'affaires" : "Networking & deal-making" },
+            ].map((item) => (
+              <div key={item.src} style={{ position: "relative", height: 260, overflow: "hidden" }} className="past-edition-card">
+                <Image src={item.src} alt={item.caption} fill style={{ objectFit: "cover", objectPosition: "center" }} />
+                <div className="past-edition-overlay" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,25,47,.75) 0%, transparent 55%)", display: "flex", alignItems: "flex-end", padding: "16px" }}>
+                  <span style={{ fontSize: 12, color: "rgba(255,255,255,.9)", fontFamily: "var(--font-poppins),sans-serif", fontWeight: 600, letterSpacing: 0.5 }}>{item.caption}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Three Days of Impact ──────────────────── */}
       <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
@@ -343,6 +370,7 @@ export default function Home() {
           .themes-grid { grid-template-columns: 1fr !important; }
           .three-days-grid { grid-template-columns: 1fr !important; }
           .deal-room-grid { grid-template-columns: 1fr !important; }
+          .past-editions-grid { grid-template-columns: 1fr !important; }
         }
         @media (min-width: 641px) and (max-width: 900px) {
           .consortium-cards { grid-template-columns: repeat(2,1fr) !important; }
@@ -350,6 +378,7 @@ export default function Home() {
           .themes-grid { grid-template-columns: repeat(2,1fr) !important; }
           .three-days-grid { grid-template-columns: 1fr !important; }
           .deal-room-grid { grid-template-columns: 1fr !important; }
+          .past-editions-grid { grid-template-columns: repeat(2,1fr) !important; }
         }
       `}</style>
     </>
