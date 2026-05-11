@@ -37,7 +37,7 @@ export default function Footer() {
           className="footer-grid"
         >
           <div>
-            <Image src="/CBFF_logo_original_transparent.png" alt="CBFF-SME" width={120} height={60} style={{ objectFit: "contain", marginBottom: 14, filter: "brightness(0) invert(1)" }} />
+            <Image src="/logos/CBFF-SME Logo Website White.png" alt="CBFF-SME" width={120} height={60} style={{ objectFit: "contain", marginBottom: 14 }} />
             <p style={{ fontSize: 13, lineHeight: 1.7, maxWidth: 280 }}>{T.tagline}</p>
           </div>
           <div>
