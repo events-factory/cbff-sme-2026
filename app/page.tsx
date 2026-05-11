@@ -18,7 +18,7 @@ export default function Home() {
   const C = t[lang].common;
 
   const heroInfo = [
-    { Icon: MapPin,   strong: "Kigali, Rwanda",      sub: T.hostCity },
+    { Icon: MapPin,   strong: "Kigali Serena Hotel",      sub: "Venue" },
     { Icon: Calendar, strong: lang === "fr" ? "10 – 11 août 2026" : "August 10 – 11, 2026", sub: T.twoDaysForum },
     { Icon: Users,    strong: T.dealRoomNetworking,  sub: T.investmentMatchmaking },
   ];
