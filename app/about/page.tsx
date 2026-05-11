@@ -197,7 +197,26 @@ export default function AboutPage() {
       {/* Why Rwanda */}
       <section style={{ padding: "80px 0", background: "var(--navy)" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
-          <SectionHeader eyebrow={T.rwandaEyebrow} title={T.rwandaTitle} dark lead={T.rwandaLead} />
+
+          {/* Title + image row */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 420px", gap: 56, alignItems: "center", marginBottom: 48 }} className="why-rwanda-layout">
+            <div>
+              <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 10 }}>{T.rwandaEyebrow}</p>
+              <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 700, color: "var(--white)", marginBottom: 18 }}>{T.rwandaTitle}</h2>
+              <div style={{ width: 60, height: 3, background: "var(--gold)", marginBottom: 28 }} />
+              <p style={{ fontSize: 16, color: "rgba(255,255,255,.75)", lineHeight: 1.8 }}>{T.rwandaLead}</p>
+            </div>
+            <div style={{ position: "relative", height: 340, borderRadius: 4, overflow: "hidden" }}>
+              <Image src="/kigali-city-1.jpg" alt="Kigali, Rwanda" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,25,47,.55) 0%, transparent 55%)" }} />
+              <div style={{ position: "absolute", bottom: 18, left: 18 }}>
+                <p style={{ color: "var(--gold)", fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 3 }}>Kigali, Rwanda</p>
+                <p style={{ color: "rgba(255,255,255,.75)", fontSize: 13 }}>Africa&apos;s innovation capital</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Cards */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20 }} className="grid-2">
             {T.rwandaReasons.map((r) => (
               <div key={r.title} style={{ background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.12)", borderTop: "3px solid var(--gold)", padding: "24px" }}>
@@ -241,6 +260,7 @@ export default function AboutPage() {
           .gallery-grid  { grid-template-columns: 1fr !important; }
           .lessons-layout { grid-template-columns: 1fr !important; }
           .lessons-layout > div:last-child { min-height: 260px !important; }
+          .why-rwanda-layout { grid-template-columns: 1fr !important; }
         }
         @media (min-width: 641px) and (max-width: 900px) {
           .grid-3 { grid-template-columns: repeat(2,1fr) !important; }

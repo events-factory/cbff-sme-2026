@@ -18,7 +18,7 @@ export default function DestinationPage() {
     <>
       {/* Hero */}
       <div style={{ position: "relative", minHeight: 420, display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
-        <Image src="/banner1.jpeg" alt="Kigali, Rwanda" fill style={{ objectFit: "cover", objectPosition: "center" }} priority />
+        <Image src="/kigali-city-5.jpg" alt="Kigali, Rwanda" fill style={{ objectFit: "cover", objectPosition: "center" }} priority />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,25,47,.95) 0%, rgba(10,25,47,.6) 60%, rgba(10,25,47,.3) 100%)" }} />
         <div style={{ position: "relative", maxWidth: 1160, margin: "0 auto", width: "100%", padding: "80px 24px 60px" }}>
           <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>{T.eyebrow}</p>
@@ -91,6 +91,75 @@ export default function DestinationPage() {
         </div>
       </section>
 
+      {/* Kigali — A City Built for Business */}
+      <section style={{ padding: "80px 0", background: "var(--white)" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }} className="two-col">
+          <div style={{ position: "relative", height: 400, borderRadius: 4, overflow: "hidden" }}>
+            <Image src="/kigali-city-2.jpg" alt="Kigali skyline" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          </div>
+          <div>
+            <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>
+              {lang === "fr" ? "La Ville" : "The City"}
+            </p>
+            <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,2.5vw,30px)", fontWeight: 800, color: "var(--navy)", marginBottom: 16, lineHeight: 1.25 }}>
+              {lang === "fr" ? "Une Métropole Tournée vers l'Avenir" : "A City Built for Business"}
+            </h2>
+            <div style={{ width: 48, height: 3, background: "var(--gold)", marginBottom: 20 }} />
+            <p style={{ fontSize: 15, color: "var(--muted)", lineHeight: 1.85 }}>
+              {lang === "fr"
+                ? "Kigali est reconnue comme l'une des villes les plus propres, les plus sûres et les plus connectées d'Afrique. Avec une infrastructure de classe mondiale, un écosystème numérique en plein essor et un engagement fort du gouvernement envers le secteur privé, la ville offre un cadre idéal pour les affaires et l'investissement."
+                : "Kigali is consistently ranked among Africa's cleanest, safest, and most connected cities. With world-class infrastructure, a booming digital ecosystem, and a government firmly committed to private sector growth, the city provides an ideal setting for business and investment."}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Kigali — Clean, Safe & Connected */}
+      <section style={{ padding: "80px 0", background: "var(--light)" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }} className="two-col">
+          <div>
+            <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>
+              {lang === "fr" ? "Environnement" : "Environment"}
+            </p>
+            <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,2.5vw,30px)", fontWeight: 800, color: "var(--navy)", marginBottom: 16, lineHeight: 1.25 }}>
+              {lang === "fr" ? "Propre, Sûre et Connectée" : "Clean, Safe & Connected"}
+            </h2>
+            <div style={{ width: 48, height: 3, background: "var(--gold)", marginBottom: 20 }} />
+            <p style={{ fontSize: 15, color: "var(--muted)", lineHeight: 1.85 }}>
+              {lang === "fr"
+                ? "Kigali offre à ses visiteurs une expérience unique en Afrique : des rues impeccables, une mobilité urbaine fluide, et un accès Internet haut débit dans l'ensemble de la ville. Les participants au forum bénéficieront d'un environnement accueillant et sécurisé, propice aux échanges et aux rencontres professionnelles."
+                : "Kigali offers visitors a uniquely African experience: immaculate streets, smooth urban mobility, and high-speed internet access across the city. Forum attendees will enjoy a welcoming and secure environment ideal for networking and professional exchange."}
+            </p>
+          </div>
+          <div style={{ position: "relative", height: 400, borderRadius: 4, overflow: "hidden" }}>
+            <Image src="/kigali-city-3.jpg" alt="Kigali streets" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          </div>
+        </div>
+      </section>
+
+      {/* Kigali — Innovation & Growth */}
+      <section style={{ padding: "80px 0", background: "var(--white)" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }} className="two-col">
+          <div style={{ position: "relative", height: 400, borderRadius: 4, overflow: "hidden" }}>
+            <Image src="/kigali-city-4.jpg" alt="Kigali innovation" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          </div>
+          <div>
+            <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>
+              {lang === "fr" ? "Innovation" : "Innovation"}
+            </p>
+            <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,2.5vw,30px)", fontWeight: 800, color: "var(--navy)", marginBottom: 16, lineHeight: 1.25 }}>
+              {lang === "fr" ? "Un Écosystème en Pleine Croissance" : "A Thriving Ecosystem"}
+            </h2>
+            <div style={{ width: 48, height: 3, background: "var(--gold)", marginBottom: 20 }} />
+            <p style={{ fontSize: 15, color: "var(--muted)", lineHeight: 1.85 }}>
+              {lang === "fr"
+                ? "Le Rwanda a investi massivement dans la transformation numérique, les infrastructures de classe mondiale et le développement du capital humain. Kigali est aujourd'hui un pôle reconnu pour la fintech, l'agritech et l'économie numérique — attirant investisseurs et partenaires du monde entier."
+                : "Rwanda has invested heavily in digital transformation, world-class infrastructure, and human capital development. Kigali is now a recognised hub for fintech, agritech, and the digital economy — attracting investors and partners from across the globe."}
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Accommodation */}
       <section style={{ padding: "80px 0" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 40, flexWrap: "wrap" }}>
@@ -109,10 +178,8 @@ export default function DestinationPage() {
             </p>
           </div>
           <div style={{ flexShrink: 0 }}>
-            <a
-              href="https://smartbookings.rw/Event-Hotels/664eb499dcbed"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/accommodation"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 10,
                 padding: "14px 32px",
@@ -124,7 +191,7 @@ export default function DestinationPage() {
               }}
             >
               {lang === "fr" ? "Réserver un Hôtel →" : "Book a Hotel →"}
-            </a>
+            </Link>
           </div>
         </div>
       </section>
