@@ -50,20 +50,6 @@ export default function Home() {
           {T.tagline}
         </p>
 
-        {/* MINICOM host badge */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 36, position: "relative", background: "rgba(201,151,43,.12)", border: "1px solid rgba(201,151,43,.4)", padding: "8px 20px" }}>
-          <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,.5)" }}>
-            {lang === "fr" ? "Sous l'égide de" : "Under the auspices of"}
-          </span>
-          <span style={{ width: 1, height: 16, background: "rgba(201,151,43,.5)" }} />
-          <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 800, color: "var(--gold)", letterSpacing: 1 }}>
-            MINICOM
-          </span>
-          <span style={{ fontSize: 12, color: "rgba(255,255,255,.6)" }}>
-            {lang === "fr" ? "— Ministère du Commerce, Rwanda" : "— Ministry of Trade & Industry, Rwanda"}
-          </span>
-        </div>
-
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 32, flexWrap: "wrap", marginBottom: 48, position: "relative" }}>
           {heroInfo.map((m) => (
             <div key={m.strong} style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -92,24 +78,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Host + Consortium bar ──────────────────── */}
-      <div style={{ background: "var(--navy2)", borderBottom: "2px solid var(--gold)", padding: "14px 0" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "center", gap: 16, flexWrap: "wrap" }}>
-          {/* Institutional host */}
-          <span style={{ display: "flex", alignItems: "center", gap: 8, paddingRight: 16, borderRight: "1px solid rgba(255,255,255,.15)" }}>
-            <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,.45)" }}>
-              {lang === "fr" ? "Hôte institutionnel" : "Institutional Host"}
-            </span>
-            <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 12, fontWeight: 800, color: "var(--gold)", letterSpacing: 1 }}>MINICOM</span>
-          </span>
-          {/* Consortium */}
-          <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "var(--gold)" }}>{T.consortium}</span>
-          {["Netkigali", "Re-bird Belgium", "SBPME-UEMOA", "Congruence Consulting"].map((m, i, arr) => (
-            <span key={m} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,.85)", padding: "4px 14px", border: "1px solid rgba(255,255,255,.15)" }}>{m}</span>
-              {i < arr.length - 1 && <span style={{ color: "var(--gold)", fontSize: 18 }}>·</span>}
-            </span>
-          ))}
+      {/* ── Hosts bar ──────────────────────────────── */}
+      <div style={{ background: "var(--navy2)", borderBottom: "2px solid var(--gold)", padding: "20px 0" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
+          <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, textAlign: "center", marginBottom: 16 }}>
+            {lang === "fr" ? "Hôtes" : "Hosts"}
+          </p>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20, flexWrap: "wrap" }}>
+            {/* MINICOM */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+              <div style={{ background: "#fff", borderRadius: 6, padding: "6px 10px", display: "flex", alignItems: "center", justifyContent: "center", width: 68, height: 68 }}>
+                <Image src="/logos/minicom.svg" alt="MINICOM" width={52} height={52} style={{ objectFit: "contain" }} />
+              </div>
+              <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,.7)", letterSpacing: 1 }}>MINICOM</span>
+            </div>
+            <span style={{ width: 1, height: 60, background: "rgba(255,255,255,.15)", flexShrink: 0 }} />
+            {/* Consortium logos */}
+            {[
+              { src: "/net-kigali.webp", alt: "Netkigali", bg: "#0a192f" },
+              { src: "/rebird_logo.png", alt: "Re-bird Belgium", bg: "#fff" },
+              { src: "/logos/sbpme-uemoa.png", alt: "SBPME-UEMOA", bg: "#fff" },
+              { src: "/logos/congruence-consulting.jpeg", alt: "Congruence Consulting", bg: "#fff" },
+            ].map((logo) => (
+              <div key={logo.alt} style={{ background: logo.bg, borderRadius: 6, padding: "8px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 56 }}>
+                <Image src={logo.src} alt={logo.alt} width={90} height={36} style={{ objectFit: "contain", maxWidth: 90, maxHeight: 36 }} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -236,6 +231,42 @@ export default function Home() {
                 </ul>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Women & Youth Entrepreneurship Accelerator ── */}
+      <section style={{ padding: "80px 0", background: "var(--navy)", position: "relative", overflow: "hidden" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "flex-start" }} className="wy-grid">
+            {/* Left column */}
+            <div>
+              <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 10 }}>{T.womenYouthEyebrow}</p>
+              <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 800, color: "var(--white)", lineHeight: 1.25, marginBottom: 18 }}>{T.womenYouthTitle}</h2>
+              <div style={{ width: 60, height: 3, background: "var(--gold)", marginBottom: 24 }} />
+              <p style={{ fontSize: 15, color: "rgba(255,255,255,.75)", lineHeight: 1.8, marginBottom: 32 }}>{T.womenYouthLead}</p>
+              {/* 40% stat */}
+              <div style={{ background: "rgba(201,151,43,.12)", border: "1px solid rgba(201,151,43,.5)", borderLeft: "4px solid var(--gold)", padding: "18px 22px", marginBottom: 32 }}>
+                <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, color: "var(--gold)", lineHeight: 1.5, margin: 0 }}>{T.womenYouthStat}</p>
+              </div>
+              <Link href="/registration?interest=women-youth" style={{ display: "inline-block", padding: "12px 28px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", borderRadius: 2, background: "var(--gold)", color: "var(--white)", textDecoration: "none" }}>
+                {T.womenYouthCTA}
+              </Link>
+            </div>
+            {/* Right column — activities */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              {T.womenYouthActivities.map((act, i) => (
+                <div key={i} style={{ background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.1)", borderLeft: "3px solid var(--gold)", padding: "18px 20px", display: "flex", gap: 14 }}>
+                  <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(201,151,43,.2)", border: "1px solid rgba(201,151,43,.4)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
+                    <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, fontWeight: 800, color: "var(--gold)" }}>{i + 1}</span>
+                  </div>
+                  <div>
+                    <h4 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, color: "var(--white)", marginBottom: 4 }}>{act.title}</h4>
+                    <p style={{ fontSize: 12.5, color: "rgba(255,255,255,.6)", lineHeight: 1.6, margin: 0 }}>{act.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -371,6 +402,7 @@ export default function Home() {
           .three-days-grid { grid-template-columns: 1fr !important; }
           .deal-room-grid { grid-template-columns: 1fr !important; }
           .past-editions-grid { grid-template-columns: 1fr !important; }
+          .wy-grid { grid-template-columns: 1fr !important; }
         }
         @media (min-width: 641px) and (max-width: 900px) {
           .consortium-cards { grid-template-columns: repeat(2,1fr) !important; }
@@ -379,6 +411,7 @@ export default function Home() {
           .three-days-grid { grid-template-columns: 1fr !important; }
           .deal-room-grid { grid-template-columns: 1fr !important; }
           .past-editions-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .wy-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </>
