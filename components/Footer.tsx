@@ -65,9 +65,9 @@ export default function Footer() {
       email: 'mdorence@congruence.be',
     },
     {
-      zone: 'Cameroon',
-      contact: 'M. Yves Bitama',
-      phone: '+1 (514) 607-5264',
+      zone: 'Central Africa',
+      contact: 'Mrs. Dorance Monkam',
+      phone: '',
       email: '',
     },
     {

@@ -2,12 +2,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import CountdownTimer from "@/components/CountdownTimer";
-import { MapPin, Calendar, Users, Globe, Mic2, Navigation, Briefcase, Store, UserCheck, CheckCircle, Building2, ArrowRight } from "lucide-react";
+import { MapPin, Calendar, Users, CheckCircle, Building2, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { t } from "@/locales/translations";
 
-const exploreIcons = [Globe, Mic2, Navigation, Briefcase, Store, UserCheck];
-const exploreHrefs = ["/about", "/speakers", "/destination", "/sponsors", "/exhibition", "/registration"];
 const consortiumLogos = ["/net-kigali.webp", "/rebird_logo.png", "/logos/sbpme-uemoa.png", "/logos/congruence-consulting.jpeg"];
 const consortiumInitials = [null, null, null, null];
 const consortiumInvert = [true, true, false, false];
@@ -43,9 +41,14 @@ export default function Home() {
           {T.badge}
         </div>
 
-        <h1 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(28px,5vw,58px)", fontWeight: 800, color: "var(--white)", lineHeight: 1.15, marginBottom: 16, position: "relative" }}>
+        <h1 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(28px,5vw,58px)", fontWeight: 800, color: "var(--white)", lineHeight: 1.15, marginBottom: 10, position: "relative" }}>
           {T.title1}<br /><span style={{ color: "var(--gold)" }}>{T.title2}</span>
         </h1>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, justifyContent: "center", margin: "10px 0 18px", position: "relative" }}>
+          <div style={{ height: 1, width: 40, background: "rgba(201,151,43,.7)" }} />
+          <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(13px,2vw,17px)", fontWeight: 800, color: "var(--gold)", letterSpacing: 6, textTransform: "uppercase" }}>KIGALI · RWANDA</span>
+          <div style={{ height: 1, width: 40, background: "rgba(201,151,43,.7)" }} />
+        </div>
         <p style={{ fontSize: "clamp(14px,2vw,18px)", color: "rgba(255,255,255,.8)", fontStyle: "italic", maxWidth: 680, margin: "0 auto 24px", position: "relative" }}>
           {T.tagline}
         </p>
@@ -78,34 +81,64 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Hosts bar ──────────────────────────────── */}
-      <div style={{ background: "var(--navy2)", borderBottom: "2px solid var(--gold)", padding: "20px 0" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
-          <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, textAlign: "center", marginBottom: 16 }}>
-            {lang === "fr" ? "Hôtes" : "Hosts"}
-          </p>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20, flexWrap: "wrap" }}>
-            {/* MINICOM */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-              <div style={{ background: "#fff", borderRadius: 6, padding: "6px 10px", display: "flex", alignItems: "center", justifyContent: "center", width: 68, height: 68 }}>
-                <Image src="/logos/minicom.svg" alt="MINICOM" width={52} height={52} style={{ objectFit: "contain" }} />
-              </div>
-              <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,.7)", letterSpacing: 1 }}>MINICOM</span>
+      {/* ── Partners & Hosts bar ───────────────────── */}
+      <div style={{ background: "var(--navy2)", borderBottom: "2px solid var(--gold)" }}>
+
+        {/* Partners row */}
+        <div style={{ borderBottom: "1px solid rgba(255,255,255,.08)", padding: "28px 24px" }}>
+          <div style={{ maxWidth: 1160, margin: "0 auto" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", justifyContent: "center" }}>
+              <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 9, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", flexShrink: 0, whiteSpace: "nowrap" }}>
+                {lang === "fr" ? "Partenaires" : "Partners"}
+              </span>
+              <span style={{ width: 1, height: 28, background: "rgba(201,151,43,.4)", flexShrink: 0 }} />
+              {[
+                { src: "/logos/bnr.png",         alt: "Banque Nationale du Rwanda", bg: "#0a192f" },
+                { src: "/logos/minecofin.svg",   alt: "MINECOFIN",                  bg: "#fff" },
+                { src: "/logos/rdb.png",         alt: "Rwanda Development Board",   bg: "#fff" },
+                { src: "/logos/brd.svg",         alt: "BRD",                        bg: "#0a192f" },
+                { src: "/logos/bok.png",         alt: "Bank of Kigali",             bg: "#fff" },
+                { src: "/logos/boa.png",         alt: "Bank of Africa",             bg: "#fff" },
+                { src: "/logos/imbank.png",      alt: "I&M Bank",                   bg: "#fff" },
+                { src: "/logos/fagace.png",      alt: "FAGACE",                     bg: "#fff" },
+                { src: "/logos/smart-africa.png",alt: "Smart Africa",               bg: "#fff" },
+              ].map((logo) => (
+                <div key={logo.alt} style={{ background: logo.bg, borderRadius: 4, padding: "5px 12px", display: "flex", alignItems: "center", justifyContent: "center", height: 40, overflow: "hidden" }}>
+                  <Image src={logo.src} alt={logo.alt} width={72} height={28} style={{ objectFit: "contain", maxWidth: 72, maxHeight: 28 }} />
+                </div>
+              ))}
             </div>
-            <span style={{ width: 1, height: 60, background: "rgba(255,255,255,.15)", flexShrink: 0 }} />
-            {/* Consortium logos */}
-            {[
-              { src: "/net-kigali.webp", alt: "Netkigali", bg: "#0a192f" },
-              { src: "/rebird_logo.png", alt: "Re-bird Belgium", bg: "#fff" },
-              { src: "/logos/sbpme-uemoa.png", alt: "SBPME-UEMOA", bg: "#fff" },
-              { src: "/logos/congruence-consulting.jpeg", alt: "Congruence Consulting", bg: "#fff" },
-            ].map((logo) => (
-              <div key={logo.alt} style={{ background: logo.bg, borderRadius: 6, padding: "8px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 56 }}>
-                <Image src={logo.src} alt={logo.alt} width={90} height={36} style={{ objectFit: "contain", maxWidth: 90, maxHeight: 36 }} />
-              </div>
-            ))}
           </div>
         </div>
+
+        {/* Hosts row */}
+        <div style={{ padding: "24px 24px" }}>
+          <div style={{ maxWidth: 1160, margin: "0 auto" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", justifyContent: "center" }}>
+              <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 9, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", flexShrink: 0, whiteSpace: "nowrap" }}>
+                {lang === "fr" ? "Hôtes" : "Hosts"}
+              </span>
+              <span style={{ width: 1, height: 28, background: "rgba(201,151,43,.4)", flexShrink: 0 }} />
+              {/* MINICOM gets a slightly taller tile as the government host */}
+              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 10px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: 52, gap: 3 }}>
+                <Image src="/logos/minicom.svg" alt="MINICOM" width={52} height={30} style={{ objectFit: "contain" }} />
+                <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 7, fontWeight: 800, color: "#0a192f", letterSpacing: 1, textTransform: "uppercase" }}>MINICOM</span>
+              </div>
+              <span style={{ width: 1, height: 36, background: "rgba(255,255,255,.12)", flexShrink: 0 }} />
+              {[
+                { src: "/net-kigali.webp",               alt: "Netkigali",           bg: "#0a192f" },
+                { src: "/rebird_logo.png",               alt: "Re-bird Belgium",     bg: "#fff" },
+                { src: "/logos/sbpme-uemoa.png",         alt: "SBPME-UEMOA",        bg: "#fff" },
+                { src: "/logos/congruence-consulting.jpeg", alt: "Congruence Consulting", bg: "#fff" },
+              ].map((logo) => (
+                <div key={logo.alt} style={{ background: logo.bg, borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
+                  <Image src={logo.src} alt={logo.alt} width={88} height={32} style={{ objectFit: "contain", maxWidth: 88, maxHeight: 32 }} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
       </div>
 
       {/* ── 2026 Forum Themes ─────────────────────── */}
@@ -174,6 +207,94 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* ── Kigali Spotlight ──────────────────────── */}
+      <section style={{ background: "var(--navy)", padding: "72px 0", overflow: "hidden" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 4, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 8 }}>
+              {lang === "fr" ? "Ville Hôte · 2026" : "Host City · 2026"}
+            </p>
+            <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(64px,12vw,140px)", fontWeight: 900, color: "transparent", WebkitTextStroke: "2px var(--gold)", lineHeight: 0.85, letterSpacing: -2, marginBottom: 8 }}>KIGALI</h2>
+            <h3 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(14px,2.5vw,22px)", fontWeight: 800, color: "var(--white)", letterSpacing: 10, textTransform: "uppercase", marginBottom: 20 }}>RWANDA</h3>
+            <p style={{ fontSize: 15, color: "rgba(255,255,255,.55)", maxWidth: 440, margin: "0 auto" }}>
+              {lang === "fr" ? "La Capitale de l'Innovation en Afrique" : "Africa's Innovation Capital"}
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12 }} className="kigali-grid">
+            {[
+              { num: "#1", label: lang === "fr" ? "Ville la plus propre" : "Cleanest City", sub: lang === "fr" ? "en Afrique" : "in Africa" },
+              { num: "KIFC", label: lang === "fr" ? "Hub Financier" : "Finance Hub", sub: lang === "fr" ? "Continental" : "Continental" },
+              { num: "Top 3", label: lang === "fr" ? "Ville la plus sûre" : "Safest City", sub: lang === "fr" ? "en Afrique" : "in Africa" },
+              { num: "EAC", label: lang === "fr" ? "Passerelle" : "Gateway", sub: lang === "fr" ? "Afrique de l'Est" : "East Africa" },
+            ].map((item) => (
+              <div key={item.num} style={{ textAlign: "center", border: "1px solid rgba(201,151,43,.3)", padding: "24px 16px" }}>
+                <div style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(16px,2vw,24px)", fontWeight: 900, color: "var(--gold)", marginBottom: 6 }}>{item.num}</div>
+                <div style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 12, fontWeight: 700, color: "var(--white)", marginBottom: 2 }}>{item.label}</div>
+                <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", textTransform: "uppercase", letterSpacing: 1 }}>{item.sub}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Kigali City Showcase ──────────────────── */}
+      <section style={{ background: "#000", overflow: "hidden" }}>
+        <div style={{ display: "flex", height: "480px" }} className="kigali-showcase">
+          {[
+            { src: "/kigali-city-1.jpg", headline: lang === "fr" ? "Propre &\nVerte" : "Clean &\nGreen", sub: lang === "fr" ? "Ville modèle d'Afrique" : "Model city of Africa" },
+            { src: "/kigali-city-2.jpg", headline: lang === "fr" ? "Hub\nFinancier" : "Finance\nHub", sub: lang === "fr" ? "Kigali International Financial Centre" : "Kigali International Financial Centre" },
+            { src: "/kigali-city-3.jpg", headline: lang === "fr" ? "Sûre &\nOuverte" : "Safe &\nOpen", sub: lang === "fr" ? "Top 3 des villes les plus sûres" : "Top 3 safest cities in Africa" },
+            { src: "/kigali-city-4.jpg", headline: lang === "fr" ? "Capitale\nTech" : "Tech\nCapital", sub: lang === "fr" ? "Écosystème numérique de premier plan" : "Africa's leading digital ecosystem" },
+            { src: "/kigali-city-5.jpg", headline: lang === "fr" ? "Cœur\nd'Afrique" : "Heart of\nAfrica", sub: lang === "fr" ? "Carrefour continental" : "Continental crossroads" },
+          ].map((item) => (
+            <div key={item.src} style={{ flex: 1, position: "relative", overflow: "hidden", cursor: "default" }} className="kigali-panel">
+              <Image src={item.src} alt={item.headline} fill style={{ objectFit: "cover", objectPosition: "center", transition: "transform .6s ease" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,25,47,.92) 0%, rgba(10,25,47,.3) 55%, transparent 100%)" }} />
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "28px 20px" }}>
+                <h3 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(18px,1.8vw,26px)", fontWeight: 900, color: "var(--white)", lineHeight: 1.1, marginBottom: 8, whiteSpace: "pre-line" }}>{item.headline}</h3>
+                <p style={{ fontSize: 11, color: "var(--gold)", fontFamily: "var(--font-poppins),sans-serif", fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", lineHeight: 1.4 }}>{item.sub}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Kigali in Motion (Video) ───────────────── */}
+      <section style={{ background: "#000", position: "relative", overflow: "hidden" }}>
+        {/* Top label bar */}
+        <div style={{ position: "relative", zIndex: 2, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 40px", borderBottom: "1px solid rgba(201,151,43,.25)", background: "rgba(10,25,47,.95)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--gold)", boxShadow: "0 0 8px var(--gold)" }} />
+            <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, fontWeight: 800, letterSpacing: 4, textTransform: "uppercase", color: "var(--gold)" }}>
+              {lang === "fr" ? "Kigali en Mouvement" : "Kigali in Motion"}
+            </span>
+          </div>
+          <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,.35)" }}>
+            Rwanda · {lang === "fr" ? "Août" : "August"} 2026
+          </span>
+        </div>
+
+        {/* Video */}
+        <div style={{ position: "relative", width: "100%", paddingBottom: "52%" }}>
+          <iframe
+            src="https://www.youtube.com/embed/v1SIZoSfoIc?autoplay=1&mute=1&loop=1&playlist=v1SIZoSfoIc&controls=0&rel=0&modestbranding=1&showinfo=0"
+            style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            title="Kigali, Rwanda"
+          />
+          {/* Bottom gradient overlay with text */}
+          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 1, background: "linear-gradient(to top, rgba(10,25,47,.85) 0%, transparent 50%)", padding: "40px 48px 32px", pointerEvents: "none" }}>
+            <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,4vw,48px)", fontWeight: 900, color: "var(--white)", lineHeight: 1, margin: "0 0 8px" }}>
+              KIGALI<span style={{ color: "var(--gold)" }}>.</span>
+            </h2>
+            <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(11px,1.2vw,14px)", fontWeight: 600, color: "rgba(255,255,255,.6)", letterSpacing: 3, textTransform: "uppercase", margin: 0 }}>
+              {lang === "fr" ? "Rwanda · Ville Hôte 2026" : "Rwanda · Host City 2026"}
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* ── Past Editions ─────────────────────────── */}
       <section style={{ padding: "80px 0", background: "var(--light)" }}>
@@ -341,32 +462,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Explore cards ──────────────────────────── */}
-      <section style={{ padding: "80px 0" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
-          <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 10 }}>{T.exploreLabel}</p>
-          <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 700, color: "var(--navy)", marginBottom: 18 }}>{T.whatsInside}</h2>
-          <div style={{ width: 60, height: 3, background: "var(--gold)", marginBottom: 40 }} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }} className="explore-grid">
-            {T.exploreCards.map((c, idx) => {
-              const Icon = exploreIcons[idx];
-              return (
-                <Link key={exploreHrefs[idx]} href={exploreHrefs[idx]} style={{ display: "block", border: "1px solid var(--border)", borderTop: "3px solid var(--gold)", padding: "28px 24px", textDecoration: "none" }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 6, background: "var(--light)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>
-                    <Icon size={20} color="var(--gold)" />
-                  </div>
-                  <h3 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 15, fontWeight: 700, color: "var(--navy)", marginBottom: 8 }}>{c.title}</h3>
-                  <p style={{ fontSize: 13.5, color: "var(--muted)", lineHeight: 1.6 }}>{c.desc}</p>
-                  <div style={{ marginTop: 16, fontSize: 12, color: "var(--gold)", fontWeight: 700, fontFamily: "var(--font-poppins),sans-serif", letterSpacing: 1, textTransform: "uppercase" }}>
-                    {C.explore}
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* ── Venue & Date Banner ────────────────────── */}
       <section style={{ background: "var(--navy2)", borderBottom: "3px solid var(--gold)", padding: "64px 0" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 32 }}>
@@ -394,6 +489,7 @@ export default function Home() {
 
       <style>{`
         @media (max-width: 640px) {
+          .kigali-grid { grid-template-columns: repeat(2,1fr) !important; }
           .grid-2 { grid-template-columns: 1fr !important; }
           .stats-grid { grid-template-columns: 1fr !important; }
           .consortium-cards { grid-template-columns: 1fr !important; }
