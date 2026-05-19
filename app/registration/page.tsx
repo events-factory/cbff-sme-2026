@@ -246,10 +246,14 @@ export default function RegistrationPage() {
           return;
         }
 
+        const baseAmount = parseFeeAmount(selectedCategory.fee);
+        const totalAmount = siteVisitSelected ? baseAmount + 70 : baseAmount;
+        const currency = extractCurrency(selectedCategory.fee);
+
         const session = await initializePayment({
           orderId: paymentData.orderId,
-          amount: parseFeeAmount(selectedCategory.fee),
-          currency: extractCurrency(selectedCategory.fee),
+          amount: totalAmount,
+          currency,
           categoryName: decodeHtml(selectedCategory.name_english),
           categoryId: selectedCategory.id,
           attendenceType: attendanceType || 'PHYSICAL',
@@ -270,8 +274,8 @@ export default function RegistrationPage() {
 
         paymentResult = await processPayment(session, {
           orderId: paymentData.orderId,
-          amount: parseFeeAmount(selectedCategory.fee),
-          currency: extractCurrency(selectedCategory.fee),
+          amount: totalAmount,
+          currency,
           categoryName: decodeHtml(selectedCategory.name_english),
         });
 
@@ -318,6 +322,11 @@ export default function RegistrationPage() {
       submitForm.append('user_language', 'english');
       submitForm.append('accompanied', 'NO');
       submitForm.append('registration_type', 'single');
+
+      if (siteVisitSelected) {
+        submitForm.append('extrafee', JSON.stringify({ input_id: 355, amount: 70, currency: 'USD' }));
+      }
+
       submitForm.append('order_id', paymentResult?.orderId || '');
       submitForm.append('payment_token', paymentResult?.paymentToken || '');
       submitForm.append('payment_session', paymentResult?.paymentSession || '');
@@ -489,6 +498,18 @@ export default function RegistrationPage() {
       </div>
     );
   }
+
+  const siteVisitInputCode = formGroups
+    .flatMap(g => g.inputs)
+    .find(({ input }) =>
+      input.inputcode === 'input_id_355' ||
+      input.nameEnglish.toLowerCase().includes('site visit')
+    )?.input.inputcode ?? null;
+
+  const siteVisitSelected =
+    siteVisitInputCode !== null &&
+    typeof formValues[siteVisitInputCode] === 'string' &&
+    (formValues[siteVisitInputCode] as string).trim().toLowerCase().startsWith('yes');
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'var(--light)' }}>
@@ -678,6 +699,20 @@ export default function RegistrationPage() {
                       <p className="text-sm mt-1" style={{ color: 'var(--text)' }}>
                         Registration fee: <strong>{selectedCategory.fee}</strong>
                       </p>
+                      {siteVisitSelected && (() => {
+                        const base = parseFeeAmount(selectedCategory.fee);
+                        const currency = extractCurrency(selectedCategory.fee);
+                        return (
+                          <>
+                            <p className="text-sm mt-1" style={{ color: 'var(--text)' }}>
+                              Site visit fee: <strong>{currency} 70</strong>
+                            </p>
+                            <p className="text-sm mt-1 font-semibold" style={{ color: 'var(--navy)' }}>
+                              Total: <strong>{currency} {base + 70}</strong>
+                            </p>
+                          </>
+                        );
+                      })()}
                       <p className="text-xs mt-1" style={{ color: 'var(--muted)' }}>
                         You will be redirected to a secure payment page after clicking Submit.
                       </p>
@@ -734,7 +769,7 @@ export default function RegistrationPage() {
       {paymentSession && (
         <PaymentModal
           session={paymentSession}
-          amount={parseFeeAmount(selectedCategory?.fee || '0')}
+          amount={parseFeeAmount(selectedCategory?.fee || '0') + (siteVisitSelected ? 70 : 0)}
           currency={extractCurrency(selectedCategory?.fee || 'USD')}
           categoryName={decodeHtml(selectedCategory?.name_english || '')}
           customerEmail={(formValues['input_id_52307'] as string) || ''}
