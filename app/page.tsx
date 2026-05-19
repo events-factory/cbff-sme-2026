@@ -93,15 +93,18 @@ export default function Home() {
               </span>
               <span style={{ width: 1, height: 28, background: "rgba(201,151,43,.4)", flexShrink: 0 }} />
               {[
-                { src: "/logos/bnr.png",         alt: "Banque Nationale du Rwanda", bg: "#0a192f" },
-                { src: "/logos/minecofin.svg",   alt: "MINECOFIN",                  bg: "#fff" },
-                { src: "/logos/rdb.png",         alt: "Rwanda Development Board",   bg: "#fff" },
-                { src: "/logos/brd.svg",         alt: "BRD",                        bg: "#0a192f" },
-                { src: "/logos/bok.png",         alt: "Bank of Kigali",             bg: "#fff" },
-                { src: "/logos/boa.png",         alt: "Bank of Africa",             bg: "#fff" },
-                { src: "/logos/imbank.png",      alt: "I&M Bank",                   bg: "#fff" },
-                { src: "/logos/fagace.png",      alt: "FAGACE",                     bg: "#fff" },
-                { src: "/logos/smart-africa.png",alt: "Smart Africa",               bg: "#fff" },
+                { src: "/logos/bnr.png",                   alt: "Banque Nationale du Rwanda", bg: "#0a192f" },
+                { src: "/logos/minecofin.svg",             alt: "MINECOFIN",                  bg: "#fff" },
+                { src: "/logos/rdb.png",                   alt: "Rwanda Development Board",   bg: "#fff" },
+                { src: "/logos/brd.svg",                   alt: "BRD",                        bg: "#0a192f" },
+                { src: "/logos/bok.png",                   alt: "Bank of Kigali",             bg: "#fff" },
+                { src: "/logos/boa.png",                   alt: "Bank of Africa",             bg: "#fff" },
+                { src: "/logos/imbank.png",                alt: "I&M Bank",                   bg: "#fff" },
+                { src: "/logos/fagace.png",                alt: "FAGACE",                     bg: "#fff" },
+                { src: "/logos/smart-africa.png",          alt: "Smart Africa",               bg: "#fff" },
+                { src: "/rebird_logo.png",                 alt: "Re-bird Belgium",            bg: "#fff" },
+                { src: "/logos/sbpme-uemoa.png",           alt: "SBPME-UEMOA",               bg: "#fff" },
+                { src: "/logos/congruence-consulting.jpeg",alt: "Congruence Consulting",      bg: "#fff" },
               ].map((logo) => (
                 <div key={logo.alt} style={{ background: logo.bg, borderRadius: 4, padding: "5px 12px", display: "flex", alignItems: "center", justifyContent: "center", height: 40, overflow: "hidden" }}>
                   <Image src={logo.src} alt={logo.alt} width={72} height={28} style={{ objectFit: "contain", maxWidth: 72, maxHeight: 28 }} />
@@ -119,22 +122,16 @@ export default function Home() {
                 {lang === "fr" ? "Hôtes" : "Hosts"}
               </span>
               <span style={{ width: 1, height: 28, background: "rgba(201,151,43,.4)", flexShrink: 0 }} />
-              {/* MINICOM gets a slightly taller tile as the government host */}
-              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 10px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: 52, gap: 3 }}>
-                <Image src="/logos/minicom.svg" alt="MINICOM" width={52} height={30} style={{ objectFit: "contain" }} />
-                <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 7, fontWeight: 800, color: "#0a192f", letterSpacing: 1, textTransform: "uppercase" }}>MINICOM</span>
+              {/* MINICOM — primary host */}
+              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 16px", display: "flex", alignItems: "center", justifyContent: "center", height: 44, gap: 8 }}>
+                <Image src="/logos/minicom.svg" alt="MINICOM" width={32} height={32} style={{ objectFit: "contain", maxWidth: 32, maxHeight: 32 }} />
+                <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, fontWeight: 800, color: "#0a192f", letterSpacing: 1, textTransform: "uppercase" }}>MINICOM</span>
               </div>
               <span style={{ width: 1, height: 36, background: "rgba(255,255,255,.12)", flexShrink: 0 }} />
-              {[
-                { src: "/net-kigali.webp",               alt: "Netkigali",           bg: "#0a192f" },
-                { src: "/rebird_logo.png",               alt: "Re-bird Belgium",     bg: "#fff" },
-                { src: "/logos/sbpme-uemoa.png",         alt: "SBPME-UEMOA",        bg: "#fff" },
-                { src: "/logos/congruence-consulting.jpeg", alt: "Congruence Consulting", bg: "#fff" },
-              ].map((logo) => (
-                <div key={logo.alt} style={{ background: logo.bg, borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
-                  <Image src={logo.src} alt={logo.alt} width={88} height={32} style={{ objectFit: "contain", maxWidth: 88, maxHeight: 32 }} />
-                </div>
-              ))}
+              {/* Netkigali — co-host */}
+              <div style={{ background: "#0a192f", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
+                <Image src="/net-kigali.webp" alt="Netkigali" width={88} height={32} style={{ objectFit: "contain", maxWidth: 88, maxHeight: 32 }} />
+              </div>
             </div>
           </div>
         </div>
