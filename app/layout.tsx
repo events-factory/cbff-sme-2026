@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/lib/LanguageContext";
 import JsonLd from "@/components/JsonLd";
 
 const LINKEDIN_PARTNER_ID = "10229233";
+const META_PIXEL_ID = "976665285214916";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -111,6 +112,20 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </LanguageProvider>
+        <Script id="meta-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '${META_PIXEL_ID}');
+            fbq('track', 'PageView');
+          `}
+        </Script>
         <Script id="linkedin-insight-init" strategy="afterInteractive">
           {`
             _linkedin_partner_id = "${LINKEDIN_PARTNER_ID}";
@@ -140,6 +155,13 @@ export default function RootLayout({
             style={{ display: "none" }}
             alt=""
             src={`https://px.ads.linkedin.com/collect/?pid=${LINKEDIN_PARTNER_ID}&fmt=gif`}
+          />
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            alt=""
+            src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
           />
         </noscript>
       </body>
