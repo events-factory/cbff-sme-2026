@@ -122,15 +122,26 @@ export default function Home() {
                 {lang === "fr" ? "Hôtes" : "Hosts"}
               </span>
               <span style={{ width: 1, height: 28, background: "rgba(201,151,43,.4)", flexShrink: 0 }} />
-              {/* MINICOM — primary host */}
+              {/* MINICOM — institutional host */}
               <div style={{ background: "#fff", borderRadius: 4, padding: "5px 16px", display: "flex", alignItems: "center", justifyContent: "center", height: 44, gap: 8 }}>
                 <Image src="/logos/minicom.svg" alt="MINICOM" width={32} height={32} style={{ objectFit: "contain", maxWidth: 32, maxHeight: 32 }} />
                 <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, fontWeight: 800, color: "#0a192f", letterSpacing: 1, textTransform: "uppercase" }}>MINICOM</span>
               </div>
-              <span style={{ width: 1, height: 36, background: "rgba(255,255,255,.12)", flexShrink: 0 }} />
-              {/* Netkigali — co-host */}
+              {/* Netkigali */}
               <div style={{ background: "#0a192f", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
                 <Image src="/net-kigali.webp" alt="Netkigali" width={88} height={32} style={{ objectFit: "contain", maxWidth: 88, maxHeight: 32 }} />
+              </div>
+              {/* Re-bird Belgium */}
+              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
+                <Image src="/rebird_logo.png" alt="Re-bird Belgium" width={80} height={32} style={{ objectFit: "contain", maxWidth: 80, maxHeight: 32 }} />
+              </div>
+              {/* SBPME-UEMOA */}
+              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
+                <Image src="/logos/sbpme-uemoa.png" alt="SBPME-UEMOA" width={80} height={32} style={{ objectFit: "contain", maxWidth: 80, maxHeight: 32 }} />
+              </div>
+              {/* Congruence Consulting */}
+              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
+                <Image src="/logos/congruence-consulting.jpeg" alt="Congruence Consulting" width={92} height={32} style={{ objectFit: "contain", maxWidth: 92, maxHeight: 32 }} />
               </div>
             </div>
           </div>
@@ -452,7 +463,15 @@ export default function Home() {
                   )}
                 </div>
                 <h4 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 14, color: "var(--white)", fontWeight: 700, marginBottom: 4 }}>{c.name}</h4>
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,.55)" }}>{c.desc}</p>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,.55)", marginBottom: c.email ? 10 : 0 }}>{c.desc}</p>
+                {c.email && (
+                  <a
+                    href={`mailto:${c.email}`}
+                    style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, color: "var(--gold)", textDecoration: "none", fontWeight: 600, wordBreak: "break-all", display: "inline-block", borderTop: "1px solid rgba(255,255,255,.12)", paddingTop: 10, marginTop: 2 }}
+                  >
+                    {c.email}
+                  </a>
+                )}
               </div>
             ))}
           </div>
