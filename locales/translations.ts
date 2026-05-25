@@ -105,10 +105,10 @@ export const t = {
         { num: "$250–500M", desc: "Projected financing for 150+ SMEs over five years" },
       ],
       consortiumMembers: [
-        { name: "Netkigali", desc: "Rwanda-based hub driving financial infrastructure and SME development" },
-        { name: "Re-bird Belgium", desc: "European bridge connecting African SMEs to EU markets and investors" },
-        { name: "SBPME-UEMOA", desc: "West African regional SME finance and banking innovation platform" },
-        { name: "Congruence Consulting", desc: "Strategic advisory and programme management expertise" },
+        { name: "Netkigali", desc: "Rwanda-based hub driving financial infrastructure and SME development", email: "info@netkigali.com" },
+        { name: "Re-bird Belgium", desc: "European bridge connecting African SMEs to EU markets and investors", email: "" },
+        { name: "SBPME-UEMOA", desc: "West African regional SME finance and banking innovation platform", email: "partenariat@salonpmeuemoa.org" },
+        { name: "Congruence Consulting", desc: "Strategic advisory and programme management expertise", email: "mdorence@congruence.be" },
       ],
       exploreCards: [
         { title: "About & Background", desc: "Origins, vision, objectives and why Rwanda was chosen as the pilot launch city." },
@@ -512,10 +512,10 @@ export const t = {
         { num: "250–500M $", desc: "Financement projeté pour 150+ PME sur cinq ans" },
       ],
       consortiumMembers: [
-        { name: "Netkigali", desc: "Centre basé au Rwanda, moteur de l'infrastructure financière et du développement des PME" },
-        { name: "Re-bird Belgium", desc: "Pont européen connectant les PME africaines aux marchés et investisseurs de l'UE" },
-        { name: "SBPME-UEMOA", desc: "Plateforme régionale ouest-africaine de finance des PME et d'innovation bancaire" },
-        { name: "Congruence Consulting", desc: "Expertise en conseil stratégique et en gestion de programme" },
+        { name: "Netkigali", desc: "Centre basé au Rwanda, moteur de l'infrastructure financière et du développement des PME", email: "info@netkigali.com" },
+        { name: "Re-bird Belgium", desc: "Pont européen connectant les PME africaines aux marchés et investisseurs de l'UE", email: "" },
+        { name: "SBPME-UEMOA", desc: "Plateforme régionale ouest-africaine de finance des PME et d'innovation bancaire", email: "partenariat@salonpmeuemoa.org" },
+        { name: "Congruence Consulting", desc: "Expertise en conseil stratégique et en gestion de programme", email: "mdorence@congruence.be" },
       ],
       exploreCards: [
         { title: "À Propos & Contexte", desc: "Origines, vision, objectifs et pourquoi le Rwanda a été choisi comme ville de lancement pilote." },
