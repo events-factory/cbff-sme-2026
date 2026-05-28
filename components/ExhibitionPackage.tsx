@@ -11,9 +11,10 @@ interface ExhibitionPackageProps {
   image?: string;
   highlighted?: boolean;
   ctaLabel: string;
+  onCtaClick?: () => void;
 }
 
-export default function ExhibitionPackage({ title, size, sqm, price, includes, image, highlighted, ctaLabel }: ExhibitionPackageProps) {
+export default function ExhibitionPackage({ title, size, sqm, price, includes, image, highlighted, ctaLabel, onCtaClick }: ExhibitionPackageProps) {
   return (
     <div style={{
       border: highlighted ? "2px solid var(--gold)" : "1px solid var(--border)",
@@ -110,20 +111,38 @@ export default function ExhibitionPackage({ title, size, sqm, price, includes, i
           </span>
         </div>
 
-        <Link
-          href="/registration?interest=exhibition"
-          style={{
-            display: "block", textAlign: "center",
-            padding: "12px 24px",
-            fontFamily: "var(--font-poppins),sans-serif",
-            fontSize: 13, fontWeight: 700, letterSpacing: 1,
-            textTransform: "uppercase", borderRadius: 2,
-            background: highlighted ? "var(--gold)" : "var(--navy)",
-            color: "var(--white)", textDecoration: "none",
-          }}
-        >
-          {ctaLabel}
-        </Link>
+        {onCtaClick ? (
+          <button
+            type="button"
+            onClick={onCtaClick}
+            style={{
+              display: "block", width: "100%", textAlign: "center",
+              padding: "12px 24px",
+              fontFamily: "var(--font-poppins),sans-serif",
+              fontSize: 13, fontWeight: 700, letterSpacing: 1,
+              textTransform: "uppercase", borderRadius: 2,
+              background: highlighted ? "var(--gold)" : "var(--navy)",
+              color: "var(--white)", border: "none", cursor: "pointer",
+            }}
+          >
+            {ctaLabel}
+          </button>
+        ) : (
+          <Link
+            href="/registration?interest=exhibition"
+            style={{
+              display: "block", textAlign: "center",
+              padding: "12px 24px",
+              fontFamily: "var(--font-poppins),sans-serif",
+              fontSize: 13, fontWeight: 700, letterSpacing: 1,
+              textTransform: "uppercase", borderRadius: 2,
+              background: highlighted ? "var(--gold)" : "var(--navy)",
+              color: "var(--white)", textDecoration: "none",
+            }}
+          >
+            {ctaLabel}
+          </Link>
+        )}
       </div>
     </div>
   );

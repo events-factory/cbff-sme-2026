@@ -1,15 +1,23 @@
 'use client';
+import { useEffect, useState } from 'react';
 import SectionHeader from '@/components/SectionHeader';
 import ExhibitionPackage from '@/components/ExhibitionPackage';
+import ExhibitionBookingModal from '@/components/ExhibitionBookingModal';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Eye, Users, Star, TrendingUp } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { t } from '@/locales/translations';
+import {
+  fetchExhibitionPackages,
+  ApiProduct,
+  PaymentMethod,
+  parsePrice,
+} from '@/lib/exhibition';
 
 const benefitIcons = [Eye, Users, Star, TrendingUp];
 
-const boothImages = [
+const fallbackBoothImages = [
   'https://app.smartevent.rw/gallery/exhibition/packages/659eb15b5ec05_65e7744fc56e1.png',
   'https://app.smartevent.rw/gallery/exhibition/packages/659eb15b5ec05_65e824a325986.png',
   'https://app.smartevent.rw/gallery/exhibition/packages/659eb15b5ec05_65e824f085ff6.png',
@@ -19,6 +27,34 @@ export default function ExhibitionPage() {
   const { lang } = useLanguage();
   const T = t[lang].exhibition;
   const C = t[lang].common;
+
+  const [apiProducts, setApiProducts] = useState<ApiProduct[]>([]);
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<ApiProduct | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    fetchExhibitionPackages()
+      .then((res) => {
+        setApiProducts(res.products || []);
+        setPaymentMethods(res.payment_method || []);
+      })
+      .catch((err) => {
+        console.error('Failed to load exhibition packages:', err);
+      });
+  }, []);
+
+  const openBooking = (product: ApiProduct) => {
+    setSelectedProduct(product);
+    setModalOpen(true);
+  };
+
+  const formatPrice = (n: number, currency = 'USD') =>
+    new Intl.NumberFormat(lang === 'fr' ? 'fr-FR' : 'en-US', {
+      style: 'currency',
+      currency,
+      minimumFractionDigits: 0,
+    }).format(n);
 
   return (
     <>
@@ -232,21 +268,67 @@ export default function ExhibitionPage() {
             }}
             className="packages-grid"
           >
-            {T.packages.map((pkg, i) => (
-              <ExhibitionPackage
-                key={pkg.title}
-                title={pkg.title}
-                size={pkg.size}
-                sqm={pkg.sqm}
-                price={
-                  'price' in pkg ? (pkg as { price: string }).price : undefined
-                }
-                includes={pkg.includes}
-                image={boothImages[i]}
-                highlighted={pkg.highlighted}
-                ctaLabel={C.enquireNow}
-              />
-            ))}
+            {apiProducts.length > 0
+              ? apiProducts.map((product, i) => {
+                  const title =
+                    lang === 'fr' && product.name_french
+                      ? product.name_french
+                      : product.name_english;
+                  const sqMatch = product.sizes.match(/(\d+)\s*[x×*]\s*(\d+)/i);
+                  const sqm = sqMatch
+                    ? `${parseInt(sqMatch[1], 10) * parseInt(sqMatch[2], 10)} ${lang === 'fr' ? 'm²' : 'sqm'}`
+                    : product.sizes;
+                  const desc =
+                    lang === 'fr' && product.description_french
+                      ? product.description_french
+                      : product.description_english;
+                  const includes = desc
+                    ? desc
+                        .replace(/<\s*br\s*\/?\s*>/gi, '\n')
+                        .replace(/<\/?(p|li|div)[^>]*>/gi, '\n')
+                        .replace(/<[^>]+>/g, '')
+                        .replace(/&nbsp;/gi, ' ')
+                        .replace(/&amp;/gi, '&')
+                        .replace(/&lt;/gi, '<')
+                        .replace(/&gt;/gi, '>')
+                        .replace(/&quot;/gi, '"')
+                        .replace(/&#0?39;/gi, "'")
+                        .replace(/ /g, ' ')
+                        .split(/\n+/)
+                        .map((s) => s.replace(/\s+/g, ' ').trim())
+                        .filter(Boolean)
+                        .slice(0, 8)
+                    : [];
+                  return (
+                    <ExhibitionPackage
+                      key={product.product_code ?? product.id ?? i}
+                      title={title}
+                      size={product.sizes}
+                      sqm={sqm}
+                      price={formatPrice(parsePrice(product.prices), product.currency || 'USD')}
+                      includes={includes}
+                      image={product.banner || fallbackBoothImages[i % fallbackBoothImages.length]}
+                      highlighted={i === 1}
+                      ctaLabel={C.enquireNow}
+                      onCtaClick={() => openBooking(product)}
+                    />
+                  );
+                })
+              : T.packages.map((pkg, i) => (
+                  <ExhibitionPackage
+                    key={pkg.title}
+                    title={pkg.title}
+                    size={pkg.size}
+                    sqm={pkg.sqm}
+                    price={
+                      'price' in pkg ? (pkg as { price: string }).price : undefined
+                    }
+                    includes={pkg.includes}
+                    image={fallbackBoothImages[i]}
+                    highlighted={pkg.highlighted}
+                    ctaLabel={C.enquireNow}
+                  />
+                ))}
           </div>
         </div>
       </section>
@@ -484,6 +566,14 @@ export default function ExhibitionPage() {
           </div>
         </div>
       </section>
+
+      <ExhibitionBookingModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        product={selectedProduct}
+        paymentMethods={paymentMethods}
+        lang={lang}
+      />
 
       <style>{`
         @media (max-width: 640px) {
