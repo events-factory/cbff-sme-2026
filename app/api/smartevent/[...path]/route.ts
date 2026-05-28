@@ -3,6 +3,19 @@ import { NextRequest, NextResponse } from 'next/server';
 const SMARTEVENT_API_URL = 'https://app.smartevent.rw/Api';
 const EVENT_CODE = '0fAbj7CRs264k7PGAcaU1mNGcEhPSHFTSHV1SW9pZUJlVXR6MUE9PQ==';
 const BULK_INVITE_EVENT_CODE = '69fc3ce472122';
+const EXHIBITION_EVENT_CODE_AUTH = 'tt6S0fXwCg8zJMtXt6JS1kxzR0ZGQVlUZjltaENHMERDVE1KWkE9PQ==';
+
+const EXHIBITION_PATHS = [
+  'Get-Exibition-Packages-Full',
+  'Get-Exhibition-Bookings',
+  'Book-Exibition-Packages',
+  'Validate-Payment-Method',
+  'Initiate-Gateway-Session',
+];
+
+function isExhibitionPath(path: string): boolean {
+  return EXHIBITION_PATHS.some((endpoint) => path.includes(endpoint));
+}
 
 export async function GET(
   request: NextRequest,
@@ -36,18 +49,42 @@ async function proxyRequest(
       'Invite-Bulk-Delegates',
     ].some((endpoint) => path.includes(endpoint));
 
+    const isExhibition = isExhibitionPath(path);
+
     const headers: Record<string, string> = {};
 
     const authorization = request.headers.get('authorization');
     if (authorization) {
       headers['Authorization'] = authorization;
+    } else if (isExhibition) {
+      headers['Authorization'] = EXHIBITION_EVENT_CODE_AUTH;
     } else if (path.includes('Registration-Page-Api')) {
       headers['Authorization'] = EVENT_CODE;
     }
 
     let body: FormData | string | URLSearchParams | undefined;
     if (method !== 'GET') {
-      if (isRegistrationEndpoint) {
+      if (isExhibition) {
+        try {
+          const clonedRequest = request.clone();
+          const incomingFormData = await clonedRequest.formData();
+
+          const newFormData = new FormData();
+
+          incomingFormData.forEach((value, key) => {
+            if (key !== 'event_code') {
+              newFormData.append(key, value);
+            }
+          });
+          newFormData.append('event_code', EXHIBITION_EVENT_CODE_AUTH);
+
+          body = newFormData;
+          delete headers['Content-Type'];
+        } catch {
+          headers['Content-Type'] = 'application/json';
+          body = undefined;
+        }
+      } else if (isRegistrationEndpoint) {
         try {
           const clonedRequest = request.clone();
           const incomingFormData = await clonedRequest.formData();

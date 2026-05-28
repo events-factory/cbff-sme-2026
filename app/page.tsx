@@ -81,11 +81,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Partners & Hosts bar ───────────────────── */}
+      {/* ── Hosts & Partners bar ───────────────────── */}
       <div style={{ background: "var(--navy2)", borderBottom: "2px solid var(--gold)" }}>
 
-        {/* Partners row */}
+        {/* Hosts row — MINICOM alone on first line, others below */}
         <div style={{ borderBottom: "1px solid rgba(255,255,255,.08)", padding: "28px 24px" }}>
+          <div style={{ maxWidth: 1160, margin: "0 auto" }}>
+            {/* Top line: label + MINICOM only */}
+            <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", justifyContent: "center", marginBottom: 14 }}>
+              <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 9, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", flexShrink: 0, whiteSpace: "nowrap" }}>
+                {lang === "fr" ? "Organisé par" : "Hosted by"}
+              </span>
+              <span style={{ width: 1, height: 28, background: "rgba(201,151,43,.4)", flexShrink: 0 }} />
+              {/* MINICOM — institutional host */}
+              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 16px", display: "flex", alignItems: "center", justifyContent: "center", height: 44, gap: 8 }}>
+                <Image src="/logos/minicom.svg" alt="MINICOM" width={32} height={32} style={{ objectFit: "contain", maxWidth: 32, maxHeight: 32 }} />
+                <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, fontWeight: 800, color: "#0a192f", letterSpacing: 1, textTransform: "uppercase" }}>MINICOM</span>
+              </div>
+            </div>
+            {/* Second line: remaining hosts */}
+            <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", justifyContent: "center" }}>
+              {/* Netkigali */}
+              <div style={{ background: "#0a192f", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
+                <Image src="/net-kigali.webp" alt="Netkigali" width={88} height={32} style={{ objectFit: "contain", maxWidth: 88, maxHeight: 32 }} />
+              </div>
+              {/* Re-bird Belgium */}
+              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
+                <Image src="/rebird_logo.png" alt="Re-bird Belgium" width={80} height={32} style={{ objectFit: "contain", maxWidth: 80, maxHeight: 32 }} />
+              </div>
+              {/* SBPME-UEMOA */}
+              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
+                <Image src="/logos/sbpme-uemoa.png" alt="SBPME-UEMOA" width={80} height={32} style={{ objectFit: "contain", maxWidth: 80, maxHeight: 32 }} />
+              </div>
+              {/* Congruence Consulting */}
+              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
+                <Image src="/logos/congruence-consulting.jpeg" alt="Congruence Consulting" width={92} height={32} style={{ objectFit: "contain", maxWidth: 92, maxHeight: 32 }} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Partners row */}
+        <div style={{ padding: "24px 24px" }}>
           <div style={{ maxWidth: 1160, margin: "0 auto" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", justifyContent: "center" }}>
               <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 9, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", flexShrink: 0, whiteSpace: "nowrap" }}>
@@ -110,39 +147,6 @@ export default function Home() {
                   <Image src={logo.src} alt={logo.alt} width={72} height={28} style={{ objectFit: "contain", maxWidth: 72, maxHeight: 28 }} />
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Hosts row */}
-        <div style={{ padding: "24px 24px" }}>
-          <div style={{ maxWidth: 1160, margin: "0 auto" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", justifyContent: "center" }}>
-              <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 9, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", flexShrink: 0, whiteSpace: "nowrap" }}>
-                {lang === "fr" ? "Hôtes" : "Hosts"}
-              </span>
-              <span style={{ width: 1, height: 28, background: "rgba(201,151,43,.4)", flexShrink: 0 }} />
-              {/* MINICOM — institutional host */}
-              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 16px", display: "flex", alignItems: "center", justifyContent: "center", height: 44, gap: 8 }}>
-                <Image src="/logos/minicom.svg" alt="MINICOM" width={32} height={32} style={{ objectFit: "contain", maxWidth: 32, maxHeight: 32 }} />
-                <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, fontWeight: 800, color: "#0a192f", letterSpacing: 1, textTransform: "uppercase" }}>MINICOM</span>
-              </div>
-              {/* Netkigali */}
-              <div style={{ background: "#0a192f", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
-                <Image src="/net-kigali.webp" alt="Netkigali" width={88} height={32} style={{ objectFit: "contain", maxWidth: 88, maxHeight: 32 }} />
-              </div>
-              {/* Re-bird Belgium */}
-              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
-                <Image src="/rebird_logo.png" alt="Re-bird Belgium" width={80} height={32} style={{ objectFit: "contain", maxWidth: 80, maxHeight: 32 }} />
-              </div>
-              {/* SBPME-UEMOA */}
-              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
-                <Image src="/logos/sbpme-uemoa.png" alt="SBPME-UEMOA" width={80} height={32} style={{ objectFit: "contain", maxWidth: 80, maxHeight: 32 }} />
-              </div>
-              {/* Congruence Consulting */}
-              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "center", height: 44 }}>
-                <Image src="/logos/congruence-consulting.jpeg" alt="Congruence Consulting" width={92} height={32} style={{ objectFit: "contain", maxWidth: 92, maxHeight: 32 }} />
-              </div>
             </div>
           </div>
         </div>
