@@ -94,8 +94,8 @@ export default function Home() {
               </span>
               <span style={{ width: 1, height: 28, background: "rgba(201,151,43,.4)", flexShrink: 0 }} />
               {/* MINICOM — institutional host */}
-              <div style={{ background: "#fff", borderRadius: 4, padding: "5px 16px", display: "flex", alignItems: "center", justifyContent: "center", height: 44, gap: 8 }}>
-                <Image src="/logos/minicom.svg" alt="MINICOM" width={32} height={32} style={{ objectFit: "contain", maxWidth: 32, maxHeight: 32 }} />
+              <div style={{ background: "#fff", borderRadius: 4, padding: "6px 16px", display: "flex", alignItems: "center", justifyContent: "center", height: 56, gap: 8 }}>
+                <Image src="/logos/minicom.svg" alt="MINICOM" width={54} height={54} style={{ objectFit: "contain", maxWidth: 54, maxHeight: 54 }} />
                 <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, fontWeight: 800, color: "#0a192f", letterSpacing: 1, textTransform: "uppercase" }}>MINICOM</span>
               </div>
             </div>
