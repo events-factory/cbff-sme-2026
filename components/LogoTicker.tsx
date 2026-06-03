@@ -6,7 +6,6 @@ const logos = [
   { code: "BOK",       name: "Bank of Kigali",          img: "/logos/bok.png" },
   { code: "I&M",       name: "I&M Bank",                img: "/logos/imbank.png" },
   { code: "BOA",       name: "Bank of Africa",          img: "/logos/boa.png" },
-  { code: "SMART",     name: "Smart Africa",            img: "/logos/smart-africa.png" },
   { code: "MINECOFIN", name: "Ministry of Finance",     img: "/logos/minecofin.svg" },
   { code: "MINICOM",   name: "Ministry of Trade",       img: "/logos/minicom.svg" },
   { code: "FAGACE",    name: "FAGACE",                  img: "/logos/fagace.png" },
