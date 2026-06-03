@@ -138,7 +138,6 @@ export default function Home() {
                 { src: "/logos/boa.png",                   alt: "Bank of Africa",             bg: "#fff" },
                 { src: "/logos/imbank.png",                alt: "I&M Bank",                   bg: "#fff" },
                 { src: "/logos/fagace.png",                alt: "FAGACE",                     bg: "#fff" },
-                { src: "/logos/smart-africa.png",          alt: "Smart Africa",               bg: "#fff" },
                 { src: "/rebird_logo.png",                 alt: "Re-bird Belgium",            bg: "#fff" },
                 { src: "/logos/sbpme-uemoa.png",           alt: "SBPME-UEMOA",               bg: "#fff" },
                 { src: "/logos/congruence-consulting.jpeg",alt: "Congruence Consulting",      bg: "#fff" },
