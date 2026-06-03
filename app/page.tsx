@@ -130,17 +130,8 @@ export default function Home() {
               </span>
               <span style={{ width: 1, height: 28, background: "rgba(201,151,43,.4)", flexShrink: 0 }} />
               {[
-                { src: "/logos/bnr.png",                   alt: "Banque Nationale du Rwanda", bg: "#0a192f" },
-                { src: "/logos/minecofin.svg",             alt: "MINECOFIN",                  bg: "#fff" },
-                { src: "/logos/rdb.png",                   alt: "Rwanda Development Board",   bg: "#fff" },
-                { src: "/logos/brd.svg",                   alt: "BRD",                        bg: "#0a192f" },
-                { src: "/logos/bok.png",                   alt: "Bank of Kigali",             bg: "#fff" },
                 { src: "/logos/boa.png",                   alt: "Bank of Africa",             bg: "#fff" },
-                { src: "/logos/imbank.png",                alt: "I&M Bank",                   bg: "#fff" },
-                { src: "/logos/fagace.png",                alt: "FAGACE",                     bg: "#fff" },
-                { src: "/rebird_logo.png",                 alt: "Re-bird Belgium",            bg: "#fff" },
-                { src: "/logos/sbpme-uemoa.png",           alt: "SBPME-UEMOA",               bg: "#fff" },
-                { src: "/logos/congruence-consulting.jpeg",alt: "Congruence Consulting",      bg: "#fff" },
+                { src: "/logos/minicom.svg",               alt: "Ministry of Trade",          bg: "#fff" },
               ].map((logo) => (
                 <div key={logo.alt} style={{ background: logo.bg, borderRadius: 4, padding: "5px 12px", display: "flex", alignItems: "center", justifyContent: "center", height: 40, overflow: "hidden" }}>
                   <Image src={logo.src} alt={logo.alt} width={72} height={28} style={{ objectFit: "contain", maxWidth: 72, maxHeight: 28 }} />
