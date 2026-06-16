@@ -336,6 +336,21 @@ export default function RegistrationPage() {
 
       if (result.success !== false) {
         setSubmitted(true);
+
+        // Best-effort: mirror Deal Room & VIP Dinner delegates into NEXORA.
+        // The server route owns the category gate; never blocks the success UI.
+        try {
+          void fetch('/api/nexora/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: (formValues['input_id_52307'] as string) || '',
+              firstName: (formValues['input_id_21576'] as string) || '',
+              lastName: (formValues['input_id_35129'] as string) || '',
+              categoryId: selectedCategory.id,
+            }),
+          });
+        } catch { /* non-blocking */ }
       } else {
         const msg = Array.isArray(result.message) ? result.message : [result.message || 'Registration failed'];
         setFormErrors(msg);
