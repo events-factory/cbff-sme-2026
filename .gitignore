@@ -36,3 +36,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local-only secret docs (kept on disk, never committed)
+NEXORA-API-Authentification-Partenaire.pdf
