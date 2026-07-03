@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const backendUrl = 'https://app.smartevent.rw/Api';
+    const backendUrl = 'https://sandbox.smartevent.rw/Api';
     const apiEndpoint = `${backendUrl}/Initiate-Gateway-Session`;
 
     const formData = new URLSearchParams();

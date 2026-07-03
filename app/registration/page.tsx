@@ -2,15 +2,10 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import PaymentModal from '@/components/PaymentModal';
 import {
-  initializePayment,
-  processPayment,
   requiresPayment,
   parseFeeAmount,
   extractCurrency,
-  PaymentResult,
-  PaymentSession,
 } from '@/lib/payment';
 
 const SMARTEVENT_API = '/api/smartevent';
@@ -84,10 +79,9 @@ export default function RegistrationPage() {
   const [formErrors, setFormErrors] = useState<string[]>([]);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [paymentRequired, setPaymentRequired] = useState(false);
-  const [processingPayment, setProcessingPayment] = useState(false);
+  const [processingPayment] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [paymentSession, setPaymentSession] = useState<PaymentSession | null>(null);
-  const [paymentData, setPaymentData] = useState({ orderId: '', paymentToken: '', paymentSession: '', transactionId: '' });
+  const [paymentData] = useState({ orderId: '', paymentToken: '', paymentSession: '', transactionId: '' });
 
   useEffect(() => { loadRegistrationPage(); }, []);
 
@@ -130,20 +124,25 @@ export default function RegistrationPage() {
   async function selectCategory(category: RegistrationCategory) {
     setSelectedCategory(category);
     setLoading(true);
-    const needsPayment = requiresPayment(category.fee);
-    setPaymentRequired(needsPayment);
-    if (needsPayment) {
-      const orderId = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-      setPaymentData(prev => ({ ...prev, orderId }));
-    }
+    setPaymentRequired(requiresPayment(category.fee));
     try {
       const data = await smartEventJson<{ data: FormInputGroup[] }>('/Display-Categories-Form-Inputs', {
         category: category.id,
         attendence: attendanceType!,
         operation: 'get-form-inputs',
       });
-      setFormGroups(data.data || []);
+      const groups = data.data || [];
+      setFormGroups(groups);
       setCurrentStep(0);
+
+      // Default the site-visit add-on to "No" so a choice is always selected.
+      const siteVisit = groups
+        .flatMap(g => g.inputs)
+        .find(({ input }) => input.inputcode === 'input_id_355' || input.nameEnglish.toLowerCase().includes('site visit'));
+      const noOption = siteVisit?.options.find(o => o.contentEnglish.trim().toLowerCase().startsWith('no'));
+      if (siteVisit && noOption) {
+        setFormValues(prev => ({ ...prev, [siteVisit.input.inputcode]: noOption.contentEnglish }));
+      }
     } catch {
       setError('Failed to load registration form');
     }
@@ -226,74 +225,13 @@ export default function RegistrationPage() {
     setFormErrors([]);
 
     try {
-      let paymentResult: PaymentResult | null = null;
-
       const isBankTransfer = Object.values(formValues).some(
         v => typeof v === 'string' && v.toLowerCase().includes('bank transfer')
       );
-
-      if (paymentRequired && !isBankTransfer) {
-        setProcessingPayment(true);
-
-        const customerEmail = (formValues['input_id_52307'] as string) || '';
-        const firstName = (formValues['input_id_21576'] as string) || '';
-        const lastName = (formValues['input_id_35129'] as string) || '';
-
-        if (!customerEmail) {
-          setFormErrors(['Email is required for payment processing']);
-          setSubmitting(false);
-          setProcessingPayment(false);
-          return;
-        }
-
-        const baseAmount = parseFeeAmount(selectedCategory.fee);
-        const totalAmount = siteVisitSelected ? baseAmount + 70 : baseAmount;
-        const currency = extractCurrency(selectedCategory.fee);
-
-        const session = await initializePayment({
-          orderId: paymentData.orderId,
-          amount: totalAmount,
-          currency,
-          categoryName: decodeHtml(selectedCategory.name_english),
-          categoryId: selectedCategory.id,
-          attendenceType: attendanceType || 'PHYSICAL',
-          customerEmail,
-          customerName: `${firstName} ${lastName}`.trim(),
-        });
-
-        if (!session) {
-          setFormErrors(['Failed to initialize payment. Please try again.']);
-          setSubmitting(false);
-          setProcessingPayment(false);
-          return;
-        }
-
-        setPaymentSession(session);
-        setShowPaymentModal(true);
-        setProcessingPayment(false);
-
-        paymentResult = await processPayment(session, {
-          orderId: paymentData.orderId,
-          amount: totalAmount,
-          currency,
-          categoryName: decodeHtml(selectedCategory.name_english),
-        });
-
-        setShowPaymentModal(false);
-
-        if (!paymentResult.success) {
-          setFormErrors([paymentResult.error || 'Payment was not completed. Please try again.']);
-          setSubmitting(false);
-          return;
-        }
-
-        setPaymentData({
-          orderId: paymentResult.orderId,
-          paymentToken: paymentResult.paymentToken || '',
-          paymentSession: paymentResult.paymentSession || '',
-          transactionId: paymentResult.transactionId || '',
-        });
-      }
+      // Online payment is disabled for now. The registration is saved directly;
+      // when a card payment would be required we show an empty modal placeholder
+      // afterwards (payment content to be added later).
+      const needsPayment = paymentRequired && !isBankTransfer;
 
       const delegateData: Array<{ input_code: string; input_type: string; input_value: string; input_name: string }> = [];
       const submitForm = new FormData();
@@ -323,19 +261,32 @@ export default function RegistrationPage() {
       submitForm.append('accompanied', 'NO');
       submitForm.append('registration_type', 'single');
 
+      // Grand total stored with the registration: base category fee plus the
+      // flat USD 70 site-visit surcharge when selected. No other discounts or
+      // add-ons are applied.
+      const grandTotal = parseFeeAmount(selectedCategory.fee) + (siteVisitSelected ? 70 : 0);
+      submitForm.append('grand_total', String(grandTotal));
+
       if (siteVisitSelected) {
         submitForm.append('extrafee', JSON.stringify({ input_id: 355, amount: 70, currency: 'USD' }));
       }
 
-      submitForm.append('order_id', paymentResult?.orderId || '');
-      submitForm.append('payment_token', paymentResult?.paymentToken || '');
-      submitForm.append('payment_session', paymentResult?.paymentSession || '');
-      submitForm.append('acknowleadgment', paymentResult?.transactionId || '');
+      // Payment is not collected here anymore — send empty payment fields.
+      submitForm.append('order_id', '');
+      submitForm.append('payment_token', '');
+      submitForm.append('payment_session', '');
+      submitForm.append('acknowleadgment', '');
 
       const result = await smartEventPost<{ success?: boolean; message?: string | string[] }>('/Register-Delegate', submitForm);
 
       if (result.success !== false) {
-        setSubmitted(true);
+        // Registration saved. For card payments, show the empty payment modal
+        // placeholder; otherwise go straight to the success screen.
+        if (needsPayment) {
+          setShowPaymentModal(true);
+        } else {
+          setSubmitted(true);
+        }
 
         // Best-effort: mirror Deal Room & VIP Dinner delegates into NEXORA.
         // The server route owns the category gate; never blocks the success UI.
@@ -366,8 +317,8 @@ export default function RegistrationPage() {
     const inputValue = formValues[input.inputcode] || value || '';
     const isRequired = input.is_mandatory === 'YES';
     const hasError = !!fieldErrors[input.inputcode];
-    const base = 'w-full px-4 py-3 border rounded-lg focus:ring-2 focus:outline-none';
-    const errorClass = hasError ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-blue-400 focus:border-transparent';
+    const base = 'w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:outline-none';
+    const errorClass = hasError ? 'border-red-500 focus:ring-red-400' : 'border-gray-300 focus:ring-primary-500/30 focus:border-primary-500';
 
     switch (input.inputtype.id) {
       case 2:
@@ -377,7 +328,13 @@ export default function RegistrationPage() {
               id={input.inputcode}
               value={inputValue as string}
               onChange={e => handleInputChange(input.inputcode, e.target.value)}
-              className={`${base} ${errorClass} bg-white`}
+              className={`${base} ${errorClass} bg-white appearance-none pr-10 cursor-pointer`}
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7A8D' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 0.75rem center',
+                backgroundSize: '1.1rem',
+              }}
               required={isRequired}
             >
               <option value="">Select...</option>
@@ -410,13 +367,27 @@ export default function RegistrationPage() {
       case 10:
         return (
           <>
-            <div className={hasError ? 'p-3 border-2 border-red-500 rounded-lg space-y-2' : 'space-y-2'}>
-              {options.map(opt => (
-                <label key={opt.id} className="flex items-center gap-2">
-                  <input type="radio" name={input.inputcode} value={opt.contentEnglish} checked={inputValue === opt.contentEnglish} onChange={e => handleInputChange(input.inputcode, e.target.value)} className="w-4 h-4" required={isRequired} />
-                  <span>{opt.contentEnglish}</span>
-                </label>
-              ))}
+            <div className={hasError ? 'p-2 border-2 border-red-500 rounded-lg' : ''}>
+              <div className="flex flex-wrap gap-2">
+                {options.map(opt => {
+                  const selected = inputValue === opt.contentEnglish;
+                  return (
+                    <label
+                      key={opt.id}
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg border text-sm cursor-pointer transition-colors"
+                      style={{
+                        borderColor: selected ? 'var(--navy)' : '#d1d5db',
+                        background: selected ? 'rgba(27,58,92,0.06)' : '#fff',
+                        color: selected ? 'var(--navy)' : 'var(--text)',
+                        fontWeight: selected ? 600 : 400,
+                      }}
+                    >
+                      <input type="radio" name={input.inputcode} value={opt.contentEnglish} checked={selected} onChange={e => handleInputChange(input.inputcode, e.target.value)} className="w-4 h-4 accent-primary-500" required={isRequired} />
+                      <span>{opt.contentEnglish}</span>
+                    </label>
+                  );
+                })}
+              </div>
             </div>
             {hasError && <p className="mt-1 text-sm text-red-600">{fieldErrors[input.inputcode]}</p>}
           </>
@@ -654,7 +625,7 @@ export default function RegistrationPage() {
                   <button
                     key={group.group.id}
                     onClick={() => { if (index < currentStep) setCurrentStep(index); }}
-                    className="px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors"
+                    className="flex-1 text-center px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors"
                     style={{
                       background: index === currentStep ? 'var(--navy)' : index < currentStep ? 'rgba(27,58,92,0.15)' : '#e5e7eb',
                       color: index === currentStep ? 'var(--white)' : index < currentStep ? 'var(--navy)' : '#6b7280',
@@ -683,58 +654,113 @@ export default function RegistrationPage() {
                 </div>
               )}
 
-              {formGroups[currentStep] && (
-                <div className="space-y-6">
-                  <h3 className="text-lg font-semibold" style={{ color: 'var(--navy)', fontFamily: 'var(--font-poppins),sans-serif' }}>
-                    {formGroups[currentStep].group.name}
-                  </h3>
-                  {formGroups[currentStep].inputs.map(({ input, options, value }) => (
-                    <div key={input.inputcode}>
-                      {input.inputtype.id !== 17 && (
-                        <label htmlFor={input.inputcode} className="block text-sm font-medium mb-2" style={{ color: 'var(--text)' }}>
-                          {input.nameEnglish}
-                          {input.is_mandatory === 'YES' && <span className="text-red-500 ml-1">*</span>}
-                        </label>
-                      )}
-                      {renderInput(input, options, value)}
-                    </div>
-                  ))}
-                </div>
-              )}
+              {formGroups[currentStep] && (() => {
+                const group = formGroups[currentStep];
+                const siteVisit = group.inputs.find(it => it.input.inputcode === siteVisitInputCode);
+                const normalItems = group.inputs.filter(it => it.input.inputcode !== siteVisitInputCode);
+                // A single lone column field spans full width so it fills the card.
+                const singleColumn = normalItems.filter(it => ![10, 15, 16, 17].includes(it.input.inputtype.id)).length === 1;
+                return (
+                  <div className="space-y-5">
+                    <h3 className="text-lg font-semibold" style={{ color: 'var(--navy)', fontFamily: 'var(--font-poppins),sans-serif' }}>
+                      {group.group.name}
+                    </h3>
 
-              {/* Payment notice */}
-              {paymentRequired && selectedCategory && currentStep === formGroups.length - 1 && !processingPayment && (
-                <div className="mt-6 p-4 rounded-lg border" style={{ background: 'rgba(201,151,43,0.08)', borderColor: 'rgba(201,151,43,0.4)' }}>
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" style={{ color: 'var(--gold)' }}>
-                      <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                    </svg>
-                    <div>
-                      <p className="text-sm font-medium" style={{ color: 'var(--gold)' }}>Payment Required</p>
-                      <p className="text-sm mt-1" style={{ color: 'var(--text)' }}>
-                        Registration fee: <strong>{selectedCategory.fee}</strong>
-                      </p>
-                      {siteVisitSelected && (() => {
-                        const base = parseFeeAmount(selectedCategory.fee);
-                        const currency = extractCurrency(selectedCategory.fee);
-                        return (
-                          <>
-                            <p className="text-sm mt-1" style={{ color: 'var(--text)' }}>
-                              Site visit fee: <strong>{currency} 70</strong>
-                            </p>
-                            <p className="text-sm mt-1 font-semibold" style={{ color: 'var(--navy)' }}>
-                              Total: <strong>{currency} {base + 70}</strong>
-                            </p>
-                          </>
-                        );
-                      })()}
-                      <p className="text-xs mt-1" style={{ color: 'var(--muted)' }}>
-                        You will be redirected to a secure payment page after clicking Submit.
-                      </p>
-                    </div>
+                    {/* Site visit is a paid add-on — its own selectable, priced card. */}
+                    {siteVisit && (
+                      <div
+                        className="rounded-xl border p-4 sm:p-5 transition-colors"
+                        style={{
+                          borderColor: siteVisitSelected ? 'var(--navy)' : '#e5e7eb',
+                          background: siteVisitSelected ? 'rgba(27,58,92,0.04)' : '#fff',
+                        }}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex items-start gap-3">
+                            <span className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style={{ background: 'rgba(201,151,43,0.12)', color: 'var(--gold)' }}>
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+                            </span>
+                            <div>
+                              <p className="text-sm font-semibold" style={{ color: 'var(--navy)' }}>Site visit</p>
+                              <p className="text-sm mt-0.5" style={{ color: 'var(--muted)' }}>Add an optional site visit to your registration.</p>
+                            </div>
+                          </div>
+                          <span className="text-xs font-semibold px-2.5 py-1 rounded-full whitespace-nowrap" style={{ background: 'rgba(201,151,43,0.12)', color: 'var(--gold)' }}>+ USD 70</span>
+                        </div>
+                        <div className="mt-3">
+                          {renderInput(siteVisit.input, siteVisit.options, siteVisit.value)}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* All other fields sit in a framed card to match the surrounding cards. */}
+                    {normalItems.length > 0 && (
+                      <div className="rounded-xl border border-gray-200 bg-white p-4 sm:p-5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
+                          {normalItems.map(({ input, options, value }) => {
+                            // Multi-option groups, textareas, info paragraphs and a
+                            // lone column field read better across the full width.
+                            const fullWidth = singleColumn || [10, 15, 16, 17].includes(input.inputtype.id);
+                            return (
+                              <div key={input.inputcode} className={fullWidth ? 'sm:col-span-2' : ''}>
+                                {input.inputtype.id !== 17 && (
+                                  <label htmlFor={input.inputcode} className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text)' }}>
+                                    {input.nameEnglish}
+                                    {input.is_mandatory === 'YES' && <span className="text-red-500 ml-1">*</span>}
+                                  </label>
+                                )}
+                                {renderInput(input, options, value)}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </div>
-              )}
+                );
+              })()}
+
+              {/* Payment summary */}
+              {paymentRequired && selectedCategory && currentStep === formGroups.length - 1 && !processingPayment && (() => {
+                const base = parseFeeAmount(selectedCategory.fee);
+                const currency = extractCurrency(selectedCategory.fee);
+                const total = base + (siteVisitSelected ? 70 : 0);
+                return (
+                  <div className="mt-5 rounded-xl border border-gray-200 bg-white p-4 sm:p-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" style={{ color: 'var(--gold)' }}>
+                        <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-sm font-semibold" style={{ color: 'var(--navy)' }}>Payment summary</span>
+                    </div>
+                    <div className="space-y-2.5">
+                      <div className="flex items-center justify-between text-sm">
+                        <span style={{ color: 'var(--muted)' }}>Registration fee</span>
+                        <span className="font-medium tabular-nums" style={{ color: 'var(--text)' }}>{selectedCategory.fee}</span>
+                      </div>
+                      {siteVisitSelected && (
+                        <div className="flex items-center justify-between text-sm">
+                          <span style={{ color: 'var(--muted)' }}>Site visit</span>
+                          <span className="font-medium tabular-nums" style={{ color: 'var(--text)' }}>{currency} 70</span>
+                        </div>
+                      )}
+                      <div className="flex items-center justify-between pt-3 border-t" style={{ borderColor: 'rgba(27,58,92,0.12)' }}>
+                        <span className="text-sm font-semibold" style={{ color: 'var(--navy)' }}>Total due</span>
+                        <span className="text-lg font-bold tabular-nums" style={{ color: 'var(--navy)' }}>{currency} {total.toLocaleString()}</span>
+                      </div>
+                    </div>
+                    <p className="text-xs mt-3 flex items-center gap-1.5" style={{ color: 'var(--muted)' }}>
+                      <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                      Secure payment — you&apos;ll be redirected to complete it after you continue.
+                    </p>
+                  </div>
+                );
+              })()}
 
               {processingPayment && (
                 <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
@@ -781,20 +807,36 @@ export default function RegistrationPage() {
         )}
       </div>
 
-      {paymentSession && (
-        <PaymentModal
-          session={paymentSession}
-          amount={parseFeeAmount(selectedCategory?.fee || '0') + (siteVisitSelected ? 70 : 0)}
-          currency={extractCurrency(selectedCategory?.fee || 'USD')}
-          categoryName={decodeHtml(selectedCategory?.name_english || '')}
-          customerEmail={(formValues['input_id_52307'] as string) || ''}
-          isOpen={showPaymentModal}
-          onClose={() => {
-            setShowPaymentModal(false);
-            setProcessingPayment(false);
-            setSubmitting(false);
-          }}
-        />
+      {/* Empty payment modal placeholder — payment content to be added later. */}
+      {showPaymentModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg">
+            <div className="flex items-center justify-between px-5 py-4 border-b">
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--navy)', fontFamily: 'var(--font-poppins),sans-serif' }}>Payment</h3>
+              <button
+                type="button"
+                onClick={() => { setShowPaymentModal(false); setSubmitted(true); }}
+                className="text-gray-400 hover:text-gray-600 text-xl leading-none"
+                aria-label="Close"
+              >
+                &times;
+              </button>
+            </div>
+            <div className="px-5 py-12 text-center">
+              <p className="text-sm" style={{ color: 'var(--muted)' }}>Payment will be available here shortly.</p>
+            </div>
+            <div className="px-5 py-4 border-t flex justify-end">
+              <button
+                type="button"
+                onClick={() => { setShowPaymentModal(false); setSubmitted(true); }}
+                className="px-5 py-2 rounded-lg text-white font-semibold"
+                style={{ background: 'var(--navy)' }}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

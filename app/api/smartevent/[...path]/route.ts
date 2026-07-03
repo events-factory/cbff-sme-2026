@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const SMARTEVENT_API_URL = 'https://app.smartevent.rw/Api';
+const SMARTEVENT_API_URL = 'https://sandbox.smartevent.rw/Api';
 const EVENT_CODE = '0fAbj7CRs264k7PGAcaU1mNGcEhPSHFTSHV1SW9pZUJlVXR6MUE9PQ==';
 const BULK_INVITE_EVENT_CODE = '69fc3ce472122';
 const EXHIBITION_EVENT_CODE_AUTH = 'tt6S0fXwCg8zJMtXt6JS1kxzR0ZGQVlUZjltaENHMERDVE1KWkE9PQ==';
