@@ -154,6 +154,7 @@ export default function Footer() {
                 <li key={l.href} style={{ padding: '4px 0', fontSize: 13 }}>
                   <Link
                     href={l.href}
+                    className="footer-link"
                     style={{
                       color: 'rgba(255,255,255,.6)',
                       textDecoration: 'none',
@@ -181,12 +182,18 @@ export default function Footer() {
             </h4>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               {[
-                'info@netkigali.com',
-                '+250 788 991 551 (Kigali)',
-                '+32 487 568 199 (Brussels)',
-              ].map((txt) => (
-                <li key={txt} style={{ padding: '4px 0', fontSize: 13 }}>
-                  {txt}
+                { text: 'info@netkigali.com', href: 'mailto:info@netkigali.com' },
+                { text: '+250 788 991 551 (Kigali)', href: 'tel:+250788991551' },
+                { text: '+32 487 568 199 (Brussels)', href: 'tel:+32487568199' },
+              ].map((c) => (
+                <li key={c.text} style={{ padding: '4px 0', fontSize: 13 }}>
+                  <a
+                    href={c.href}
+                    className="footer-link"
+                    style={{ color: 'rgba(255,255,255,.6)', textDecoration: 'none' }}
+                  >
+                    {c.text}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -282,8 +289,14 @@ export default function Footer() {
                   </div>
                 )}
                 {z.email && (
-                  <div style={{ fontSize: 12, color: 'rgba(255,255,255,.5)' }}>
-                    {z.email}
+                  <div style={{ fontSize: 12 }}>
+                    <a
+                      href={`mailto:${z.email}`}
+                      className="footer-link"
+                      style={{ color: 'rgba(255,255,255,.5)', textDecoration: 'none' }}
+                    >
+                      {z.email}
+                    </a>
                   </div>
                 )}
               </div>
@@ -303,6 +316,8 @@ export default function Footer() {
         </div>
       </div>
       <style>{`
+        .footer-link { transition: color .2s; }
+        .footer-link:hover { color: var(--gold) !important; }
         @media (max-width: 768px) {
           .footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
           .zones-grid  { grid-template-columns: 1fr !important; gap: 16px !important; }

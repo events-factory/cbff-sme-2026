@@ -2,10 +2,16 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import PaymentModal from '@/components/PaymentModal';
+import PawaPayModal from '@/components/PawaPayModal';
 import {
+  initializePayment,
+  processPayment,
   requiresPayment,
   parseFeeAmount,
   extractCurrency,
+  PaymentResult,
+  PaymentSession,
 } from '@/lib/payment';
 
 const SMARTEVENT_API = '/api/smartevent';
@@ -76,12 +82,15 @@ export default function RegistrationPage() {
   const [formValues, setFormValues] = useState<FormValues>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [badgeId, setBadgeId] = useState('');
   const [formErrors, setFormErrors] = useState<string[]>([]);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [paymentRequired, setPaymentRequired] = useState(false);
-  const [processingPayment] = useState(false);
+  const [processingPayment, setProcessingPayment] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [paymentData] = useState({ orderId: '', paymentToken: '', paymentSession: '', transactionId: '' });
+  const [showPawapayModal, setShowPawapayModal] = useState(false);
+  const [paymentSession, setPaymentSession] = useState<PaymentSession | null>(null);
+  const [paymentData, setPaymentData] = useState({ orderId: '', paymentToken: '', paymentSession: '', transactionId: '' });
 
   useEffect(() => { loadRegistrationPage(); }, []);
 
@@ -124,7 +133,11 @@ export default function RegistrationPage() {
   async function selectCategory(category: RegistrationCategory) {
     setSelectedCategory(category);
     setLoading(true);
-    setPaymentRequired(requiresPayment(category.fee));
+    const needsPayment = requiresPayment(category.fee);
+    setPaymentRequired(needsPayment);
+    if (needsPayment) {
+      setPaymentData(prev => ({ ...prev, orderId: `ORD-${Date.now()}-${Math.random().toString(36).slice(2, 11)}` }));
+    }
     try {
       const data = await smartEventJson<{ data: FormInputGroup[] }>('/Display-Categories-Form-Inputs', {
         category: category.id,
@@ -216,23 +229,18 @@ export default function RegistrationPage() {
     setCurrentStep(prev => Math.max(prev - 1, 0));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!validateStep()) return;
-    if (!selectedCategory) { setFormErrors(['Please select a category']); return; }
-
+  // Persists the registration to SmartEvent. Called after payment succeeds
+  // (Mastercard or PawaPay) or directly for bank-transfer / free registrations.
+  // `payment` carries whatever reference the gateway produced.
+  async function finalizeRegistration(payment: {
+    orderId?: string;
+    paymentToken?: string;
+    paymentSession?: string;
+    transactionId?: string;
+  }) {
+    if (!selectedCategory) return;
     setSubmitting(true);
-    setFormErrors([]);
-
     try {
-      const isBankTransfer = Object.values(formValues).some(
-        v => typeof v === 'string' && v.toLowerCase().includes('bank transfer')
-      );
-      // Online payment is disabled for now. The registration is saved directly;
-      // when a card payment would be required we show an empty modal placeholder
-      // afterwards (payment content to be added later).
-      const needsPayment = paymentRequired && !isBankTransfer;
-
       const delegateData: Array<{ input_code: string; input_type: string; input_value: string; input_name: string }> = [];
       const submitForm = new FormData();
 
@@ -271,22 +279,19 @@ export default function RegistrationPage() {
         submitForm.append('extrafee', JSON.stringify({ input_id: 355, amount: 70, currency: 'USD' }));
       }
 
-      // Payment is not collected here anymore — send empty payment fields.
-      submitForm.append('order_id', '');
-      submitForm.append('payment_token', '');
-      submitForm.append('payment_session', '');
-      submitForm.append('acknowleadgment', '');
+      submitForm.append('order_id', payment.orderId || '');
+      submitForm.append('payment_token', payment.paymentToken || '');
+      submitForm.append('payment_session', payment.paymentSession || '');
+      submitForm.append('acknowleadgment', payment.transactionId || '');
 
-      const result = await smartEventPost<{ success?: boolean; message?: string | string[] }>('/Register-Delegate', submitForm);
+      const result = await smartEventPost<{ success?: boolean; message?: string | string[]; registration_number?: string | number }>('/Register-Delegate', submitForm);
 
       if (result.success !== false) {
-        // Registration saved. For card payments, show the empty payment modal
-        // placeholder; otherwise go straight to the success screen.
-        if (needsPayment) {
-          setShowPaymentModal(true);
-        } else {
-          setSubmitted(true);
+        // The badge / registration number returned by SmartEvent.
+        if (result.registration_number != null && result.registration_number !== '') {
+          setBadgeId(String(result.registration_number));
         }
+        setSubmitted(true);
 
         // Best-effort: mirror Deal Room & VIP Dinner delegates into NEXORA.
         // The server route owns the category gate; never blocks the success UI.
@@ -308,9 +313,104 @@ export default function RegistrationPage() {
       }
     } catch {
       setFormErrors(['Failed to submit registration. Please try again.']);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!validateStep()) return;
+    if (!selectedCategory) { setFormErrors(['Please select a category']); return; }
+
+    setFormErrors([]);
+
+    const isBankTransfer = Object.values(formValues).some(
+      v => typeof v === 'string' && v.toLowerCase().includes('bank transfer')
+    );
+    // Which gateway (if any) handles this submission — driven by the selected
+    // payment method. Bank transfer / free categories save directly.
+    const gateway = paymentRequired && !isBankTransfer ? selectedGateway : 'none';
+
+    // PawaPay: open the mobile-money modal; the registration is saved from its
+    // onSuccess callback once the deposit completes.
+    if (gateway === 'pawapay') {
+      setShowPawapayModal(true);
+      return;
     }
 
-    setSubmitting(false);
+    // Mastercard: run the embedded checkout, then save with the payment result.
+    if (gateway === 'mastercard') {
+      setSubmitting(true);
+      try {
+        setProcessingPayment(true);
+        const customerEmail = (formValues['input_id_52307'] as string) || '';
+        const firstName = (formValues['input_id_21576'] as string) || '';
+        const lastName = (formValues['input_id_35129'] as string) || '';
+
+        if (!customerEmail) {
+          setFormErrors(['Email is required for payment processing']);
+          setSubmitting(false);
+          setProcessingPayment(false);
+          return;
+        }
+
+        const totalAmount = parseFeeAmount(selectedCategory.fee) + (siteVisitSelected ? 70 : 0);
+        const currency = extractCurrency(selectedCategory.fee);
+
+        const session = await initializePayment({
+          orderId: paymentData.orderId,
+          amount: totalAmount,
+          currency,
+          categoryName: decodeHtml(selectedCategory.name_english),
+          categoryId: selectedCategory.id,
+          attendenceType: attendanceType || 'PHYSICAL',
+          customerEmail,
+          customerName: `${firstName} ${lastName}`.trim(),
+        });
+
+        if (!session) {
+          setFormErrors(['Failed to initialize payment. Please try again.']);
+          setSubmitting(false);
+          setProcessingPayment(false);
+          return;
+        }
+
+        setPaymentSession(session);
+        setShowPaymentModal(true);
+        setProcessingPayment(false);
+
+        const paymentResult: PaymentResult = await processPayment(session, {
+          orderId: paymentData.orderId,
+          amount: totalAmount,
+          currency,
+          categoryName: decodeHtml(selectedCategory.name_english),
+        });
+
+        setShowPaymentModal(false);
+
+        if (!paymentResult.success) {
+          setFormErrors([paymentResult.error || 'Payment was not completed. Please try again.']);
+          setSubmitting(false);
+          return;
+        }
+
+        await finalizeRegistration({
+          orderId: paymentResult.orderId,
+          paymentToken: paymentResult.paymentToken || '',
+          paymentSession: paymentResult.paymentSession || '',
+          transactionId: paymentResult.transactionId || '',
+        });
+      } catch {
+        setFormErrors(['Failed to process payment. Please try again.']);
+        setSubmitting(false);
+        setProcessingPayment(false);
+      }
+      return;
+    }
+
+    // Bank transfer / free: save directly.
+    await finalizeRegistration({});
   }
 
   function renderInput(input: FormInput, options: FormInputOption[], value: string) {
@@ -338,7 +438,11 @@ export default function RegistrationPage() {
               required={isRequired}
             >
               <option value="">Select...</option>
-              {options.map(opt => <option key={opt.id} value={opt.contentEnglish}>{opt.contentEnglish}</option>)}
+              {options.map(opt => (
+                <option key={opt.id} value={opt.contentEnglish}>
+                  {opt.contentEnglish === 'Online Payment' ? 'Visa / MasterCard' : opt.contentEnglish}
+                </option>
+              ))}
             </select>
             {hasError && <p className="mt-1 text-sm text-red-600">{fieldErrors[input.inputcode]}</p>}
           </>
@@ -457,6 +561,13 @@ export default function RegistrationPage() {
             <p className="mb-6" style={{ color: 'var(--muted)' }}>
               Thank you for registering for CBFF SME Forum 2026. You will receive a confirmation email shortly.
             </p>
+            {badgeId && (
+              <div className="mb-6 p-4 rounded-lg border" style={{ background: 'rgba(201,151,43,0.08)', borderColor: 'rgba(201,151,43,0.35)' }}>
+                <p className="text-xs uppercase tracking-wide font-semibold" style={{ color: 'var(--gold)' }}>Registration number</p>
+                <p className="text-2xl font-bold font-mono mt-1" style={{ color: 'var(--navy)' }}>{badgeId}</p>
+                <p className="text-xs mt-1" style={{ color: 'var(--muted)' }}>Please keep this for check-in.</p>
+              </div>
+            )}
             {paymentData.transactionId && (
               <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg text-left">
                 <h3 className="text-sm font-semibold text-green-800 mb-3">Payment Details</h3>
@@ -496,6 +607,21 @@ export default function RegistrationPage() {
     siteVisitInputCode !== null &&
     typeof formValues[siteVisitInputCode] === 'string' &&
     (formValues[siteVisitInputCode] as string).trim().toLowerCase().startsWith('yes');
+
+  // Selected payment method drives which gateway runs on submit. "Online
+  // Payment" (shown as "Visa / MasterCard") → Mastercard; "PawaPay" → PawaPay.
+  const paymentMethodInput = formGroups
+    .flatMap(g => g.inputs)
+    .find(({ input }) => input.nameEnglish.toLowerCase().includes('payment method'));
+  const paymentMethodValue = paymentMethodInput
+    ? String(formValues[paymentMethodInput.input.inputcode] || '')
+    : '';
+  const selectedGateway: 'mastercard' | 'pawapay' | 'none' =
+    /pawapay/i.test(paymentMethodValue)
+      ? 'pawapay'
+      : /online payment|visa|mastercard/i.test(paymentMethodValue)
+        ? 'mastercard'
+        : 'none';
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'var(--light)' }}>
@@ -587,24 +713,24 @@ export default function RegistrationPage() {
                 {categories.map(category => {
                   const isFree = !requiresPayment(category.fee);
                   return (
-                    <div key={category.id} className="border-2 rounded-xl p-6 hover:shadow-lg transition-all relative overflow-hidden" style={{ borderColor: 'var(--border)' }}>
+                    <div key={category.id} className="border-2 rounded-xl p-6 hover:shadow-lg transition-all relative overflow-hidden flex flex-col h-full" style={{ borderColor: 'var(--border)' }}>
                       {isFree && (
                         <div className="absolute top-0 right-0 text-white text-xs font-bold px-3 py-1 rounded-bl-lg" style={{ background: '#16a34a' }}>
                           FREE
                         </div>
                       )}
-                      <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--navy)', fontFamily: 'var(--font-poppins),sans-serif' }}>
+                      <h3 className="text-lg font-semibold mb-2 min-h-14 pr-12" style={{ color: 'var(--navy)', fontFamily: 'var(--font-poppins),sans-serif' }}>
                         {decodeHtml(category.name_english)}
                       </h3>
-                      <p className="text-2xl font-bold mb-4" style={{ color: isFree ? '#16a34a' : 'var(--gold)' }}>
+                      <p className="text-2xl font-bold mb-3" style={{ color: isFree ? '#16a34a' : 'var(--gold)' }}>
                         {category.fee}
                       </p>
-                      <p className="text-sm mb-4" style={{ color: 'var(--muted)' }}>
+                      <p className="text-sm mb-5" style={{ color: 'var(--muted)' }}>
                         {category.early_payment_date ? `Early bird ends: ${category.early_payment_date}` : `Registration closes: ${category.end_date}`}
                       </p>
                       <button
                         onClick={() => selectCategory(category)}
-                        className="w-full py-2 rounded-lg text-white font-semibold transition-colors"
+                        className="w-full py-2 rounded-lg text-white font-semibold transition-colors mt-auto"
                         style={{ background: isFree ? '#16a34a' : 'var(--navy)' }}
                       >
                         Register
@@ -807,36 +933,41 @@ export default function RegistrationPage() {
         )}
       </div>
 
-      {/* Empty payment modal placeholder — payment content to be added later. */}
-      {showPaymentModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg">
-            <div className="flex items-center justify-between px-5 py-4 border-b">
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--navy)', fontFamily: 'var(--font-poppins),sans-serif' }}>Payment</h3>
-              <button
-                type="button"
-                onClick={() => { setShowPaymentModal(false); setSubmitted(true); }}
-                className="text-gray-400 hover:text-gray-600 text-xl leading-none"
-                aria-label="Close"
-              >
-                &times;
-              </button>
-            </div>
-            <div className="px-5 py-12 text-center">
-              <p className="text-sm" style={{ color: 'var(--muted)' }}>Payment will be available here shortly.</p>
-            </div>
-            <div className="px-5 py-4 border-t flex justify-end">
-              <button
-                type="button"
-                onClick={() => { setShowPaymentModal(false); setSubmitted(true); }}
-                className="px-5 py-2 rounded-lg text-white font-semibold"
-                style={{ background: 'var(--navy)' }}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
+      {/* Mastercard embedded checkout */}
+      {paymentSession && selectedCategory && (
+        <PaymentModal
+          session={paymentSession}
+          amount={parseFeeAmount(selectedCategory.fee) + (siteVisitSelected ? 70 : 0)}
+          currency={extractCurrency(selectedCategory.fee)}
+          categoryName={decodeHtml(selectedCategory.name_english)}
+          customerEmail={(formValues['input_id_52307'] as string) || ''}
+          isOpen={showPaymentModal}
+          onClose={() => {
+            setShowPaymentModal(false);
+            setProcessingPayment(false);
+            setSubmitting(false);
+          }}
+        />
+      )}
+
+      {/* PawaPay mobile-money payment */}
+      {selectedCategory && (
+        <PawaPayModal
+          isOpen={showPawapayModal}
+          amountUsd={parseFeeAmount(selectedCategory.fee) + (siteVisitSelected ? 70 : 0)}
+          email={(formValues['input_id_52307'] as string) || ''}
+          name={`${(formValues['input_id_21576'] as string) || ''} ${(formValues['input_id_35129'] as string) || ''}`.trim()}
+          onSuccess={(depositId) => {
+            setShowPawapayModal(false);
+            // Mirror the Mastercard flow: order_id is the client reference,
+            // and the gateway's confirmation (depositId) is the acknowledgment.
+            void finalizeRegistration({ orderId: paymentData.orderId, transactionId: depositId });
+          }}
+          onClose={() => {
+            setShowPawapayModal(false);
+            setSubmitting(false);
+          }}
+        />
       )}
     </div>
   );
