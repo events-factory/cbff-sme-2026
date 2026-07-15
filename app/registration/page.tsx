@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import PaymentModal from '@/components/PaymentModal';
 import PawaPayModal from '@/components/PawaPayModal';
+import Faq, { faqJsonLd } from '@/components/Faq';
 import {
   initializePayment,
   processPayment,
@@ -15,6 +16,14 @@ import {
 } from '@/lib/payment';
 
 const SMARTEVENT_API = '/api/smartevent';
+
+const registrationFaq = [
+  { q: 'What is included in my registration fee?', a: 'Access to all conference sessions, panels, and the Deal Room for the selected category, plus refreshments and conference materials. Specific inclusions vary by registration category — see each category card for its fee and closing date.' },
+  { q: 'Can I register for virtual attendance?', a: 'Where the event is set up as hybrid, you can choose virtual attendance during registration and follow all sessions online.' },
+  { q: 'What payment methods are accepted?', a: 'Visa / MasterCard (online payment), PawaPay mobile money, and bank transfer, depending on the registration category selected.' },
+  { q: 'Can I add a site visit to my registration?', a: 'Yes, an optional site visit can be added for a flat fee of USD 70 during the registration form.' },
+  { q: 'Who do I contact if I have a payment or registration issue?', a: 'Email info@netkigali.com or use the WhatsApp button on this site for a faster response.' },
+];
 
 function decodeHtml(str: string): string {
   return str
@@ -932,6 +941,12 @@ export default function RegistrationPage() {
           </div>
         )}
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(registrationFaq)) }}
+      />
+      <Faq eyebrow="Questions" title="Registration FAQ" items={registrationFaq} />
 
       {/* Mastercard embedded checkout */}
       {paymentSession && selectedCategory && (

@@ -5,8 +5,8 @@ export default function JsonLd() {
     name: "CBFF-SME 2026 — Cross-Border Finance Forum for SMEs",
     description:
       "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. A premier two-day conference connecting African SMEs with banks, investors, and policymakers.",
-    startDate: "2026-08-10",
-    endDate: "2026-08-11",
+    startDate: "2026-11-19",
+    endDate: "2026-11-20",
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     location: {

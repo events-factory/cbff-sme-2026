@@ -214,8 +214,8 @@ export default function DestinationPage() {
               <p style={{ fontSize: 15, color: "rgba(255,255,255,.75)", lineHeight: 1.8 }}>{T.climateBody}</p>
               <div style={{ marginTop: 24, display: "flex", gap: 20 }}>
                 {[
-                  { val: "15–25°C", lbl: lang === "fr" ? "Température Diurne" : "Daytime Temp" },
-                  { val: lang === "fr" ? "Saison Sèche" : "Dry Season", lbl: lang === "fr" ? "Conditions" : "Conditions" },
+                  { val: "16–25°C", lbl: lang === "fr" ? "Température Diurne" : "Daytime Temp" },
+                  { val: lang === "fr" ? "Petite Saison des Pluies" : "Short Rains", lbl: lang === "fr" ? "Conditions" : "Conditions" },
                 ].map((s) => (
                   <div key={s.val} style={{ background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.12)", padding: "16px 20px", flex: 1, textAlign: "center" }}>
                     <div style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 18, fontWeight: 800, color: "var(--gold)", marginBottom: 4 }}>{s.val}</div>

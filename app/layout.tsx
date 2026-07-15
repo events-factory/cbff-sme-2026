@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import JsonLd from "@/components/JsonLd";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const LINKEDIN_PARTNER_ID = "10229233";
 const META_PIXEL_ID = "976665285214916";
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
     template: "%s | CBFF-SME 2026",
   },
   description:
-    "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. Join 500+ leaders, investors, and policymakers at Kigali Serena Hotel, Rwanda — August 10–11, 2026.",
+    "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. Join 500+ leaders, investors, and policymakers at Kigali Serena Hotel, Rwanda — November 19–20, 2026.",
   keywords: [
     "CBFF SME 2026",
     "Cross-Border Finance Forum",
@@ -64,7 +65,7 @@ export const metadata: Metadata = {
     siteName: "CBFF-SME 2026",
     title: "CBFF-SME 2026 | Cross-Border Finance Forum — Kigali, Rwanda",
     description:
-      "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. Kigali Serena Hotel, August 10–11, 2026.",
+      "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. Kigali Serena Hotel, November 19–20, 2026.",
     images: [
       {
         url: "/CBFF_logo_original_transparent.png",
@@ -78,7 +79,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CBFF-SME 2026 | Cross-Border Finance Forum — Kigali, Rwanda",
     description:
-      "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. August 10–11, 2026.",
+      "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. November 19–20, 2026.",
     images: ["/CBFF_logo_original_transparent.png"],
   },
   robots: {
@@ -111,6 +112,7 @@ export default function RootLayout({
           <Navbar />
           <main>{children}</main>
           <Footer />
+          <WhatsAppButton />
         </LanguageProvider>
         <Script id="meta-pixel" strategy="afterInteractive">
           {`

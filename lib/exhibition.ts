@@ -22,6 +22,13 @@ export function getBookingKey(product: ApiProduct): string {
   return product.packagecode || product.product_code || String(product.id ?? '');
 }
 
+// The sandbox API sometimes returns banner URLs on the sandbox host, which
+// isn't a live image host; point them at the production asset host instead.
+function normalizeBanner(product: ApiProduct): ApiProduct {
+  if (!product.banner) return product;
+  return { ...product, banner: product.banner.replace('sandbox.smartevent.rw', 'app.smartevent.rw') };
+}
+
 export interface PaymentMethod {
   id: string | number;
   contentEnglish: string;
@@ -66,7 +73,9 @@ export async function fetchExhibitionPackageById(id: number | string): Promise<P
   const text = await res.text();
   if (!text) return null;
   try {
-    return JSON.parse(text) as PackageDetailsResponse;
+    const parsed = JSON.parse(text) as PackageDetailsResponse;
+    if (parsed.product) parsed.product = normalizeBanner(parsed.product);
+    return parsed;
   } catch {
     return null;
   }
@@ -80,7 +89,10 @@ export async function fetchExhibitionPackages(): Promise<PackagesResponse> {
   const text = res.ok ? await res.text() : '';
   if (text) {
     const parsed = JSON.parse(text) as PackagesResponse;
-    if (parsed.products && parsed.products.length > 0) return parsed;
+    if (parsed.products && parsed.products.length > 0) {
+      parsed.products = parsed.products.map(normalizeBanner);
+      return parsed;
+    }
   }
 
   const detailResults = await Promise.all(EXHIBITION_PRODUCT_IDS.map((id) => fetchExhibitionPackageById(id)));
