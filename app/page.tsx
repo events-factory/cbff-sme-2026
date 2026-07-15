@@ -17,7 +17,7 @@ export default function Home() {
 
   const heroInfo = [
     { Icon: MapPin,   strong: "Kigali Serena Hotel",      sub: "Venue" },
-    { Icon: Calendar, strong: lang === "fr" ? "10 – 11 août 2026" : "August 10 – 11, 2026", sub: T.twoDaysForum },
+    { Icon: Calendar, strong: lang === "fr" ? "19 – 20 novembre 2026" : "November 19 – 20, 2026", sub: T.twoDaysForum },
     { Icon: Users,    strong: T.dealRoomNetworking,  sub: T.investmentMatchmaking },
   ];
 
@@ -273,7 +273,7 @@ export default function Home() {
             </span>
           </div>
           <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,.35)" }}>
-            Rwanda · {lang === "fr" ? "Août" : "August"} 2026
+            Rwanda · {lang === "fr" ? "Novembre" : "November"} 2026
           </span>
         </div>
 
@@ -468,6 +468,33 @@ export default function Home() {
                 )}
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Sponsor CTA ────────────────────────────── */}
+      <section style={{ background: "var(--navy)", padding: "56px 24px", borderTop: "1px solid rgba(201,151,43,.25)" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 28 }}>
+          <div style={{ maxWidth: 640 }}>
+            <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 10 }}>
+              {lang === "fr" ? "Parrainage" : "Sponsorship"}
+            </p>
+            <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(20px,2.5vw,28px)", fontWeight: 800, color: "var(--white)", marginBottom: 10 }}>
+              {lang === "fr" ? "Devenez Sponsor du CBFF-SME 2026" : "Become a CBFF-SME 2026 Sponsor"}
+            </h2>
+            <p style={{ fontSize: 14, color: "rgba(255,255,255,.65)", lineHeight: 1.7, margin: 0 }}>
+              {lang === "fr"
+                ? "Positionnez votre institution devant 500+ décideurs, banquiers et investisseurs venus de plus de 30 pays."
+                : "Position your institution in front of 500+ decision-makers, bankers, and investors from 30+ countries."}
+            </p>
+          </div>
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+            <Link href="/sponsors" style={{ display: "inline-block", padding: "13px 28px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", borderRadius: 2, background: "var(--gold)", color: "var(--white)", textDecoration: "none" }}>
+              {lang === "fr" ? "Voir les Offres" : "View Sponsorship Offers"}
+            </Link>
+            <a href="https://wa.me/250788991551" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", padding: "13px 28px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", borderRadius: 2, border: "2px solid var(--white)", color: "var(--white)", textDecoration: "none" }}>
+              {lang === "fr" ? "Nous Contacter sur WhatsApp" : "Chat with Us on WhatsApp"}
+            </a>
           </div>
         </div>
       </section>

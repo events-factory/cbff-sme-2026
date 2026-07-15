@@ -149,7 +149,7 @@ export default function ExhibitionPage() {
               {[
                 {
                   label: lang === 'fr' ? 'Dates du Forum' : 'Forum Dates',
-                  val: lang === 'fr' ? '10–11 Août 2026' : 'August 10–11, 2026',
+                  val: lang === 'fr' ? '19–20 Novembre 2026' : 'November 19–20, 2026',
                 },
                 {
                   label: lang === 'fr' ? 'Lieu' : 'Venue',
@@ -158,7 +158,7 @@ export default function ExhibitionPage() {
                 {
                   label:
                     lang === 'fr' ? "Délai d'Inscription" : 'Booking Deadline',
-                  val: lang === 'fr' ? '30 Juin 2026' : 'June 30, 2026',
+                  val: lang === 'fr' ? '8 Octobre 2026' : 'October 8, 2026',
                 },
                 {
                   label:

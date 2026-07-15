@@ -1,29 +1,43 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const TARGET = new Date("2026-08-10T08:30:00").getTime();
+const TARGET = new Date("2026-11-19T08:00:00+02:00").getTime();
 
 function calc() {
   const diff = TARGET - Date.now();
-  if (diff <= 0) return { d: 0, h: 0, m: 0, s: 0 };
+  if (diff <= 0) return { d: 0, h: 0, m: 0, s: 0, started: true };
   return {
     d: Math.floor(diff / 86400000),
     h: Math.floor((diff % 86400000) / 3600000),
     m: Math.floor((diff % 3600000) / 60000),
     s: Math.floor((diff % 60000) / 1000),
+    started: false,
   };
 }
 
 function pad(n: number) { return String(n).padStart(2, "0"); }
 
 export default function CountdownTimer() {
-  const [t, setT] = useState({ d: 0, h: 0, m: 0, s: 0 });
+  const [t, setT] = useState(calc);
 
   useEffect(() => {
     setT(calc());
     const id = setInterval(() => setT(calc()), 1000);
     return () => clearInterval(id);
   }, []);
+
+  if (t.started) {
+    return (
+      <div style={{
+        background: "rgba(0,0,0,.3)", borderTop: "1px solid rgba(201,151,43,.25)",
+        padding: "20px 24px", textAlign: "center",
+      }}>
+        <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, letterSpacing: 2, textTransform: "uppercase", color: "var(--gold)" }}>
+          CBFF-SME 2026 is underway in Kigali
+        </span>
+      </div>
+    );
+  }
 
   const units = [
     { num: pad(t.d), lbl: "Days" },

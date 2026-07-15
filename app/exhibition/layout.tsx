@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Exhibition | CBFF-SME 2026",
     description:
-      "Exhibition booths and showcasing opportunities at the Cross-Border Finance Forum for SMEs — Kigali, Rwanda, August 2026.",
+      "Exhibition booths and showcasing opportunities at the Cross-Border Finance Forum for SMEs — Kigali, Rwanda, November 2026.",
     url: "https://cbffsme.com/exhibition",
   },
 };
