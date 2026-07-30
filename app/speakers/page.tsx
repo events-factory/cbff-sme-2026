@@ -32,16 +32,16 @@ export default function SpeakersPage() {
             {lang === "fr" ? "Bientôt Disponible" : "Coming Soon"}
           </p>
           <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(24px,3vw,36px)", fontWeight: 800, color: "var(--navy)", marginBottom: 16, lineHeight: 1.2 }}>
-            {lang === "fr" ? "Les Intervenants Seront Annoncés" : "Speakers Will Be Announced"}
+            {lang === "fr" ? "Le Panel Sera Annoncé" : "Panel Will Be Announced"}
           </h2>
           <div style={{ width: 48, height: 3, background: "var(--gold)", margin: "0 auto 24px" }} />
           <p style={{ fontSize: 15, color: "var(--muted)", lineHeight: 1.8, marginBottom: 40 }}>
             {lang === "fr"
-              ? "Nous finalisons un programme exceptionnel d'intervenants de haut niveau. Revenez bientôt pour découvrir les leaders, experts et décideurs qui façonneront les discussions du CBFF-PME 2026."
-              : "We are finalising an exceptional line-up of high-level speakers. Check back soon to discover the leaders, experts, and policymakers who will shape the conversations at CBFF-SME 2026."}
+              ? "Nous finalisons un panel exceptionnel d'intervenants de haut niveau. Revenez bientôt pour découvrir les leaders, experts et décideurs qui façonneront les discussions du CBFF-PME 2026."
+              : "We are finalising an exceptional panel of high-level speakers. Check back soon to discover the leaders, experts, and policymakers who will shape the conversations at CBFF-SME 2026."}
           </p>
           <Link
-            href="/registration"
+            href="/registration?interest=panelist"
             style={{
               display: "inline-block", padding: "13px 32px",
               fontFamily: "var(--font-poppins),sans-serif",
@@ -51,7 +51,7 @@ export default function SpeakersPage() {
               textDecoration: "none",
             }}
           >
-            {lang === "fr" ? "S'inscrire au Forum →" : "Register for the Forum →"}
+            {lang === "fr" ? "S'inscrire comme Panéliste →" : "Register Interest to Become a Panelist →"}
           </Link>
         </div>
       </section>
