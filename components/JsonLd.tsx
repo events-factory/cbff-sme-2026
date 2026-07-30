@@ -2,7 +2,7 @@ export default function JsonLd() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: "CBFF-SME 2026 — Cross-Border Finance Forum for SMEs",
+    name: "CBFF-SME 2026 — Continental Business & Finance Forum for SMEs",
     description:
       "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. A premier two-day conference connecting African SMEs with banks, investors, and policymakers.",
     startDate: "2026-11-19",

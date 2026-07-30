@@ -246,7 +246,7 @@ export default function AboutPage() {
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
           <p style={{ fontSize: 16, color: "var(--muted)", marginBottom: 24 }}>{T.ctaText}</p>
           <Link href="/speakers" style={{ display: "inline-block", padding: "13px 32px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", borderRadius: 2, background: "var(--gold)", color: "var(--white)", textDecoration: "none" }}>
-            {lang === "fr" ? "Voir les Intervenants →" : "Meet the Speakers →"}
+            {lang === "fr" ? "Voir le Panel →" : "Meet the Panel →"}
           </Link>
         </div>
       </section>

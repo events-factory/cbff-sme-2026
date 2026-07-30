@@ -2,7 +2,6 @@ import Image from "next/image";
 
 const logos = [
   { code: "RDB",       name: "Rwanda Dev. Board",      img: "/logos/rdb.png" },
-  { code: "BNR",       name: "National Bank of Rwanda", img: "/logos/bnr.png" },
   { code: "BOK",       name: "Bank of Kigali",          img: "/logos/bok.png" },
   { code: "I&M",       name: "I&M Bank",                img: "/logos/imbank.png" },
   { code: "BOA",       name: "Bank of Africa",          img: "/logos/boa.png" },

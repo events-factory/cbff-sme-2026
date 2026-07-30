@@ -16,9 +16,16 @@ export default function DestinationPage() {
 
   return (
     <>
-      {/* Hero */}
-      <div style={{ position: "relative", minHeight: 420, display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
-        <Image src="/kigali-city-5.jpg" alt="Kigali, Rwanda" fill style={{ objectFit: "cover", objectPosition: "center" }} priority />
+      {/* Hero — Kigali video */}
+      <div style={{ position: "relative", minHeight: 420, display: "flex", alignItems: "flex-end", overflow: "hidden", background: "#000" }}>
+        <div style={{ position: "absolute", inset: 0 }}>
+          <iframe
+            src="https://www.youtube.com/embed/v1SIZoSfoIc?autoplay=1&mute=1&loop=1&playlist=v1SIZoSfoIc&controls=0&rel=0&modestbranding=1&showinfo=0"
+            style={{ position: "absolute", top: "50%", left: "50%", width: "100%", height: "100%", minWidth: "177.78vh", minHeight: "56.25vw", transform: "translate(-50%, -50%)", border: "none", pointerEvents: "none" }}
+            allow="autoplay; encrypted-media"
+            title="Kigali, Rwanda"
+          />
+        </div>
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,25,47,.95) 0%, rgba(10,25,47,.6) 60%, rgba(10,25,47,.3) 100%)" }} />
         <div style={{ position: "relative", maxWidth: 1160, margin: "0 auto", width: "100%", padding: "80px 24px 60px" }}>
           <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>{T.eyebrow}</p>
