@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Register | CBFF-SME 2026 — Africa SME Finance Forum",
     description:
-      "Secure your place at the Cross-Border Finance Forum for SMEs — Kigali Serena Hotel, Rwanda, November 19–20, 2026.",
+      "Secure your place at the Continental Business & Finance Forum for SMEs — Kigali Serena Hotel, Rwanda, November 19–20, 2026.",
     url: "https://cbffsme.com/registration",
   },
 };

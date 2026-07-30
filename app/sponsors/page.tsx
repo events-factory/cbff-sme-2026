@@ -4,11 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/lib/LanguageContext";
 import { t } from "@/locales/translations";
-import { Fragment } from "react";
 import Faq, { faqJsonLd } from "@/components/Faq";
 import { waLink } from "@/components/WhatsAppButton";
 
-const tierBgs = ["var(--navy2)", "#0f6b5c", "#4a4a6a", "var(--gold)", "var(--muted)"];
+const tierBgs = ["#0f6b5c", "#4a4a6a", "var(--gold)", "var(--muted)"];
 
 export default function SponsorsPage() {
   const { lang } = useLanguage();
@@ -79,7 +78,7 @@ export default function SponsorsPage() {
       <section style={{ padding: "80px 0", background: "var(--navy)" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
           <SectionHeader eyebrow={T.tiersEyebrow} title={T.tiersTitle} dark lead={T.tiersLead} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 16 }} className="grid-5">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }} className="grid-4">
             {T.tiers.map((tier, i) => (
               <div key={tier.label} style={{ border: "1px solid var(--border)", overflow: "hidden", background: "var(--white)", display: "flex", flexDirection: "column" }}>
                 <div style={{ padding: "14px 16px", background: tierBgs[i], fontFamily: "var(--font-poppins),sans-serif", fontSize: 14, fontWeight: 700, color: "var(--white)" }}>{tier.label}</div>
@@ -93,42 +92,6 @@ export default function SponsorsPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits comparison table */}
-      <section style={{ padding: "80px 0", background: "var(--light)" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
-          <SectionHeader eyebrow={T.benefitsEyebrow} title={T.benefitsTitle} lead={T.benefitsLead} />
-          <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 820, background: "var(--white)" }}>
-              <thead>
-                <tr style={{ background: "var(--navy)" }}>
-                  <th style={{ textAlign: "left", padding: "14px 16px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, color: "var(--white)", fontWeight: 700 }}>{lang === "fr" ? "Avantage" : "Benefit"}</th>
-                  {T.benefitColumns.map((col, i) => (
-                    <th key={col} style={{ textAlign: "center", padding: "14px 12px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 12, color: i === 0 ? "var(--gold)" : "var(--white)", fontWeight: 700, whiteSpace: "pre-line" }}>{col}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {T.benefitCategories.map((cat) => (
-                  <Fragment key={cat.category}>
-                    <tr style={{ background: "var(--navy2)" }}>
-                      <td colSpan={6} style={{ padding: "8px 16px", fontSize: 11, letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 700, color: "var(--gold)" }}>{cat.category}</td>
-                    </tr>
-                    {cat.rows.map((row, ri) => (
-                      <tr key={row.label} style={{ background: ri % 2 === 0 ? "var(--white)" : "var(--light)" }}>
-                        <td style={{ padding: "10px 16px", fontSize: 13, color: "var(--navy)", borderBottom: "1px solid var(--border)" }}>{row.label}</td>
-                        {row.vals.map((v, vi) => (
-                          <td key={vi} style={{ padding: "10px 12px", fontSize: 13, color: vi === 0 ? "var(--gold)" : "var(--navy)", fontWeight: vi === 0 ? 700 : 400, textAlign: "center", borderBottom: "1px solid var(--border)" }}>{v}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </Fragment>
-                ))}
-              </tbody>
-            </table>
           </div>
         </div>
       </section>
@@ -208,7 +171,6 @@ export default function SponsorsPage() {
               <div key={op.num} style={{ border: "1px solid var(--border)", padding: 24, background: "var(--white)" }}>
                 <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 8 }}>{op.tag}</p>
                 <h4 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 16, fontWeight: 700, color: "var(--navy)", marginBottom: 6 }}>{op.title}</h4>
-                <p style={{ fontSize: 12, color: "var(--muted)", marginBottom: 14 }}>{T.targetLabel}: {op.target}</p>
                 <p style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.7, marginBottom: 14 }}>{op.rationale}</p>
                 <p style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.6 }}><strong style={{ color: "var(--gold)" }}>{T.roiLabel}:</strong> {op.roi}</p>
               </div>

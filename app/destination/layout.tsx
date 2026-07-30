@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Destination Kigali | CBFF-SME 2026",
     description:
-      "Kigali, Rwanda: Africa's Innovation Capital and host city for the Cross-Border Finance Forum for SMEs 2026. Discover why Kigali leads Africa.",
+      "Kigali, Rwanda: Africa's Innovation Capital and host city for the Continental Business & Finance Forum for SMEs 2026. Discover why Kigali leads Africa.",
     url: "https://cbffsme.com/destination",
   },
 };

@@ -30,14 +30,14 @@ const BASE_URL = "https://cbffsme.com";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "CBFF-SME 2026 | Cross-Border Finance Forum for SMEs — Kigali, Rwanda",
+    default: "CBFF-SME 2026 | Continental Business & Finance Forum for SMEs — Kigali, Rwanda",
     template: "%s | CBFF-SME 2026",
   },
   description:
     "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. Join 500+ leaders, investors, and policymakers at Kigali Serena Hotel, Rwanda — November 19–20, 2026.",
   keywords: [
     "CBFF SME 2026",
-    "Cross-Border Finance Forum",
+    "Continental Business & Finance Forum",
     "SME Africa",
     "Kigali conference 2026",
     "Africa SME finance",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     alternateLocale: "fr_FR",
     url: BASE_URL,
     siteName: "CBFF-SME 2026",
-    title: "CBFF-SME 2026 | Cross-Border Finance Forum — Kigali, Rwanda",
+    title: "CBFF-SME 2026 | Continental Business & Finance Forum — Kigali, Rwanda",
     description:
       "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. Kigali Serena Hotel, November 19–20, 2026.",
     images: [
@@ -71,13 +71,13 @@ export const metadata: Metadata = {
         url: "/CBFF_logo_original_transparent.png",
         width: 1200,
         height: 630,
-        alt: "CBFF-SME 2026 — Cross-Border Finance Forum for SMEs, Kigali Rwanda",
+        alt: "CBFF-SME 2026 — Continental Business & Finance Forum for SMEs, Kigali Rwanda",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CBFF-SME 2026 | Cross-Border Finance Forum — Kigali, Rwanda",
+    title: "CBFF-SME 2026 | Continental Business & Finance Forum — Kigali, Rwanda",
     description:
       "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. November 19–20, 2026.",
     images: ["/CBFF_logo_original_transparent.png"],
