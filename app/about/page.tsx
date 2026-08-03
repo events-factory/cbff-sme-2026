@@ -216,6 +216,19 @@ export default function AboutPage() {
             </div>
           </div>
 
+          {/* Priority Sectors */}
+          <div style={{ marginBottom: 32 }}>
+            <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,.5)", marginBottom: 16 }}>{T.rwandaSectorsTitle}</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20 }} className="grid-2">
+              {T.rwandaSectors.map((s) => (
+                <div key={s.title} style={{ background: "rgba(212,175,55,.08)", border: "1px solid rgba(212,175,55,.25)", padding: "24px" }}>
+                  <h4 style={{ color: "var(--white)", fontSize: 14, fontFamily: "var(--font-poppins),sans-serif", fontWeight: 700, marginBottom: 8 }}>{s.title}</h4>
+                  <p style={{ color: "rgba(255,255,255,.75)", fontSize: 13.5 }}>{s.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Cards */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20 }} className="grid-2">
             {T.rwandaReasons.map((r) => (

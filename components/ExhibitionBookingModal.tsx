@@ -29,7 +29,12 @@ export default function ExhibitionBookingModal(props: Props) {
   return <BookingModalContent {...props} product={props.product} />;
 }
 
-function BookingModalContent({ onClose, product, paymentMethods, lang }: Props & { product: ApiProduct }) {
+function BookingModalContent({
+  onClose,
+  product,
+  paymentMethods,
+  lang,
+}: Props & { product: ApiProduct }) {
   const [step, setStep] = useState<Step>('details');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -50,7 +55,8 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
         details: 'Vos coordonnées',
         review: 'Récapitulatif & Paiement',
         success: 'Réservation confirmée',
-        successBody: 'Votre demande a été reçue. Vous recevrez un e-mail de confirmation sous peu.',
+        successBody:
+          'Votre demande a été reçue. Vous recevrez un e-mail de confirmation sous peu.',
         contactName: 'Nom du contact',
         emailLabel: 'E-mail',
         phoneLabel: 'Téléphone',
@@ -73,7 +79,8 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
         gatewayLoading: 'Initialisation du paiement sécurisé…',
         close: 'Fermer',
         required: '*',
-        noPayment: 'Aucune méthode de paiement disponible. Contactez info@netkigali.com.',
+        noPayment:
+          'Aucune méthode de paiement disponible. Contactez info@cbffsme.com.',
       };
     }
     return {
@@ -81,7 +88,8 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
       details: 'Your Details',
       review: 'Review & Pay',
       success: 'Booking Confirmed',
-      successBody: 'Your request has been received. You will get a confirmation email shortly.',
+      successBody:
+        'Your request has been received. You will get a confirmation email shortly.',
       contactName: 'Contact Name',
       emailLabel: 'Email',
       phoneLabel: 'Phone',
@@ -104,7 +112,8 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
       gatewayLoading: 'Initializing secure payment…',
       close: 'Close',
       required: '*',
-      noPayment: 'No payment methods available. Please contact info@netkigali.com.',
+      noPayment:
+        'No payment methods available. Please contact info@cbffsme.com.',
     };
   }, [lang]);
 
@@ -131,7 +140,9 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
       setStep('success');
     } catch (err) {
       console.error('Booking submission error:', err);
-      setSubmitError(err instanceof Error ? err.message : 'Failed to submit booking.');
+      setSubmitError(
+        err instanceof Error ? err.message : 'Failed to submit booking.',
+      );
     } finally {
       setSubmitting(false);
     }
@@ -141,7 +152,10 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
     setSubmitting(true);
     setSubmitError(null);
     try {
-      const session = await initiateExhibitionGatewaySession(getBookingKey(product), '1');
+      const session = await initiateExhibitionGatewaySession(
+        getBookingKey(product),
+        '1',
+      );
       if (session.data?.result !== 'SUCCESS') {
         throw new Error('Payment gateway initialization failed');
       }
@@ -173,7 +187,9 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
         delete window.completeCallback;
         delete window.errorCallback;
         delete window.cancelCallback;
-        setSubmitError(error?.['error.explanation'] || 'Payment processing failed');
+        setSubmitError(
+          error?.['error.explanation'] || 'Payment processing failed',
+        );
         setStep('review');
       };
       window.cancelCallback = () => {
@@ -195,7 +211,9 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
       }, 100);
     } catch (err) {
       console.error('Gateway initialization error:', err);
-      setSubmitError(err instanceof Error ? err.message : 'Failed to initialize payment.');
+      setSubmitError(
+        err instanceof Error ? err.message : 'Failed to initialize payment.',
+      );
     } finally {
       setSubmitting(false);
     }
@@ -308,7 +326,9 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
               marginBottom: 4,
             }}
           >
-            {lang === 'fr' && product.name_french ? product.name_french : product.name_english}
+            {lang === 'fr' && product.name_french
+              ? product.name_french
+              : product.name_english}
           </h2>
           <p style={{ fontSize: 13, color: 'var(--muted)' }}>
             {product.sizes} · {formatPrice(totalPrice)}
@@ -328,7 +348,13 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
             >
               {T.details}
             </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 16,
+              }}
+            >
               <Field label={`${T.contactName} ${T.required}`}>
                 <input
                   type="text"
@@ -382,14 +408,25 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
               </Field>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12, marginTop: 24 }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                gap: 12,
+                marginTop: 24,
+              }}
+            >
               <button onClick={handleClose} style={btnSecondary}>
                 {T.cancel}
               </button>
               <button
                 onClick={() => setStep('review')}
                 disabled={!detailsValid}
-                style={{ ...btnPrimary, opacity: detailsValid ? 1 : 0.5, cursor: detailsValid ? 'pointer' : 'not-allowed' }}
+                style={{
+                  ...btnPrimary,
+                  opacity: detailsValid ? 1 : 0.5,
+                  cursor: detailsValid ? 'pointer' : 'not-allowed',
+                }}
               >
                 {T.next}
               </button>
@@ -419,13 +456,23 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
                 marginBottom: 16,
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  marginBottom: 8,
+                }}
+              >
                 <strong style={{ fontSize: 14, color: 'var(--navy)' }}>
-                  {lang === 'fr' && product.name_french ? product.name_french : product.name_english}
+                  {lang === 'fr' && product.name_french
+                    ? product.name_french
+                    : product.name_english}
                 </strong>
                 <span style={{ fontSize: 14 }}>{formatPrice(totalPrice)}</span>
               </div>
-              <div style={{ fontSize: 12, color: 'var(--muted)' }}>{product.sizes}</div>
+              <div style={{ fontSize: 12, color: 'var(--muted)' }}>
+                {product.sizes}
+              </div>
             </div>
 
             <div
@@ -480,17 +527,37 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
                 marginBottom: 16,
               }}
             >
-              <span style={{ fontFamily: 'var(--font-poppins),sans-serif', fontWeight: 700, color: 'var(--navy)' }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-poppins),sans-serif',
+                  fontWeight: 700,
+                  color: 'var(--navy)',
+                }}
+              >
                 {T.total}
               </span>
-              <strong style={{ fontFamily: 'var(--font-poppins),sans-serif', fontSize: 18, color: 'var(--navy)' }}>
+              <strong
+                style={{
+                  fontFamily: 'var(--font-poppins),sans-serif',
+                  fontSize: 18,
+                  color: 'var(--navy)',
+                }}
+              >
                 {formatPrice(totalPrice)}
               </strong>
             </div>
 
             <Field label={`${T.paymentMethod} ${T.required}`}>
               {paymentMethods.length === 0 ? (
-                <p style={{ fontSize: 13, color: 'var(--muted)', padding: '8px 0' }}>{T.noPayment}</p>
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: 'var(--muted)',
+                    padding: '8px 0',
+                  }}
+                >
+                  {T.noPayment}
+                </p>
               ) : (
                 <select
                   value={paymentMethod}
@@ -501,7 +568,9 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
                   <option value="">{T.selectPayment}</option>
                   {paymentMethods.map((m) => (
                     <option key={m.id} value={m.id}>
-                      {lang === 'fr' && m.contentFrench ? m.contentFrench : m.contentEnglish}
+                      {lang === 'fr' && m.contentFrench
+                        ? m.contentFrench
+                        : m.contentEnglish}
                     </option>
                   ))}
                 </select>
@@ -537,20 +606,38 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
               </div>
             )}
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-              <button onClick={() => setStep('details')} disabled={submitting} style={btnSecondary}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: 12,
+              }}
+            >
+              <button
+                onClick={() => setStep('details')}
+                disabled={submitting}
+                style={btnSecondary}
+              >
                 {T.back}
               </button>
               <button
                 onClick={handlePayment}
-                disabled={submitting || !paymentMethod || paymentMethods.length === 0}
+                disabled={
+                  submitting || !paymentMethod || paymentMethods.length === 0
+                }
                 style={{
                   ...btnPrimary,
-                  opacity: submitting || !paymentMethod || paymentMethods.length === 0 ? 0.5 : 1,
-                  cursor: submitting || !paymentMethod ? 'not-allowed' : 'pointer',
+                  opacity:
+                    submitting || !paymentMethod || paymentMethods.length === 0
+                      ? 0.5
+                      : 1,
+                  cursor:
+                    submitting || !paymentMethod ? 'not-allowed' : 'pointer',
                 }}
               >
-                {submitting ? T.processing : `${T.pay} ${formatPrice(totalPrice)}`}
+                {submitting
+                  ? T.processing
+                  : `${T.pay} ${formatPrice(totalPrice)}`}
               </button>
             </div>
           </div>
@@ -570,9 +657,21 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
               {T.review}
             </h3>
             {submitting && (
-              <p style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 16 }}>{T.gatewayLoading}</p>
+              <p
+                style={{
+                  fontSize: 13,
+                  color: 'var(--muted)',
+                  marginBottom: 16,
+                }}
+              >
+                {T.gatewayLoading}
+              </p>
             )}
-            <div id="exhibition-payment-target" ref={gatewayContainer} style={{ minHeight: 400 }} />
+            <div
+              id="exhibition-payment-target"
+              ref={gatewayContainer}
+              style={{ minHeight: 400 }}
+            />
             {submitError && (
               <div
                 style={{
@@ -619,7 +718,16 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
             >
               {T.success}
             </h3>
-            <p style={{ fontSize: 14, color: 'var(--muted)', marginBottom: 24, lineHeight: 1.6 }}>{T.successBody}</p>
+            <p
+              style={{
+                fontSize: 14,
+                color: 'var(--muted)',
+                marginBottom: 24,
+                lineHeight: 1.6,
+              }}
+            >
+              {T.successBody}
+            </p>
             <button onClick={handleClose} style={btnPrimary}>
               {T.close}
             </button>
@@ -630,7 +738,15 @@ function BookingModalContent({ onClose, product, paymentMethods, lang }: Props &
   );
 }
 
-function Field({ label, fullWidth, children }: { label: string; fullWidth?: boolean; children: React.ReactNode }) {
+function Field({
+  label,
+  fullWidth,
+  children,
+}: {
+  label: string;
+  fullWidth?: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <div style={{ gridColumn: fullWidth ? '1 / -1' : 'auto' }}>
       <label

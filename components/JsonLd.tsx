@@ -20,7 +20,6 @@ export default function JsonLd() {
       },
     },
     organizer: [
-      { "@type": "Organization", name: "MINICOM Rwanda", url: "https://minicom.gov.rw" },
       { "@type": "Organization", name: "Netkigali" },
       { "@type": "Organization", name: "Re-bird Belgium" },
       { "@type": "Organization", name: "SBPME-UEMOA" },
