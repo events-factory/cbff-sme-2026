@@ -1020,7 +1020,7 @@ export default function RegistrationPage() {
               maxWidth: 600,
             }}
           >
-            Register to attend the Congo Basin Forest Finance SME Forum 2026.
+            Register to attend the Continental Business & Finance Forum for SMEs 2026.
           </p>
         </div>
       </div>
