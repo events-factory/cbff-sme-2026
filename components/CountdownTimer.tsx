@@ -18,13 +18,15 @@ function calc() {
 function pad(n: number) { return String(n).padStart(2, "0"); }
 
 export default function CountdownTimer() {
-  const [t, setT] = useState(calc);
+  const [t, setT] = useState<ReturnType<typeof calc> | null>(null);
 
   useEffect(() => {
     setT(calc());
     const id = setInterval(() => setT(calc()), 1000);
     return () => clearInterval(id);
   }, []);
+
+  if (!t) return null;
 
   if (t.started) {
     return (

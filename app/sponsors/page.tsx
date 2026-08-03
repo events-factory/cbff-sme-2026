@@ -44,9 +44,6 @@ export default function SponsorsPage() {
             {T.partnersLabel}
           </span>
           <div style={{ background: "#fff", borderRadius: 4, padding: "5px 12px", display: "flex", alignItems: "center", height: 40 }}>
-            <Image src="/logos/minicom.svg" alt="Ministry of Trade — MINICOM" width={72} height={28} style={{ objectFit: "contain", maxWidth: 72, maxHeight: 28 }} />
-          </div>
-          <div style={{ background: "#fff", borderRadius: 4, padding: "5px 12px", display: "flex", alignItems: "center", height: 40 }}>
             <Image src="/logos/boa.png" alt="Bank of Africa" width={72} height={28} style={{ objectFit: "contain", maxWidth: 72, maxHeight: 28 }} />
           </div>
         </div>

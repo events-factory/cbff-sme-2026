@@ -30,7 +30,9 @@ export default function ExhibitionPage() {
 
   const [apiProducts, setApiProducts] = useState<ApiProduct[]>([]);
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<ApiProduct | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ApiProduct | null>(
+    null,
+  );
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -149,7 +151,10 @@ export default function ExhibitionPage() {
               {[
                 {
                   label: lang === 'fr' ? 'Dates du Forum' : 'Forum Dates',
-                  val: lang === 'fr' ? '19–20 Novembre 2026' : 'November 19–20, 2026',
+                  val:
+                    lang === 'fr'
+                      ? '19–20 Novembre 2026'
+                      : 'November 19–20, 2026',
                 },
                 {
                   label: lang === 'fr' ? 'Lieu' : 'Venue',
@@ -305,9 +310,15 @@ export default function ExhibitionPage() {
                       title={title}
                       size={product.sizes}
                       sqm={sqm}
-                      price={formatPrice(parsePrice(product.prices), product.currency || 'USD')}
+                      price={formatPrice(
+                        parsePrice(product.prices),
+                        product.currency || 'USD',
+                      )}
                       includes={includes}
-                      image={product.banner || fallbackBoothImages[i % fallbackBoothImages.length]}
+                      image={
+                        product.banner ||
+                        fallbackBoothImages[i % fallbackBoothImages.length]
+                      }
                       highlighted={i === 1}
                       ctaLabel={C.enquireNow}
                       onCtaClick={() => openBooking(product)}
@@ -321,7 +332,9 @@ export default function ExhibitionPage() {
                     size={pkg.size}
                     sqm={pkg.sqm}
                     price={
-                      'price' in pkg ? (pkg as { price: string }).price : undefined
+                      'price' in pkg
+                        ? (pkg as { price: string }).price
+                        : undefined
                     }
                     includes={pkg.includes}
                     image={fallbackBoothImages[i]}
@@ -541,7 +554,7 @@ export default function ExhibitionPage() {
               {T.ctaButton}
             </Link>
             <Link
-              href="mailto:info@netkigali.com"
+              href="mailto:info@cbffsme.com"
               style={{
                 display: 'inline-block',
                 padding: '13px 32px',
@@ -556,7 +569,7 @@ export default function ExhibitionPage() {
                 textDecoration: 'none',
               }}
             >
-              {lang === 'fr' ? 'info@netkigali.com' : 'info@netkigali.com'}
+              {lang === 'fr' ? 'info@cbffsme.com' : 'info@cbffsme.com'}
             </Link>
           </div>
           <div style={{ marginTop: 24, fontSize: 13, color: 'var(--muted)' }}>
