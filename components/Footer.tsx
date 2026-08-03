@@ -60,13 +60,13 @@ export default function Footer() {
   const zones = [
     {
       zone: 'Belgium',
-      contact: 'Dorence',
+      contact: '',
       phone: '',
       email: 'mdorence@congruence.be',
     },
     {
       zone: 'Central Africa',
-      contact: 'Mrs. Dorance Monkam',
+      contact: '',
       phone: '',
       email: '',
     },
@@ -103,9 +103,20 @@ export default function Footer() {
               alt="CBFF-SME"
               width={250}
               height={60}
-              style={{ objectFit: 'contain', marginBottom: 30, color: 'transparent' }}
+              style={{
+                objectFit: 'contain',
+                marginBottom: 30,
+                color: 'transparent',
+              }}
             />
-            <p style={{ fontSize: 13, lineHeight: 1.7, maxWidth: 280, marginBottom: 20 }}>
+            <p
+              style={{
+                fontSize: 13,
+                lineHeight: 1.7,
+                maxWidth: 280,
+                marginBottom: 20,
+              }}
+            >
               {T.tagline}
             </p>
             <div style={{ display: 'flex', gap: 10 }}>
@@ -182,15 +193,24 @@ export default function Footer() {
             </h4>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               {[
-                { text: 'info@netkigali.com', href: 'mailto:info@netkigali.com' },
-                { text: '+250 788 991 551 (Kigali)', href: 'tel:+250788991551' },
-                { text: '+32 487 568 199 (Brussels)', href: 'tel:+32487568199' },
+                { text: 'info@cbffsme.com', href: 'mailto:info@cbffsme.com' },
+                {
+                  text: '+250 788 991 551 (Kigali)',
+                  href: 'tel:+250788991551',
+                },
+                {
+                  text: '+32 487 568 199 (Brussels)',
+                  href: 'tel:+32487568199',
+                },
               ].map((c) => (
                 <li key={c.text} style={{ padding: '4px 0', fontSize: 13 }}>
                   <a
                     href={c.href}
                     className="footer-link"
-                    style={{ color: 'rgba(255,255,255,.6)', textDecoration: 'none' }}
+                    style={{
+                      color: 'rgba(255,255,255,.6)',
+                      textDecoration: 'none',
+                    }}
                   >
                     {c.text}
                   </a>
@@ -293,7 +313,10 @@ export default function Footer() {
                     <a
                       href={`mailto:${z.email}`}
                       className="footer-link"
-                      style={{ color: 'rgba(255,255,255,.5)', textDecoration: 'none' }}
+                      style={{
+                        color: 'rgba(255,255,255,.5)',
+                        textDecoration: 'none',
+                      }}
                     >
                       {z.email}
                     </a>
