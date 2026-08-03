@@ -44,7 +44,6 @@ export const metadata: Metadata = {
     "Rwanda business forum",
     "African SME investment",
     "trade finance Africa",
-    "MINICOM Rwanda",
     "African entrepreneurship",
   ],
   authors: [{ name: "CBFF-SME Consortium" }],
