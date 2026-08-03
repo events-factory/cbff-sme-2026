@@ -1371,8 +1371,8 @@ export const t = {
     },
     home: {
       badge: 'Kigali, Rwanda · 19–20 novembre 2026',
-      title1: 'Affaires & Finance',
-      title2: 'Forum Continental pour les PME',
+      title1: 'Continental Business &',
+      title2: 'Finance Forum for SMEs',
       tagline:
         "Construire l'Infrastructure de Confiance, de Finance et d'Accès aux Marchés pour les PME d'Afrique",
       hostCity: "Ville d'Accueil",
