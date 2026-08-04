@@ -207,7 +207,7 @@ export default function AboutPage() {
               <p style={{ fontSize: 16, color: "rgba(255,255,255,.75)", lineHeight: 1.8 }}>{T.rwandaLead}</p>
             </div>
             <div style={{ position: "relative", height: 340, borderRadius: 4, overflow: "hidden" }}>
-              <Image src="/kigali-city-1.jpg" alt="Kigali, Rwanda" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+              <Image src="/kcc-night.png" alt="Kigali, Rwanda" fill style={{ objectFit: "cover", objectPosition: "center" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,25,47,.55) 0%, transparent 55%)" }} />
               <div style={{ position: "absolute", bottom: 18, left: 18 }}>
                 <p style={{ color: "var(--gold)", fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 3 }}>Kigali, Rwanda</p>
