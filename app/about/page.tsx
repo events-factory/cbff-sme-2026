@@ -242,7 +242,7 @@ export default function AboutPage() {
           {/* Expected Impact */}
           <div style={{ marginTop: 48 }}>
             <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,.5)", marginBottom: 16 }}>{T.impactLabel}</p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 1, background: "rgba(255,255,255,.15)" }} className="impact-grid">
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 1, background: "rgba(255,255,255,.15)" }} className="impact-grid">
               {T.impact.map((s) => (
                 <div key={s.num} style={{ textAlign: "center", padding: "28px 20px", background: "rgba(255,255,255,.06)" }}>
                   <div style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(18px,2.5vw,28px)", fontWeight: 800, color: "var(--gold)", lineHeight: 1, marginBottom: 8 }}>{s.num}</div>

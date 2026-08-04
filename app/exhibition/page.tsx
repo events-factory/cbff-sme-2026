@@ -218,8 +218,8 @@ export default function ExhibitionPage() {
             src: '/events/gallery-audience.jpg',
             caption:
               lang === 'fr'
-                ? '500+ participants attendus en 2026'
-                : '500+ participants expected in 2026',
+                ? '250+ participants attendus en 2026'
+                : '250+ participants expected in 2026',
           },
         ].map((item) => (
           <div
@@ -459,7 +459,7 @@ export default function ExhibitionPage() {
               </p>
             </div>
             <a
-              href="/CBFF-SME Floor Plan-1.pdf"
+              href="/CBFF-SME-Floor-Plan-1.pdf"
               download
               style={{
                 display: 'inline-block',

@@ -137,7 +137,7 @@ export default function Home() {
 
       {/* ── Stats bar ──────────────────────────────── */}
       <div style={{ background: "var(--gold)", padding: "44px 0" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 1, background: "rgba(255,255,255,.3)" }} className="stats-grid">
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 1, background: "rgba(255,255,255,.3)" }} className="stats-grid">
           {T.stats.map((s) => (
             <div key={s.num} style={{ textAlign: "center", padding: "28px 20px", background: "var(--gold)" }}>
               <div style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(26px,3.5vw,42px)", fontWeight: 800, color: "var(--white)", lineHeight: 1 }}>{s.num}</div>
@@ -376,8 +376,8 @@ export default function Home() {
             </h2>
             <p style={{ fontSize: 14, color: "rgba(255,255,255,.65)", lineHeight: 1.7, margin: 0 }}>
               {lang === "fr"
-                ? "Positionnez votre institution devant 500+ décideurs, banquiers et investisseurs venus de plus de 30 pays."
-                : "Position your institution in front of 500+ decision-makers, bankers, and investors from 30+ countries."}
+                ? "Positionnez votre institution devant 250+ décideurs, banquiers et investisseurs venus de plus de 30 pays."
+                : "Position your institution in front of 250+ decision-makers, bankers, and investors from 30+ countries."}
             </p>
           </div>
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>

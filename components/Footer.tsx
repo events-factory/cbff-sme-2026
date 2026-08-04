@@ -68,13 +68,13 @@ export default function Footer() {
       zone: 'Central Africa',
       contact: '',
       phone: '',
-      email: 'nagaloyh@cbffsme.com',
+      email: '',
     },
     {
       zone: 'West Africa (UEMOA)',
       contact: 'SBPME-UEMOA',
       phone: '',
-      email: 'partenariat@salonpmeuemoa.org',
+      email: 'nagaloyh@cbffsme.com',
     },
   ];
 
