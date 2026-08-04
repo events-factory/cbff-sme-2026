@@ -239,7 +239,7 @@ export const t = {
         {
           name: 'Congruence Consulting',
           desc: 'Strategic advisory and programme management expertise',
-          email: 'mdorence@congruence.be',
+          email: 'congruence@cbffsme.com',
         },
       ],
       exploreCards: [
@@ -1031,7 +1031,7 @@ export const t = {
       contactTitle: 'Talk to Our Sponsorship Team',
       contactEmail: 'info@cbffsme.com',
       contactKigali: '+250 788 991 551 (Kigali)',
-      contactBrussels: '+32 487 568 199 (Brussels)',
+      contactBrussels: '+32 491 23 54 47 (Brussels)',
       faqEyebrow: 'Questions',
       faqTitle: 'Sponsor FAQ',
       faq: [
@@ -1441,7 +1441,7 @@ export const t = {
         {
           name: 'Congruence Consulting',
           desc: 'Expertise en conseil stratégique et en gestion de programme',
-          email: 'mdorence@congruence.be',
+          email: 'congruence@cbffsme.com',
         },
       ],
       exploreCards: [
@@ -2252,7 +2252,7 @@ export const t = {
       contactTitle: 'Parlez à Notre Équipe Parrainage',
       contactEmail: 'info@cbffsme.com',
       contactKigali: '+250 788 991 551 (Kigali)',
-      contactBrussels: '+32 487 568 199 (Bruxelles)',
+      contactBrussels: '+32 491 23 54 47 (Bruxelles)',
       faqEyebrow: 'Questions',
       faqTitle: 'FAQ Sponsors',
       faq: [

@@ -62,13 +62,13 @@ export default function Footer() {
       zone: 'Belgium',
       contact: '',
       phone: '',
-      email: 'mdorence@congruence.be',
+      email: 'congruence@cbffsme.com',
     },
     {
       zone: 'Central Africa',
       contact: '',
       phone: '',
-      email: '',
+      email: 'nagaloyh@cbffsme.com',
     },
     {
       zone: 'West Africa (UEMOA)',
@@ -99,9 +99,9 @@ export default function Footer() {
         >
           <div>
             <Image
-              src="/logos/CBFF-SME Logo Primary RC.png"
+              src="/logos/CBFF-SME Logo Website White.png"
               alt="CBFF-SME"
-              width={250}
+              width={150}
               height={60}
               style={{
                 objectFit: 'contain',
@@ -199,8 +199,8 @@ export default function Footer() {
                   href: 'tel:+250788991551',
                 },
                 {
-                  text: '+32 487 568 199 (Brussels)',
-                  href: 'tel:+32487568199',
+                  text: '+32 491 23 54 47 (Brussels)',
+                  href: 'tel:+32491235447',
                 },
               ].map((c) => (
                 <li key={c.text} style={{ padding: '4px 0', fontSize: 13 }}>

@@ -574,8 +574,8 @@ export default function ExhibitionPage() {
           </div>
           <div style={{ marginTop: 24, fontSize: 13, color: 'var(--muted)' }}>
             {lang === 'fr'
-              ? 'Kigali: +250 788 991 551 · Bruxelles: +32 487 568 199'
-              : 'Kigali: +250 788 991 551 · Brussels: +32 487 568 199'}
+              ? 'Kigali: +250 788 991 551 · Bruxelles: +32 491 23 54 47'
+              : 'Kigali: +250 788 991 551 · Brussels: +32 491 23 54 47'}
           </div>
         </div>
       </section>

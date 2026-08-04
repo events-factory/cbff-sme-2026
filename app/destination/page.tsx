@@ -102,7 +102,7 @@ export default function DestinationPage() {
       <section style={{ padding: "80px 0", background: "var(--white)" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }} className="two-col">
           <div style={{ position: "relative", height: 400, borderRadius: 4, overflow: "hidden" }}>
-            <Image src="/kigali-city-2.jpg" alt="Kigali skyline" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+            <Image src="/kcc-night.png" alt="Kigali skyline" fill style={{ objectFit: "cover", objectPosition: "center" }} />
           </div>
           <div>
             <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>
