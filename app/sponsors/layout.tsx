@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Sponsor Africa's SME Finance Forum — CBFF-SME 2026 Kigali",
   description:
-    "Sponsor CBFF-SME 2026, the Africa SME finance forum in Kigali, Rwanda (Nov 19–20). Reach 500+ bankers, investors, and policymakers from 30+ countries — Diamond, Platinum, Gold, and Silver packages with full benefits, audience data, and ROI.",
+    "Sponsor CBFF-SME 2026, the Africa SME finance forum in Kigali, Rwanda (Nov 19–20). Reach 250+ bankers, investors, and policymakers from 30+ countries — Diamond, Platinum, Gold, and Silver packages with full benefits, audience data, and ROI.",
   keywords: [
     "sponsor Africa business forum",
     "Africa SME finance forum 2026",

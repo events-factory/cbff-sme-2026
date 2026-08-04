@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     template: "%s | CBFF-SME 2026",
   },
   description:
-    "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. Join 500+ leaders, investors, and policymakers at Kigali Serena Hotel, Rwanda — November 19–20, 2026.",
+    "Building Africa's Trust, Finance and Market Access Infrastructure for SMEs. Join 250+ leaders, investors, and policymakers at Kigali Serena Hotel, Rwanda — November 19–20, 2026.",
   keywords: [
     "CBFF SME 2026",
     "Continental Business & Finance Forum",
