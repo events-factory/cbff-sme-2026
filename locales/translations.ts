@@ -212,10 +212,6 @@ export const t = {
           desc: 'High-potential enterprises prepared per pilot cohort / year',
         },
         {
-          num: '$30–80M',
-          desc: 'Financing mobilized annually through CBFF platform',
-        },
-        {
           num: '$250–500M',
           desc: 'Projected financing for 150+ SMEs over five years',
         },
@@ -234,7 +230,7 @@ export const t = {
         {
           name: 'SBPME-UEMOA',
           desc: 'West African regional SME finance and banking innovation platform',
-          email: 'partenariat@salonpmeuemoa.org',
+          email: 'nagaloyh@cbffsme.com',
         },
         {
           name: 'Congruence Consulting',
@@ -477,16 +473,12 @@ export const t = {
           desc: 'High-potential enterprises prepared per pilot cohort',
         },
         {
-          num: '$30–80M/year',
-          desc: 'Financing mobilized annually through CBFF platform',
-        },
-        {
           num: '$250–500M / 5 years',
           desc: 'Projected financing for 150+ SMEs over five years',
         },
       ],
       ctaText:
-        'Discover the six integrated pillars that power the CBFF-SME ecosystem',
+        'Discover the four integrated pillars that power the CBFF-SME ecosystem',
     },
     speakers: {
       eyebrow: 'Forum Panel',
@@ -923,7 +915,7 @@ export const t = {
           title: 'Policy Leadership Partner',
           tag: 'Public Policy & Investment Dialogue',
           target:
-            'Ministry of Finance and Economic Planning · Ministry of Trade and Industry Rwanda',
+            'Ministry of Finance and Economic Planning',
           rationale:
             'These institutions shape economic policy, trade policy, and investment frameworks that directly influence SME development across Rwanda and the region.',
           positioning:
@@ -1015,7 +1007,7 @@ export const t = {
       statsTitle: 'A Panafrican Audience, Built for Deal-Making',
       stats: [
         {
-          num: '500+',
+          num: '250+',
           desc: 'Expected participants: bankers, investors, institutions, governments',
         },
         { num: '30+', desc: 'Countries represented' },
@@ -1414,10 +1406,6 @@ export const t = {
           desc: 'Entreprises à fort potentiel préparées par cohorte pilote / an',
         },
         {
-          num: '30–80M $',
-          desc: 'Financement mobilisé annuellement via la plateforme CBFF',
-        },
-        {
           num: '250–500M $',
           desc: 'Financement projeté pour 150+ PME sur cinq ans',
         },
@@ -1436,7 +1424,7 @@ export const t = {
         {
           name: 'SBPME-UEMOA',
           desc: "Plateforme régionale ouest-africaine de finance des PME et d'innovation bancaire",
-          email: 'partenariat@salonpmeuemoa.org',
+          email: 'nagaloyh@cbffsme.com',
         },
         {
           name: 'Congruence Consulting',
@@ -1679,16 +1667,12 @@ export const t = {
           desc: 'Entreprises à fort potentiel préparées par cohorte pilote',
         },
         {
-          num: '30–80M $/an',
-          desc: 'Financement mobilisé annuellement via la plateforme CBFF',
-        },
-        {
           num: '250–500M $ / 5 ans',
           desc: 'Financement projeté pour 150+ PME sur cinq ans',
         },
       ],
       ctaText:
-        "Découvrez les six piliers intégrés qui alimentent l'écosystème CBFF-PME",
+        "Découvrez les quatre piliers intégrés qui alimentent l'écosystème CBFF-PME",
     },
     speakers: {
       eyebrow: 'Panel du Forum',
@@ -2145,7 +2129,7 @@ export const t = {
           num: '1',
           title: 'Partenaire Leadership Politique',
           tag: "Politique Publique & Dialogue d'Investissement",
-          target: 'Ministère des Finances · Ministère du Commerce Rwanda',
+          target: 'Ministère des Finances',
           rationale:
             "Ces institutions façonnent la politique économique et les cadres d'investissement qui influencent le développement des PME.",
           positioning:
@@ -2236,7 +2220,7 @@ export const t = {
       statsTitle: 'Une Audience Panafricaine, Conçue pour les Affaires',
       stats: [
         {
-          num: '500+',
+          num: '250+',
           desc: 'Participants attendus : banquiers, investisseurs, institutions, gouvernements',
         },
         { num: '30+', desc: 'Pays représentés' },
