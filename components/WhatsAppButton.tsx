@@ -1,7 +1,7 @@
 "use client";
 import { useLanguage } from "@/lib/LanguageContext";
 
-const WA_NUMBER = "250788991551";
+const WA_NUMBER = "32491235447";
 
 const MESSAGES = {
   en: "Hello, I'd like information about sponsoring / attending CBFF-SME 2026 in Kigali.",
