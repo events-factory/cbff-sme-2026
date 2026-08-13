@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import CountdownTimer from "@/components/CountdownTimer";
-import { MapPin, Calendar, Users, CheckCircle, Building2, ArrowRight } from "lucide-react";
+import { MapPin, Calendar, Users, Building2, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { t } from "@/locales/translations";
 
@@ -31,52 +31,54 @@ export default function Home() {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         display: "flex", flexDirection: "column",
-        justifyContent: "center", alignItems: "center",
         textAlign: "center", position: "relative", overflow: "hidden",
-        padding: "100px 24px 80px",
       }}>
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(10,25,47,.92) 0%, rgba(10,25,47,.82) 45%, rgba(30,77,123,.85) 100%)", pointerEvents: "none" }} />
 
-        <div style={{ border: "1px solid var(--gold)", color: "var(--white)", fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", padding: "7px 20px", marginBottom: 28, position: "relative" }}>
-          {T.badge}
-        </div>
+        {/* Content column — grows to fill the space above the countdown bar */}
+        <div className="hero-content" style={{
+          flex: 1, display: "flex", flexDirection: "column",
+          justifyContent: "center", alignItems: "center",
+          position: "relative", width: "100%",
+          padding: "120px 24px 48px",
+        }}>
+          <div style={{ border: "1px solid var(--gold)", color: "var(--white)", fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", padding: "7px 20px", marginBottom: 28 }}>
+            {T.badge}
+          </div>
 
-        <h1 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(28px,5vw,58px)", fontWeight: 800, color: "var(--white)", lineHeight: 1.15, marginBottom: 10, position: "relative" }}>
-          {T.title1}<br /><span style={{ color: "var(--gold)" }}>{T.title2}</span>
-        </h1>
-        <div style={{ display: "flex", alignItems: "center", gap: 14, justifyContent: "center", margin: "10px 0 18px", position: "relative" }}>
-          <div style={{ height: 1, width: 40, background: "rgba(201,151,43,.7)" }} />
-          <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(13px,2vw,17px)", fontWeight: 800, color: "var(--gold)", letterSpacing: 6, textTransform: "uppercase" }}>KIGALI · RWANDA</span>
-          <div style={{ height: 1, width: 40, background: "rgba(201,151,43,.7)" }} />
-        </div>
-        <p style={{ fontSize: "clamp(14px,2vw,18px)", color: "rgba(255,255,255,.8)", fontStyle: "italic", maxWidth: 680, margin: "0 auto 24px", position: "relative" }}>
-          {T.tagline}
-        </p>
+          <h1 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(28px,5vw,58px)", fontWeight: 800, color: "var(--white)", lineHeight: 1.15, marginBottom: 18 }}>
+            {T.title1}<br /><span style={{ color: "var(--gold)" }}>{T.title2}</span>
+          </h1>
+          <p style={{ fontSize: "clamp(14px,2vw,18px)", color: "rgba(255,255,255,.8)", fontStyle: "italic", maxWidth: 680, margin: "0 auto 24px" }}>
+            {T.tagline}
+          </p>
 
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 32, flexWrap: "wrap", marginBottom: 48, position: "relative" }}>
-          {heroInfo.map((m) => (
-            <div key={m.strong} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(201,151,43,.2)", border: "1px solid var(--gold)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <m.Icon size={16} color="var(--gold)" />
+          <div className="hero-info" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 32, flexWrap: "wrap", marginBottom: 40 }}>
+            {heroInfo.map((m) => (
+              <div key={m.strong} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(201,151,43,.2)", border: "1px solid var(--gold)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <m.Icon size={16} color="var(--gold)" />
+                </div>
+                <div style={{ textAlign: "left" }}>
+                  <strong style={{ display: "block", color: "var(--white)", fontFamily: "var(--font-poppins),sans-serif", fontSize: 15, fontWeight: 700 }}>{m.strong}</strong>
+                  <span style={{ color: "rgba(255,255,255,.6)", fontSize: 12 }}>{m.sub}</span>
+                </div>
               </div>
-              <div style={{ textAlign: "left" }}>
-                <strong style={{ display: "block", color: "var(--white)", fontFamily: "var(--font-poppins),sans-serif", fontSize: 15, fontWeight: 700 }}>{m.strong}</strong>
-                <span style={{ color: "rgba(255,255,255,.6)", fontSize: 12 }}>{m.sub}</span>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <div className="hero-cta" style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center", width: "100%" }}>
+            <Link href="/registration" style={{ display: "inline-block", padding: "13px 32px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", borderRadius: 2, background: "var(--gold)", color: "var(--white)", textDecoration: "none" }}>
+              {C.registerNow}
+            </Link>
+            <Link href="/speakers" style={{ display: "inline-block", padding: "13px 32px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", borderRadius: 2, border: "2px solid var(--white)", color: "var(--white)", textDecoration: "none" }}>
+              {lang === "fr" ? "Voir le Panel" : "Meet the Panel"}
+            </Link>
+          </div>
         </div>
 
-        <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center", position: "relative" }}>
-          <Link href="/registration" style={{ display: "inline-block", padding: "13px 32px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", borderRadius: 2, background: "var(--gold)", color: "var(--white)", textDecoration: "none" }}>
-            {C.registerNow}
-          </Link>
-          <Link href="/speakers" style={{ display: "inline-block", padding: "13px 32px", fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", borderRadius: 2, border: "2px solid var(--white)", color: "var(--white)", textDecoration: "none" }}>
-            {lang === "fr" ? "Voir le Panel" : "Meet the Panel"}
-          </Link>
-        </div>
-
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
+        {/* Countdown sits in normal flow so it can never overlap the buttons */}
+        <div style={{ position: "relative", width: "100%" }}>
           <CountdownTimer />
         </div>
       </section>
@@ -220,39 +222,6 @@ export default function Home() {
                 <div className="past-edition-overlay" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,25,47,.75) 0%, transparent 55%)", display: "flex", alignItems: "flex-end", padding: "16px" }}>
                   <span style={{ fontSize: 12, color: "rgba(255,255,255,.9)", fontFamily: "var(--font-poppins),sans-serif", fontWeight: 600, letterSpacing: 0.5 }}>{item.caption}</span>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Three Days of Impact ──────────────────── */}
-      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-          <Image src="/banner1.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
-          <div style={{ position: "absolute", inset: 0, background: "rgba(255,255,255,.94)" }} />
-        </div>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
-          <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 10 }}>{T.threeDaysLabel}</p>
-          <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 700, color: "var(--navy)", marginBottom: 18 }}>{T.threeDaysTitle}</h2>
-          <div style={{ width: 60, height: 3, background: "var(--gold)", marginBottom: 40 }} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }} className="three-days-grid">
-            {T.threeDays.map((day) => (
-              <div key={day.label} style={{ border: "1px solid var(--border)", borderTop: "3px solid var(--gold)", padding: "28px 24px", background: "var(--light)" }}>
-                <div style={{ display: "inline-block", background: "var(--gold)", color: "var(--white)", fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", padding: "4px 12px", marginBottom: 14 }}>{day.label}</div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-                  <Calendar size={14} color="var(--muted)" />
-                  <span style={{ fontSize: 13, color: "var(--muted)" }}>{day.date}</span>
-                </div>
-                <h3 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 16, fontWeight: 700, color: "var(--navy)", marginBottom: 16, lineHeight: 1.3 }}>{day.theme}</h3>
-                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
-                  {day.bullets.map((bullet) => (
-                    <li key={bullet} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-                      <CheckCircle size={14} color="var(--gold)" style={{ flexShrink: 0, marginTop: 2 }} />
-                      <span style={{ fontSize: 13, color: "var(--text)", lineHeight: 1.5 }}>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
             ))}
           </div>
@@ -418,13 +387,16 @@ export default function Home() {
 
       <style>{`
         @media (max-width: 640px) {
+          .hero-content { padding: 104px 20px 36px !important; }
+          .hero-info    { gap: 18px !important; margin-bottom: 32px !important; }
+          .hero-cta     { flex-direction: column !important; gap: 12px !important; align-items: stretch !important; max-width: 320px; margin: 0 auto; }
+          .hero-cta a   { width: 100%; text-align: center; }
           .kigali-grid { grid-template-columns: repeat(2,1fr) !important; }
           .grid-2 { grid-template-columns: 1fr !important; }
           .stats-grid { grid-template-columns: 1fr !important; }
           .consortium-cards { grid-template-columns: 1fr !important; }
           .explore-grid { grid-template-columns: 1fr !important; }
           .themes-grid { grid-template-columns: 1fr !important; }
-          .three-days-grid { grid-template-columns: 1fr !important; }
           .deal-room-grid { grid-template-columns: 1fr !important; }
           .past-editions-grid { grid-template-columns: 1fr !important; }
           .wy-grid { grid-template-columns: 1fr !important; }
@@ -433,7 +405,6 @@ export default function Home() {
           .consortium-cards { grid-template-columns: repeat(2,1fr) !important; }
           .explore-grid { grid-template-columns: repeat(2,1fr) !important; }
           .themes-grid { grid-template-columns: repeat(2,1fr) !important; }
-          .three-days-grid { grid-template-columns: 1fr !important; }
           .deal-room-grid { grid-template-columns: 1fr !important; }
           .past-editions-grid { grid-template-columns: repeat(2,1fr) !important; }
           .wy-grid { grid-template-columns: 1fr !important; }

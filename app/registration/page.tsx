@@ -32,7 +32,7 @@ const registrationFaq = [
   },
   {
     q: 'Can I add a site visit to my registration?',
-    a: 'Yes, an optional site visit can be added for a flat fee of USD 70 during the registration form.',
+    a: 'Yes, an optional site visit can be added for a flat fee of USD 70 during the registration form. The visit covers the RDB One Stop Centre, the Kigali Special Economic Zone (industrial zone) and the Gift Market.',
   },
   {
     q: 'Who do I contact if I have a payment or registration issue?',
@@ -1397,7 +1397,9 @@ export default function RegistrationPage() {
                                   style={{ color: 'var(--muted)' }}
                                 >
                                   Add an optional site visit to your
-                                  registration.
+                                  registration — RDB One Stop Centre, Kigali
+                                  Special Economic Zone (industrial zone) and
+                                  the Gift Market.
                                 </p>
                               </div>
                             </div>
