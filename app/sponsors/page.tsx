@@ -6,8 +6,13 @@ import { useLanguage } from "@/lib/LanguageContext";
 import { t } from "@/locales/translations";
 import Faq, { faqJsonLd } from "@/components/Faq";
 import { waLink } from "@/components/WhatsAppButton";
+import { Megaphone, Mic, Handshake, Landmark, Users, Building2, Factory, Truck, Globe2, Search, Network, Layers, TrendingUp, BarChart3, Target, CalendarClock, CheckCircle2 } from "lucide-react";
 
-const tierBgs = ["#0f6b5c", "#4a4a6a", "var(--gold)", "var(--muted)"];
+const tierBgs = ["#0f6b5c", "var(--gold)", "#7d8794", "#9a6b3f"];
+const levelIcons = [Megaphone, Mic, Handshake, Landmark];
+const whoMeetIcons = [Landmark, Building2, Factory, Truck, Globe2];
+const enableIcons = [Search, Network, Layers, TrendingUp, BarChart3];
+const roiIcons = [Users, Globe2, Target, Handshake, CalendarClock, CheckCircle2];
 
 export default function SponsorsPage() {
   const { lang } = useLanguage();
@@ -20,8 +25,10 @@ export default function SponsorsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(T.faq)) }}
       />
-      <div style={{ background: "linear-gradient(135deg, var(--navy2) 0%, var(--navy) 100%)", padding: "120px 24px 60px" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
+      <div style={{ position: "relative", padding: "120px 24px 60px", overflow: "hidden" }}>
+        <Image src="/events/panel-discussion.jpg" alt="" fill priority style={{ objectFit: "cover", objectPosition: "center" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(10,25,47,.94) 0%, rgba(10,25,47,.86) 45%, rgba(30,77,123,.88) 100%)" }} />
+        <div style={{ maxWidth: 1160, margin: "0 auto", position: "relative" }}>
           <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>{T.eyebrow}</p>
           <h1 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 800, color: "var(--white)", lineHeight: 1.2, maxWidth: 700 }}>
             {T.title}
@@ -51,8 +58,38 @@ export default function SponsorsPage() {
 
       {/* Why partner */}
       <section style={{ padding: "80px 0", background: "var(--light)" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px" }}>
-          <SectionHeader eyebrow={T.whyPartnerEyebrow} title={T.whyPartnerTitle} lead={T.whyPartnerBody} />
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1.15fr 1fr", gap: 56, alignItems: "center" }} className="grid-2">
+          <div>
+            <SectionHeader eyebrow={T.whyPartnerEyebrow} title={T.whyPartnerTitle} lead={T.whyPartnerBody} />
+          </div>
+          <div style={{ position: "relative", height: 340, overflow: "hidden", borderTop: "4px solid var(--gold)" }}>
+            <Image src="/events/gallery-dignitaries.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          </div>
+        </div>
+      </section>
+
+      {/* Four levels of partnership value */}
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/bg-4.jpeg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(10,25,47,.9)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
+          <SectionHeader eyebrow={T.levelsEyebrow} title={T.levelsTitle} dark />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }} className="grid-4">
+            {T.levels.map((lvl, i) => {
+              const Icon = levelIcons[i];
+              return (
+                <div key={lvl.label} style={{ background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)", borderTop: "3px solid var(--gold)", padding: "26px 22px" }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 6, background: "rgba(201,151,43,.15)", border: "1px solid rgba(201,151,43,.35)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
+                    <Icon size={20} color="var(--gold)" />
+                  </div>
+                  <h3 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 14, fontWeight: 700, color: "var(--gold)", marginBottom: 8 }}>{lvl.label}</h3>
+                  <p style={{ fontSize: 13.5, color: "rgba(255,255,255,.68)", lineHeight: 1.7 }}>{lvl.desc}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -71,6 +108,56 @@ export default function SponsorsPage() {
         </div>
       </section>
 
+      {/* Who will you meet */}
+      <section style={{ padding: "80px 0", background: "var(--white)" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 56, alignItems: "center" }} className="grid-2">
+          <div style={{ position: "relative", height: 420, overflow: "hidden", borderTop: "4px solid var(--gold)" }}>
+            <Image src="/events/gallery-networking.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          </div>
+          <div>
+            <SectionHeader eyebrow={T.whoMeetEyebrow} title={T.whoMeetTitle} />
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 14 }}>
+              {T.whoMeet.map((item, i) => {
+                const Icon = whoMeetIcons[i] ?? Users;
+                return (
+                  <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: 14, borderBottom: "1px solid var(--border)", paddingBottom: 14 }}>
+                    <span style={{ width: 38, height: 38, flexShrink: 0, borderRadius: 6, background: "var(--light)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Icon size={18} color="var(--gold)" />
+                    </span>
+                    <span style={{ fontSize: 14.5, color: "var(--text)", lineHeight: 1.6 }}>{item}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* What your strategic investment enables */}
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/banner2.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(10,25,47,.92)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
+          <SectionHeader eyebrow={T.enablesEyebrow} title={T.enablesTitle} dark />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 16 }} className="grid-5">
+            {T.enables.map((e, i) => {
+              const Icon = enableIcons[i] ?? Search;
+              return (
+                <div key={e.verb} style={{ background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <Icon size={20} color="var(--gold)" />
+                    <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--gold)" }}>{e.verb}</span>
+                  </div>
+                  <p style={{ fontSize: 13.5, color: "rgba(255,255,255,.7)", lineHeight: 1.65 }}>{e.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Tiers */}
       <section style={{ padding: "80px 0", background: "var(--navy)" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
@@ -81,10 +168,10 @@ export default function SponsorsPage() {
                 <div style={{ padding: "14px 16px", background: tierBgs[i], fontFamily: "var(--font-poppins),sans-serif", fontSize: 14, fontWeight: 700, color: "var(--white)" }}>{tier.label}</div>
                 <div style={{ padding: "16px", flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
                   <div style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 19, fontWeight: 800, color: "var(--navy)" }}>{tier.amount}</div>
-                  <div style={{ fontSize: 12, color: "var(--muted)", borderTop: "1px solid var(--border)", paddingTop: 8 }}>
-                    <div style={{ marginBottom: 4 }}>{T.passesLabel}: <strong style={{ color: "var(--navy)" }}>{tier.passes}</strong></div>
-                    <div style={{ marginBottom: 4 }}>{T.boothLabel}: <strong style={{ color: "var(--navy)" }}>{tier.booth}</strong></div>
-                    <div>{T.meetingRoomLabel}: <strong style={{ color: "var(--navy)" }}>{tier.meetingRoom}</strong></div>
+                  <div style={{ fontSize: 12, color: "var(--muted)", borderTop: "1px solid var(--border)", paddingTop: 8, display: "flex", flexDirection: "column", gap: 6 }}>
+                    <div>{T.statusLabel}: <strong style={{ color: "var(--navy)" }}>{tier.status}</strong></div>
+                    <div>{T.networkLabel}: <strong style={{ color: "var(--navy)" }}>{tier.network}</strong></div>
+                    <div>{T.activationLabel}: <strong style={{ color: "var(--navy)" }}>{tier.activation}</strong></div>
                   </div>
                 </div>
               </div>
@@ -94,8 +181,12 @@ export default function SponsorsPage() {
       </section>
 
       {/* Detailed package benefits */}
-      <section style={{ padding: "80px 0", background: "var(--navy)" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
+      <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/53831513627_c4fcc73361_b.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(10,25,47,.93)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
           <SectionHeader eyebrow={T.detailedEyebrow} title={T.detailedTitle} dark />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20 }} className="grid-2">
             {T.detailedPackages.map((pkg, i) => (
@@ -144,17 +235,39 @@ export default function SponsorsPage() {
         </div>
       </section>
 
+      {/* From Forum to permanent network */}
+      <section style={{ position: "relative", overflow: "hidden", padding: "72px 0" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/kcc-night.png" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(10,25,47,.95) 0%, rgba(10,25,47,.82) 55%, rgba(10,25,47,.55) 100%)" }} />
+        </div>
+        <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
+          <div style={{ maxWidth: 620 }}>
+            <p style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>{T.networkEyebrow}</p>
+            <h2 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: "clamp(20px,2.6vw,30px)", fontWeight: 800, color: "var(--white)", lineHeight: 1.25, marginBottom: 16 }}>{T.networkTitle}</h2>
+            <div style={{ width: 56, height: 3, background: "var(--gold)", marginBottom: 20 }} />
+            <p style={{ fontSize: 15, color: "rgba(255,255,255,.75)", lineHeight: 1.85 }}>{T.networkBody}</p>
+          </div>
+        </div>
+      </section>
+
       {/* ROI */}
       <section style={{ padding: "80px 0", background: "var(--navy)" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px" }}>
-          <SectionHeader eyebrow={T.roiEyebrow} title={T.roiTitle} dark center />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 16 }} className="grid-5">
-            {T.roi.map((r) => (
-              <div key={r.title} style={{ border: "1px solid rgba(255,255,255,.15)", padding: "20px 16px", textAlign: "center", background: "rgba(255,255,255,.03)" }}>
-                <div style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 14, fontWeight: 700, color: "var(--gold)", marginBottom: 6, textTransform: "uppercase", letterSpacing: 1 }}>{r.title}</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,.65)", lineHeight: 1.5 }}>{r.desc}</div>
-              </div>
-            ))}
+          <SectionHeader eyebrow={T.roiEyebrow} title={T.roiTitle} dark lead={T.roiLead} />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }} className="grid-3">
+            {T.roi.map((r, i) => {
+              const Icon = roiIcons[i] ?? Target;
+              return (
+                <div key={r.title} style={{ border: "1px solid rgba(255,255,255,.15)", borderLeft: "3px solid var(--gold)", padding: "22px 20px", background: "rgba(255,255,255,.03)", display: "flex", gap: 14, alignItems: "flex-start" }}>
+                  <Icon size={20} color="var(--gold)" style={{ flexShrink: 0, marginTop: 2 }} />
+                  <div>
+                    <div style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 14, fontWeight: 700, color: "var(--gold)", marginBottom: 6, textTransform: "uppercase", letterSpacing: 1 }}>{r.title}</div>
+                    <div style={{ fontSize: 13, color: "rgba(255,255,255,.68)", lineHeight: 1.6 }}>{r.desc}</div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -199,8 +312,10 @@ export default function SponsorsPage() {
       </section>
 
 <style>{`
-        @media (max-width: 900px) { .grid-5 { grid-template-columns: repeat(2,1fr) !important; } }
+        @media (max-width: 1024px) { .grid-5 { grid-template-columns: repeat(3,1fr) !important; } }
+        @media (max-width: 900px) { .grid-5 { grid-template-columns: repeat(2,1fr) !important; } .grid-3 { grid-template-columns: repeat(2,1fr) !important; } }
         @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr !important; } .grid-4 { grid-template-columns: repeat(2,1fr) !important; } }
+        @media (max-width: 640px) { .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr !important; } }
       `}</style>
     </>
   );
