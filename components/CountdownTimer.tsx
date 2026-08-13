@@ -49,7 +49,7 @@ export default function CountdownTimer() {
   ];
 
   return (
-    <div style={{
+    <div className="countdown-bar" style={{
       background: "rgba(0,0,0,.3)", borderTop: "1px solid rgba(201,151,43,.25)",
       padding: "20px 24px",
     }}>
@@ -57,14 +57,14 @@ export default function CountdownTimer() {
         <span style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "var(--gold)" }}>
           Starts in
         </span>
-        <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+        <div className="countdown-units" style={{ display: "flex", gap: 16, alignItems: "center" }}>
           {units.map((u, i) => (
             <div key={u.lbl} style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <div style={{ textAlign: "center" }}>
-                <div style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 30, fontWeight: 800, color: "var(--white)", lineHeight: 1 }}>
+                <div className="countdown-num" style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 30, fontWeight: 800, color: "var(--white)", lineHeight: 1 }}>
                   {u.num}
                 </div>
-                <div style={{ fontSize: 10, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,.5)", marginTop: 4 }}>
+                <div className="countdown-lbl" style={{ fontSize: 10, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,.5)", marginTop: 4 }}>
                   {u.lbl}
                 </div>
               </div>
@@ -73,6 +73,16 @@ export default function CountdownTimer() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .countdown-bar   { padding: 16px 16px !important; }
+          .countdown-units { gap: 8px !important; }
+          .countdown-units > div { gap: 8px !important; }
+          .countdown-num   { font-size: 24px !important; }
+          .countdown-lbl   { font-size: 9px !important; letter-spacing: 1px !important; }
+        }
+      `}</style>
     </div>
   );
 }
