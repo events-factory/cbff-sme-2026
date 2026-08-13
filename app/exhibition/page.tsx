@@ -4,7 +4,6 @@ import SectionHeader from '@/components/SectionHeader';
 import ExhibitionPackage from '@/components/ExhibitionPackage';
 import ExhibitionBookingModal from '@/components/ExhibitionBookingModal';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Eye, Users, Star, TrendingUp } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { t } from '@/locales/translations';
@@ -16,6 +15,26 @@ import {
 } from '@/lib/exhibition';
 
 const benefitIcons = [Eye, Users, Star, TrendingUp];
+
+// Package inclusions arrive from the API as an HTML fragment (<li> items, some
+// carrying inline <svg> icons). Flatten it to plain-text bullet lines.
+function htmlToLines(html?: string): string[] {
+  if (!html) return [];
+  return html
+    .replace(/<\s*br\s*\/?\s*>/gi, '\n')
+    .replace(/<\/?(p|li|div|ul|ol|tr)[^>]*>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#0?39;/gi, "'")
+    .split(/\n+/)
+    .map((s) => s.replace(/\s+/g, ' ').trim())
+    .filter(Boolean)
+    .slice(0, 12);
+}
 
 const fallbackBoothImages = [
   'https://app.smartevent.rw/gallery/exhibition/packages/659eb15b5ec05_65e7744fc56e1.png',
@@ -201,62 +220,6 @@ export default function ExhibitionPage() {
         </div>
       </section>
 
-      {/* Past editions photo banner */}
-      <div
-        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', height: 320 }}
-        className="photo-banner"
-      >
-        {[
-          {
-            src: '/events/registration-desk.jpg',
-            caption:
-              lang === 'fr'
-                ? 'Accréditations — SBPME-UEMOA'
-                : 'Accreditation — SBPME-UEMOA',
-          },
-          {
-            src: '/events/gallery-audience.jpg',
-            caption:
-              lang === 'fr'
-                ? '250+ participants attendus en 2026'
-                : '250+ participants expected in 2026',
-          },
-        ].map((item) => (
-          <div
-            key={item.src}
-            style={{ position: 'relative', overflow: 'hidden' }}
-          >
-            <Image
-              src={item.src}
-              alt={item.caption}
-              fill
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'rgba(10,25,47,.55)',
-                display: 'flex',
-                alignItems: 'flex-end',
-                padding: '20px 24px',
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 13,
-                  color: 'rgba(255,255,255,.9)',
-                  fontFamily: 'var(--font-poppins),sans-serif',
-                  fontWeight: 600,
-                }}
-              >
-                {item.caption}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-
       {/* Exhibition Packages */}
       <section style={{ padding: '80px 0' }}>
         <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px' }}>
@@ -283,27 +246,20 @@ export default function ExhibitionPage() {
                   const sqm = sqMatch
                     ? `${parseInt(sqMatch[1], 10) * parseInt(sqMatch[2], 10)} ${lang === 'fr' ? 'm²' : 'sqm'}`
                     : product.sizes;
-                  const desc =
-                    lang === 'fr' && product.description_french
+                  // The API often carries an "empty" French description
+                  // (e.g. "<p><br></p>"), so only use a language's own copy
+                  // when it actually yields inclusion lines. Order: the API in
+                  // the active language → the bundled package copy (already
+                  // translated) → the API in English.
+                  const apiIncludes = htmlToLines(
+                    lang === 'fr'
                       ? product.description_french
-                      : product.description_english;
-                  const includes = desc
-                    ? desc
-                        .replace(/<\s*br\s*\/?\s*>/gi, '\n')
-                        .replace(/<\/?(p|li|div)[^>]*>/gi, '\n')
-                        .replace(/<[^>]+>/g, '')
-                        .replace(/&nbsp;/gi, ' ')
-                        .replace(/&amp;/gi, '&')
-                        .replace(/&lt;/gi, '<')
-                        .replace(/&gt;/gi, '>')
-                        .replace(/&quot;/gi, '"')
-                        .replace(/&#0?39;/gi, "'")
-                        .replace(/ /g, ' ')
-                        .split(/\n+/)
-                        .map((s) => s.replace(/\s+/g, ' ').trim())
-                        .filter(Boolean)
-                        .slice(0, 8)
-                    : [];
+                      : product.description_english,
+                  );
+                  const includes = apiIncludes.length
+                    ? apiIncludes
+                    : (T.packages[i]?.includes ??
+                      htmlToLines(product.description_english));
                   return (
                     <ExhibitionPackage
                       key={product.product_code ?? product.id ?? i}
