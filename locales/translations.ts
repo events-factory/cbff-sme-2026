@@ -23,6 +23,8 @@ export const t = {
       sponsor: 'Sponsors',
       exhibition: 'Exhibition',
       register: 'Register',
+      panelists: 'Panelists',
+      partnerships: 'Partnership Opportunities',
     },
     program: {
       eyebrow: 'Forum Program',
@@ -266,30 +268,31 @@ export const t = {
       ],
       themesLabel: '2026 Focus Areas',
       themesTitle: "This Year's Key Themes",
+      themesCta: 'See the full 2026 themes and panel format →',
       themes: [
         {
-          title: 'Digital Finance & Fintech',
-          desc: 'How fintech and mobile money are reshaping SME financing across Africa.',
+          title: '01 — Investing from Rwanda: Why and How?',
+          desc: 'The legal, financial, tax and operational conditions that make Rwanda a regional platform for investment and business development.',
         },
         {
-          title: 'AfCFTA & Cross-Border Trade',
-          desc: 'Opening new trade finance corridors for SMEs under the African Continental Free Trade Area.',
+          title: '02 — Blending Public and Private Capital to Reduce SME Risk',
+          desc: 'Mechanisms combining public and private financing with guarantees to improve access to finance.',
         },
         {
-          title: 'SME Certification & Trust',
-          desc: 'Digital identities reducing information asymmetry between SMEs and banks.',
+          title: '03 — AfCFTA Corridors: Financing Cross-Border Trade',
+          desc: 'Reducing barriers in cross-border payments, foreign exchange, transport and credit insurance across regional corridors.',
         },
         {
-          title: 'Guarantee Instruments',
-          desc: 'Risk-sharing funds enabling banks to extend credit to underserved enterprises.',
+          title: '04 — From Kigali to Brussels and Canada',
+          desc: 'The regulatory, commercial and quality requirements for successfully entering European, Canadian and other international markets.',
         },
         {
-          title: 'Women & Youth-Led SME Financing',
-          desc: 'Financing pathways and policy frameworks for women and youth entrepreneurs.',
+          title: '05 — Youth and Fintech: Accelerating Financial Inclusion',
+          desc: 'Digital solutions that reduce costs, improve access to finance and support young businesses.',
         },
         {
-          title: 'Climate Finance for SMEs',
-          desc: 'Green finance and climate adaptation instruments for the SME ecosystem.',
+          title: '06 — Securing Cross-Border Transactions',
+          desc: 'From letter of intent to enforceable contract: the legal and compliance tools SMEs need to secure international commitments.',
         },
       ],
       womenYouthEyebrow: '6th Pillar — Inclusive Growth',
@@ -521,10 +524,10 @@ export const t = {
       gettingThereTitle: 'Travel & Visa Information',
       visaTitle: 'Visa on Arrival',
       visaBody:
-        'Most nationalities receive visas upon arrival. Citizens of African Union, Commonwealth, or La Francophonie member states enjoy visa-free entry for 30 days. East African Community members receive free passes valid for 6 months. Specific countries including Angola, Ghana, and Mauritius receive 90 days visa-free upon arrival.',
+        'Most nationalities receive visas upon arrival. Citizens of African Union, Commonwealth, or La Francophonie member states enjoy visa-free entry for 30 days.',
       airportTitle: 'Kigali International Airport (KGL)',
       airportBody:
-        "Kigali International Airport serves as Rwanda's main international gateway. RwandAir operates direct routes from Brussels, London, Johannesburg, Nairobi, Addis Ababa, and other major African hubs.",
+        "Kigali International Airport serves as Rwanda's main international gateway.",
       accommodationEyebrow: 'Accommodation',
       accommodationTitle: 'Where to Stay',
       accommodationBody:
@@ -1288,6 +1291,338 @@ export const t = {
       successTitle: 'Registration Received!',
       successBody: 'Thank you for your interest. We will be in touch shortly.',
     },
+    panelists: {
+      eyebrow: 'Panels & Speakers',
+      title:
+        'Concise, Practical Contributions Designed to Deliver Immediate Value to SMEs',
+      heroCta: 'Register Your Interest',
+
+      methodologyEyebrow: 'Panel Methodology',
+      methodologyTitle:
+        'CBFF-SME Panels: Discussions That Lead to Solutions',
+      methodologyBody1:
+        'At the CBFF-SME, panels are not conventional conferences. They are designed as genuine decision workshops in which every speaker provides practical solutions that SMEs, investors and partners can apply immediately.',
+      methodologyBody2:
+        'Each panellist joins a “Results Consortium” and commits to delivering useful, measurable and action-oriented content.',
+
+      ruleEyebrow: 'A Methodology Based on the 3C Rule',
+      ruleTitle: 'Concrete · Costed · Contract-Ready',
+      ruleLead:
+        'Every contribution must meet three criteria. Each presentation is followed by a focused five-minute exchange. At the end of the panel, a speed-coaching session allows selected SMEs to explore specific issues in greater depth.',
+      rules: [
+        {
+          label: 'Concrete',
+          desc: 'Present a directly applicable solution, process, method or practical case study.',
+        },
+        {
+          label: 'Costed',
+          desc: 'Support proposals with quantified data, costs, timelines, thresholds or measurable outcomes.',
+        },
+        {
+          label: 'Contract-Ready',
+          desc: 'Define a next step capable of leading to a mandate, offer, agreement or transaction.',
+        },
+      ],
+
+      formatEyebrow: 'A Dynamic Format',
+      formatTitle: 'Each Panel Lasts 60 Minutes',
+      format: [
+        { time: '3 + 1', label: '3 panellists and 1 moderator' },
+        { time: '15 min', label: 'Per speaker' },
+        { time: '5 min', label: 'Focused audience discussion' },
+        {
+          time: '15 min',
+          label: 'Speed Coaching after the panel with pre-selected SMEs',
+        },
+      ],
+      formatNote:
+        'The objective is to turn discussion into concrete business opportunities.',
+
+      commitmentsEyebrow: 'Commitments of Panellists and Moderators',
+      commitmentsTitle: 'What Each Speaker Commits To',
+      commitments: [
+        'Prioritising practical solutions over institutional presentations;',
+        'Avoiding institutional presentations focused solely on the organisation;',
+        'Sharing at least one downloadable tool, template, guide or resource that participants can use;',
+        'Taking part in a fifteen-minute speed-coaching session with selected SMEs;',
+        'Helping to define the next steps required to advance projects;',
+        'Contributing to defining concrete next steps following the discussions.',
+      ],
+
+      themesEyebrow: 'Themes and Target Profiles',
+      themesTitle: 'Rwanda 2026 Edition',
+      objectiveLabel: 'Objective',
+      profilesLabel: 'Target profiles',
+      deliverableLabel: 'Practical deliverable',
+      themes: [
+        {
+          num: '01',
+          title: 'Investing from Rwanda: Why and How?',
+          objective:
+            'Present the legal, financial, tax and operational conditions required to understand why and how Rwanda can be used as a regional platform for investment and business development.',
+          profiles:
+            'Representative of KIFC or RDB, pan-African investor, or a company that has expanded its activities from Rwanda.',
+          deliverable: 'Practical Guide for Investors in Rwanda.',
+        },
+        {
+          num: '02',
+          title: 'Blending Public and Private Capital to Reduce SME Risk',
+          objective:
+            'Present mechanisms showing how public and private financing, combined with guarantees, can improve access to finance.',
+          profiles:
+            'Development finance institution, risk-management executive from a commercial bank, investment fund or guarantee mechanism.',
+          deliverable:
+            'Case study on structuring a guaranteed financing solution.',
+        },
+        {
+          num: '03',
+          title: 'AfCFTA Corridors: Financing Cross-Border Trade',
+          objective:
+            'Reduce barriers relating to cross-border payments, foreign exchange, transport and credit insurance, while facilitating payments, logistics, insurance and regional trade.',
+          profiles:
+            'PAPSS representative, freight forwarder specialising in the Rwanda–DRC–Tanzania corridors, export credit insurance expert and MINICOM export specialist.',
+          deliverable: 'Full simulation of a cross-border transaction.',
+        },
+        {
+          num: '04',
+          title:
+            'From Kigali to Brussels and Canada: Successfully Entering International Markets',
+          objective:
+            'Understand the regulatory, commercial and quality requirements of European, Canadian and other international markets.',
+          profiles:
+            'Expert in EU/Canada–Africa trade agreements, specialist in phytosanitary and ESG standards, buyer from a major retail group, or international business lawyer.',
+          deliverable:
+            'Product stress test comparing standard packaging with packaging aligned with premium-market expectations, together with a comparative export-readiness assessment.',
+        },
+        {
+          num: '05',
+          title:
+            'Youth and Fintech: Accelerating Financial Inclusion and Entrepreneurship',
+          objective:
+            'Identify digital solutions capable of reducing costs, improving access to finance and supporting young businesses.',
+          profiles:
+            'Fintech founder, bank or payment operator, young entrepreneur, investor or accelerator.',
+          deliverable:
+            'Demonstration of a fintech solution and an investor-pitch preparation framework.',
+        },
+        {
+          num: '06',
+          title:
+            'Securing Cross-Border Transactions: From Letter of Intent to Enforceable Contract',
+          objective:
+            'Equip SMEs with the legal and compliance tools required to secure their international commitments.',
+          profiles:
+            'International business lawyer with expertise in OHADA law and Common Law, notary or registrar of the Kigali Commercial Court, compliance officer from a pan-African bank, or AfCFTA expert.',
+          deliverable:
+            'Exporter’s legal toolkit, including term-sheet templates, arbitration clauses, contractual provisions and key risk considerations.',
+        },
+        {
+          num: '07',
+          title:
+            'SheFlies to Trade — Women and International Trade: Reimagining the Model',
+          objective:
+            'Address the financing, mobility, logistics and market-access barriers faced by women entrepreneurs.',
+          profiles:
+            'Woman export entrepreneur, financial institution or fund, airline or logistics operator, and organisation supporting trade and women’s entrepreneurship.',
+          deliverable:
+            'SheFlies to Trade roadmap and practical recommendations to facilitate business travel and exports.',
+        },
+      ],
+
+      differenceEyebrow: 'A Fundamental Difference',
+      differenceTitle: 'Measured by Opportunities Created, Not Attendance',
+      differenceBody:
+        'At the CBFF-SME, the success of a panel is measured not by attendance, but by the number of opportunities created. Every session is designed to produce practical deliverables, facilitate qualified meetings and accelerate the conclusion of partnerships, financing arrangements and contracts.',
+
+      programmeEyebrow: 'Detailed Programme in Preparation',
+      programmeTitle: 'What the Official Programme Will Include',
+      programmeLead:
+        'The official programme will specify the timetable, speakers, moderators and final format of each session. It will include, in particular:',
+      programme: [
+        'The opening ceremony and institutional addresses;',
+        'Thematic panels and speed-coaching sessions;',
+        'B2B meetings and Deal Room sessions;',
+        'The VIP Dinner and qualified networking sessions.',
+      ],
+
+      contactEyebrow: 'Join the Panel',
+      contactTitle: 'Register Your Interest to Become a Panelist',
+      contactBody:
+        'We welcome proposals from finance leaders, policymakers, investors, legal and logistics experts, and SME ecosystem builders who can meet the 3C standard. Contact the CBFF-SME secretariat to discuss a speaking role.',
+      contactCta: 'Chat with Us on WhatsApp',
+      contactEmail: 'info@netkigali.com',
+      contactKigali: '+250 788 991 551 (Kigali)',
+      contactBrussels: '+32 491 23 54 47 (Brussels)',
+    },
+    partnerships: {
+      eyebrow: 'Partnership Opportunities',
+      title:
+        'Tailored Positioning Opportunities for Institutions, Financiers, Corporations and Technical Partners',
+      heroCta: 'Become a Partner',
+
+      positioningEyebrow: 'Strategic Positioning Proposals',
+      positioningTitle: 'A Basis for Discussion, by Partner Category',
+      positioningLead:
+        'The positioning options below provide a basis for discussion by partner category. They can be adapted to each organisation’s mandate, objectives, budget and priorities.',
+      positioningCta: 'See all seven partner categories →',
+
+      profilesLabel: 'Partner profiles',
+      rationaleLabel: 'Strategic rationale',
+      positioningLabel: 'Proposed positioning',
+      benefitsLabel: 'Key benefits',
+      returnLabel: 'Expected return',
+      categories: [
+        {
+          num: '01',
+          title: 'Institutional Partner',
+          subtitle: 'Public-Sector Leadership and National Anchoring',
+          profiles:
+            'Ministries, public agencies, local authorities and national institutions',
+          rationale:
+            'Public-sector anchoring strengthens the Forum’s credibility, facilitates the mobilisation of economic stakeholders and aligns outcomes with national priorities.',
+          positioning:
+            'Patronage or institutional partnership, a role in the opening ceremony, contribution to the steering committee and official visibility.',
+          benefits: [
+            'Showcase SME-supportive policies',
+            'Engage with investors',
+            'Promote the national ecosystem',
+          ],
+          expectedReturn:
+            'Stronger institutional mobilisation and enhanced positioning of the host country as a business platform.',
+        },
+        {
+          num: '02',
+          title: 'Investment & Market Access Partner',
+          subtitle:
+            'Investment Promotion, Export Development and Market Entry',
+          profiles:
+            'Investment- and export-promotion agencies, chambers of commerce and business associations',
+          rationale:
+            'These organisations convert the interest generated by the Forum into market-entry, export, procurement and partnership projects.',
+          positioning:
+            'Country or sector desk, tailored B2B/B2G agenda and practical market-access session.',
+          benefits: [
+            'Generate qualified leads',
+            'Promote business-support services',
+            'Showcase priority sectors',
+          ],
+          expectedReturn:
+            'Concrete investment, trade and expansion opportunities for supported businesses.',
+        },
+        {
+          num: '03',
+          title: 'Deal Room & Financing Partner',
+          subtitle: 'Capital, Credit and Transactions',
+          profiles:
+            'Commercial and development banks, funds, investors and asset managers',
+          rationale:
+            'The Deal Room provides access to a prepared pipeline and directs each meeting towards a financing or investment decision.',
+          positioning:
+            'Financial partner of the Deal Room, participation in financing clinics and confidential access to qualified opportunities.',
+          benefits: [
+            'Originate transactions',
+            'Acquire new SME clients',
+            'Structure co-financing and trade-finance solutions',
+          ],
+          expectedReturn:
+            'A qualified pipeline and transactions followed up at 30, 60 and 90 days.',
+        },
+        {
+          num: '04',
+          title: 'Guarantees & SME Preparation Partner',
+          subtitle: 'Risk Reduction and Bankability',
+          profiles:
+            'Guarantee funds, development institutions, advisory firms, accelerators and legal or financial experts',
+          rationale:
+            'Business preparation and risk-sharing improve the quality of opportunities and accelerate decisions.',
+          positioning:
+            'Support for the SME cohort, preparation clinics, practical tools and referral to appropriate mechanisms.',
+          benefits: [
+            'Deploy guarantees and technical assistance',
+            'Identify mature opportunities',
+            'Strengthen banking partnerships',
+          ],
+          expectedReturn:
+            'More finance-ready opportunities and faster due diligence.',
+        },
+        {
+          num: '05',
+          title: 'Cross-Border Trade & Logistics Partner',
+          subtitle: 'Corridors, Payments and Execution',
+          profiles:
+            'Logistics providers, airlines, carriers, insurers, payment operators and customs-solution providers',
+          rationale:
+            'Successful transactions depend on the movement of goods, payments, insurance coverage and compliance.',
+          positioning:
+            'Corridor session, demonstrations and B2B meetings with exporters, buyers and institutions.',
+          benefits: [
+            'Access businesses with real trade flows',
+            'Test solutions',
+            'Generate commercial contracts',
+          ],
+          expectedReturn:
+            'Qualified commercial leads and solutions deployed across priority corridors.',
+        },
+        {
+          num: '06',
+          title: 'Technology, Data & NexoraPME Partner',
+          subtitle: 'Digital Trust and Matchmaking',
+          profiles:
+            'Telecommunications operators, technology companies, cloud and cybersecurity providers, data and KYC specialists, and fintechs',
+          rationale:
+            'NexoraPME depends on high-quality data, connectivity and digital-trust mechanisms.',
+          positioning:
+            'Partner of the Digital Trust Lab and NexoraPME, including demonstrations, technical expertise and user activation.',
+          benefits: [
+            'Showcase use cases',
+            'Access qualified users',
+            'Strengthen innovation positioning',
+          ],
+          expectedReturn:
+            'Increased adoption of digital tools and new opportunities for technology services.',
+        },
+        {
+          num: '07',
+          title: 'Inclusion, Women & Impact Partner',
+          subtitle: 'SheFlies to Trade and Inclusive Entrepreneurship',
+          profiles:
+            'Impact funds, foundations, development organisations, airlines, logistics providers and women’s networks',
+          rationale:
+            'Barriers to financing, mobility and market access require coordinated, measurable solutions.',
+          positioning:
+            'Support for a cohort, mentoring, a mobility or market-access mechanism, and participation in the SheFlies to Trade session.',
+          benefits: [
+            'Deliver measurable impact',
+            'Meet high-potential women entrepreneurs',
+            'Showcase ESG and CSR commitments',
+          ],
+          expectedReturn:
+            'Supported beneficiaries, concrete commitments and partnerships followed up after the Forum.',
+        },
+      ],
+
+      measuredEyebrow: 'A Monitored, Documented and Measurable Investment',
+      measuredTitle: 'Reporting Proportionate to Your Programme',
+      measuredBody:
+        'Each partner receives reporting proportionate to its programme, covering visibility achieved, meetings held, sectors and countries engaged, qualified contacts, opportunities identified and negotiations initiated.',
+      measuredNote:
+        'Follow-up at 30, 60 and 90 days documents progress, conversions and the next actions required to bring transactions to completion.',
+      followUp: [
+        { day: '30 days', desc: 'Progress and first conversions documented' },
+        { day: '60 days', desc: 'Negotiations tracked and next actions defined' },
+        { day: '90 days', desc: 'Transactions brought towards completion' },
+      ],
+
+      contactEyebrow: 'Contact and Next Steps',
+      contactTitle: 'Let Us Build a High-Impact Partnership',
+      contactBody:
+        'The CBFF-SME team is available to tailor the partnership structure, benefits, content and business objectives to your organisation.',
+      contactCta: 'Chat with Us on WhatsApp',
+      contactEmail: 'info@netkigali.com',
+      contactKigali: '+250 788 991 551 (Kigali)',
+      contactBrussels: '+32 491 23 54 47 (Brussels)',
+      contactWestAfrica: 'partenariat@salonpmeuemoa.org (West Africa)',
+    },
   },
 
   // ─────────────────────────────────────────── FRENCH ───────────────────────
@@ -1315,6 +1650,8 @@ export const t = {
       sponsor: 'Sponsors',
       exhibition: 'Exposition',
       register: "S'inscrire",
+      panelists: 'Panélistes',
+      partnerships: 'Opportunités de Partenariat',
     },
     program: {
       eyebrow: 'Programme du Forum',
@@ -1565,30 +1902,31 @@ export const t = {
       ],
       themesLabel: 'Thèmes 2026',
       themesTitle: 'Les Grands Thèmes de Cette Édition',
+      themesCta: 'Voir les thématiques 2026 et le format des panels →',
       themes: [
         {
-          title: 'Finance Numérique & Fintech',
-          desc: 'Comment les plateformes fintech et le mobile money transforment le financement des PME en Afrique.',
+          title: '01 — Investir à Partir du Rwanda : Pourquoi et Comment ?',
+          desc: "Les conditions juridiques, financières, fiscales et opérationnelles permettant d'utiliser le Rwanda comme plateforme régionale d'investissement.",
         },
         {
-          title: 'ZLECAf & Commerce Transfrontalier',
-          desc: 'Exploiter la Zone de Libre-Échange Continentale Africaine pour ouvrir de nouveaux corridors de financement commercial.',
+          title: '02 — Combiner Capitaux Publics et Privés pour Réduire le Risque PME',
+          desc: "Les mécanismes combinant financements publics et privés et garanties pour améliorer l'accès au financement.",
         },
         {
-          title: 'Certification & Confiance des PME',
-          desc: "Identités économiques numériques et cadres de certification réduisant l'asymétrie d'information pour les banques.",
+          title: '03 — Corridors ZLECAf : Financer les Échanges Transfrontaliers',
+          desc: "Réduire les obstacles liés aux paiements transfrontaliers, aux devises, au transport et à l'assurance-crédit sur les corridors régionaux.",
         },
         {
-          title: 'Instruments de Garantie',
-          desc: "Mécanismes de partage des risques et fonds de garantie permettant aux banques d'étendre le crédit aux entreprises non desservies.",
+          title: '04 — De Kigali à Bruxelles et au Canada',
+          desc: 'Comprendre les exigences réglementaires, commerciales et de qualité des marchés européens, canadiens et internationaux.',
         },
         {
-          title: 'Financement des PME Féminines & Jeunes',
-          desc: "Voies de financement dédiées, programmes de mentorat et cadres politiques soutenant les femmes et les jeunes entrepreneurs à travers l'Afrique.",
+          title: "05 — Jeunesse et Fintech : Accélérer l'Inclusion Financière",
+          desc: "Les solutions numériques capables de réduire les coûts, améliorer l'accès au financement et soutenir les jeunes entreprises.",
         },
         {
-          title: 'Finance Climatique pour les PME',
-          desc: "Intégration de la finance verte et des instruments d'adaptation climatique dans l'écosystème de financement des PME.",
+          title: '06 — Sécuriser les Transactions Transfrontalières',
+          desc: "De la lettre d'intention au contrat exécutoire : les outils juridiques et de conformité nécessaires pour sécuriser les engagements internationaux.",
         },
       ],
       womenYouthEyebrow: '6e Pilier — Croissance Inclusive',
@@ -1820,10 +2158,10 @@ export const t = {
       gettingThereTitle: 'Voyage & Visa',
       visaTitle: "Visa à l'Arrivée",
       visaBody:
-        "La plupart des nationalités reçoivent un visa à l'arrivée. Les citoyens des États membres de l'Union africaine, du Commonwealth ou de La Francophonie bénéficient d'une entrée sans visa pour 30 jours. Les membres de la Communauté d'Afrique de l'Est reçoivent des laissez-passer gratuits valables 6 mois. Certains pays dont l'Angola, le Ghana et Maurice bénéficient de 90 jours sans visa à l'arrivée.",
+        "La plupart des nationalités reçoivent un visa à l'arrivée. Les citoyens des États membres de l'Union africaine, du Commonwealth ou de La Francophonie bénéficient d'une entrée sans visa pour 30 jours.",
       airportTitle: 'Aéroport International de Kigali (KGL)',
       airportBody:
-        "L'aéroport international de Kigali est la principale porte d'entrée internationale du Rwanda. RwandAir opère des vols directs depuis Bruxelles, Londres, Johannesburg, Nairobi, Addis-Abeba et d'autres grandes villes africaines.",
+        "L'aéroport international de Kigali est la principale porte d'entrée internationale du Rwanda.",
       accommodationEyebrow: 'Hébergement',
       accommodationTitle: 'Où Séjourner',
       accommodationBody:
@@ -2603,6 +2941,338 @@ export const t = {
       successTitle: 'Inscription Reçue !',
       successBody:
         'Merci pour votre intérêt. Nous vous contacterons prochainement.',
+    },
+    panelists: {
+      eyebrow: 'Panels et Panélistes',
+      title:
+        'Des Interventions Courtes, Concrètes et Directement Utiles aux PME',
+      heroCta: 'Exprimer Votre Intérêt',
+
+      methodologyEyebrow: 'Méthodologie des Panels CBFF-SME',
+      methodologyTitle:
+        'Les Panels du CBFF-SME : des Échanges qui Débouchent sur des Solutions',
+      methodologyBody1:
+        'Au CBFF-SME, les panels ne sont pas de simples conférences. Ils sont conçus comme de véritables ateliers de décision, où chaque intervenant apporte des solutions concrètes, immédiatement exploitables par les PME, les investisseurs et les partenaires.',
+      methodologyBody2:
+        'Chaque panéliste rejoint un « Consortium de Résultats » et s’engage à produire un contenu utile, mesurable et orienté vers l’action.',
+
+      ruleEyebrow: 'Une Méthodologie Fondée sur la Règle des 3C',
+      ruleTitle: 'Concret · Chiffré · Contractualisable',
+      ruleLead:
+        'Chaque intervention doit respecter trois principes. Chaque intervention est suivie d’un échange ciblé de cinq minutes. À l’issue du panel, un espace de speed coaching permet d’approfondir les questions spécifiques avec les PME.',
+      rules: [
+        {
+          label: 'Concret',
+          desc: 'Présenter une solution, un processus, une méthode ou un retour d’expérience directement applicable.',
+        },
+        {
+          label: 'Chiffré',
+          desc: 'Appuyer les propositions sur des données, des coûts, des délais, des seuils ou des résultats mesurables.',
+        },
+        {
+          label: 'Contractualisable',
+          desc: 'Faire émerger une prochaine étape pouvant conduire à un mandat, une offre, un accord ou une transaction.',
+        },
+      ],
+
+      formatEyebrow: 'Un Format Dynamique',
+      formatTitle: 'Chaque Panel Dure 60 Minutes',
+      format: [
+        { time: '3 + 1', label: '3 panélistes et 1 modérateur' },
+        { time: '15 min', label: 'Par intervenant' },
+        { time: '5 min', label: 'D’échanges ciblés avec la salle' },
+        {
+          time: '15 min',
+          label: 'De Speed Coaching à l’issue du panel avec des PME présélectionnées',
+        },
+      ],
+      formatNote:
+        'L’objectif est de transformer les échanges en opportunités d’affaires concrètes.',
+
+      commitmentsEyebrow: 'Engagement des Panélistes et Modérateurs',
+      commitmentsTitle: 'Ce à Quoi Chaque Intervenant s’Engage',
+      commitments: [
+        'Privilégier des solutions pratiques plutôt qu’une présentation institutionnelle ;',
+        'Éviter les présentations institutionnelles centrées uniquement sur l’entreprise ;',
+        'Partager au moins un outil, modèle, guide ou ressource téléchargeable utilisable par les participants ;',
+        'Participer à une séance de speed coaching de quinze minutes avec les PME sélectionnées ;',
+        'Contribuer à définir les prochaines étapes permettant de faire progresser les projets ;',
+        'Contribuer à la formulation de prochaines étapes concrètes à l’issue des échanges.',
+      ],
+
+      themesEyebrow: 'Thématiques et Profils',
+      themesTitle: 'Édition Rwanda 2026',
+      objectiveLabel: 'Objectif',
+      profilesLabel: 'Profils recherchés',
+      deliverableLabel: 'Livrable pratique',
+      themes: [
+        {
+          num: '01',
+          title: 'Investir à Partir du Rwanda : Pourquoi et Comment ?',
+          objective:
+            'Présenter les conditions juridiques, financières, fiscales et opérationnelles permettant de comprendre pourquoi et comment utiliser le Rwanda comme plateforme régionale d’investissement et de développement.',
+          profiles:
+            'Représentant du KIFC ou du RDB, investisseur panafricain, entreprise ayant développé ses activités depuis le Rwanda.',
+          deliverable: 'Guide pratique de l’investisseur au Rwanda.',
+        },
+        {
+          num: '02',
+          title: 'Combiner Capitaux Publics et Privés pour Réduire le Risque PME',
+          objective:
+            'Présenter les mécanismes montrant comment les financements publics et privés, combinés à des garanties, peuvent améliorer l’accès au financement.',
+          profiles:
+            'Institution de financement du développement, responsable des risques d’une banque commerciale, fonds d’investissement ou mécanisme de garantie.',
+          deliverable:
+            'Étude de cas sur la structuration d’une solution de financement garantie.',
+        },
+        {
+          num: '03',
+          title: 'Corridors ZLECAf : Financer les Échanges Transfrontaliers',
+          objective:
+            'Réduire les obstacles liés aux paiements transfrontaliers, aux devises, au transport et à l’assurance-crédit. Faciliter les paiements, la logistique, les assurances et le commerce régional.',
+          profiles:
+            'Représentant du PAPSS, transitaire spécialisé sur les corridors Rwanda–RDC–Tanzanie, expert en assurance-crédit export, expert export du MINICOM.',
+          deliverable: 'Simulation complète d’une transaction transfrontalière.',
+        },
+        {
+          num: '04',
+          title:
+            'De Kigali à Bruxelles et au Canada : Réussir l’Entrée sur les Marchés Internationaux',
+          objective:
+            'Comprendre les exigences réglementaires, commerciales et de qualité des marchés internationaux européens et canadiens.',
+          profiles:
+            'Expert des accords commerciaux UE/Canada–Afrique, spécialiste des normes phytosanitaires et ESG, acheteur d’une grande enseigne, juriste en droit des affaires internationales.',
+          deliverable:
+            'Crash-test produit : comparaison entre un packaging standard et un packaging conforme aux attentes d’un marché premium, et diagnostic comparatif d’un produit destiné à l’export.',
+        },
+        {
+          num: '05',
+          title:
+            'Jeunesse et Fintech : Accélérer l’Inclusion Financière et l’Entrepreneuriat',
+          objective:
+            'Identifier les solutions numériques capables de réduire les coûts, améliorer l’accès au financement et soutenir les jeunes entreprises.',
+          profiles:
+            'Fondateur de fintech, banque ou opérateur de paiement, jeune entrepreneur, investisseur ou accélérateur.',
+          deliverable:
+            'Démonstration d’une solution fintech et grille de préparation d’un pitch investisseur.',
+        },
+        {
+          num: '06',
+          title:
+            'Sécuriser les Transactions Transfrontalières : de la Lettre d’Intention au Contrat Exécutoire',
+          objective:
+            'Donner aux PME les outils juridiques et de conformité nécessaires pour sécuriser leurs engagements internationaux.',
+          profiles:
+            'Avocat d’affaires international — droit OHADA et Common Law —, notaire ou greffier du Tribunal de commerce de Kigali, responsable conformité d’une banque panafricaine, expert ZLECAf.',
+          deliverable:
+            'Toolkit juridique de l’exportateur : modèles de term sheets, clauses d’arbitrage, clauses contractuelles et points de vigilance.',
+        },
+        {
+          num: '07',
+          title:
+            'SheFlies to Trade — Femmes et Commerce International : un Modèle à Réinventer',
+          objective:
+            'Lever les obstacles rencontrés par les femmes entrepreneures en matière de financement, de mobilité, de logistique et d’accès aux marchés.',
+          profiles:
+            'Femme entrepreneure exportatrice, institution financière ou fonds, compagnie aérienne ou acteur logistique, organisation d’appui au commerce et à l’entrepreneuriat féminin.',
+          deliverable:
+            'Feuille de route SheFlies to Trade et propositions de solutions concrètes pour faciliter les déplacements d’affaires et l’exportation.',
+        },
+      ],
+
+      differenceEyebrow: 'Une Différence Essentielle',
+      differenceTitle:
+        'Mesuré au Nombre d’Opportunités Créées, Pas au Nombre de Participants',
+      differenceBody:
+        'Au CBFF-SME, le succès d’un panel ne se mesure pas au nombre de participants, mais au nombre d’opportunités créées. Chaque session est pensée pour produire des livrables concrets, faciliter des rencontres qualifiées et accélérer la conclusion de partenariats, de financements et de contrats.',
+
+      programmeEyebrow: 'Programme Détaillé en Préparation',
+      programmeTitle: 'Ce que Comprendra le Programme Officiel',
+      programmeLead:
+        'Le programme officiel précisera les horaires, les intervenants, les modérateurs et les formats définitifs de chaque séquence. Il comprendra notamment :',
+      programme: [
+        'La cérémonie d’ouverture et les prises de parole institutionnelles ;',
+        'Les panels thématiques et les séances de speed coaching ;',
+        'Les rendez-vous B2B et les sessions de la Deal Room ;',
+        'Le dîner VIP et les séquences de networking qualifié.',
+      ],
+
+      contactEyebrow: 'Rejoindre le Panel',
+      contactTitle: 'Exprimez Votre Intérêt pour Devenir Panéliste',
+      contactBody:
+        'Nous accueillons les propositions de dirigeants financiers, décideurs publics, investisseurs, experts juridiques et logistiques, et acteurs de l’écosystème PME capables de respecter la règle des 3C. Contactez le secrétariat CBFF-SME pour discuter d’une prise de parole.',
+      contactCta: 'Discuter sur WhatsApp',
+      contactEmail: 'info@netkigali.com',
+      contactKigali: '+250 788 991 551 (Kigali)',
+      contactBrussels: '+32 491 23 54 47 (Bruxelles)',
+    },
+    partnerships: {
+      eyebrow: 'Opportunités de Partenariat',
+      title:
+        'Des Positionnements sur Mesure pour les Institutions, Financeurs, Entreprises et Partenaires Techniques',
+      heroCta: 'Devenir Partenaire',
+
+      positioningEyebrow: 'Propositions de Positionnement Stratégique',
+      positioningTitle: 'Une Base de Discussion, par Type de Partenaire',
+      positioningLead:
+        'Les positionnements ci-dessous constituent une base de discussion formulée par type de partenaire. Ils peuvent être adaptés au mandat, aux objectifs, au budget et aux priorités de chaque organisation.',
+      positioningCta: 'Voir les sept types de partenaires →',
+
+      profilesLabel: 'Profils de partenaires',
+      rationaleLabel: 'Justification stratégique',
+      positioningLabel: 'Positionnement proposé',
+      benefitsLabel: 'Avantages clés',
+      returnLabel: 'Retour attendu',
+      categories: [
+        {
+          num: '01',
+          title: 'Partenaire Institutionnel',
+          subtitle: 'Leadership public et ancrage national',
+          profiles:
+            'Ministères, agences publiques, autorités locales et institutions nationales',
+          rationale:
+            'L’ancrage public renforce la crédibilité du Forum, facilite la mobilisation des acteurs économiques et aligne les résultats avec les priorités nationales.',
+          positioning:
+            'Patronage ou partenariat institutionnel, rôle dans l’ouverture, contribution au comité d’orientation et visibilité officielle.',
+          benefits: [
+            'Valoriser les politiques favorables aux PME',
+            'Dialoguer avec les investisseurs',
+            'Promouvoir l’écosystème national',
+          ],
+          expectedReturn:
+            'Une mobilisation accrue des institutions et un positionnement renforcé du pays hôte comme plateforme d’affaires.',
+        },
+        {
+          num: '02',
+          title: 'Partenaire Investissement & Accès aux Marchés',
+          subtitle: 'Promotion économique, export et implantation',
+          profiles:
+            'Agences de promotion des investissements et des exportations, chambres de commerce et organisations patronales',
+          rationale:
+            'Ces acteurs transforment l’intérêt suscité par le Forum en projets d’implantation, d’exportation, d’achat et de partenariat.',
+          positioning:
+            'Guichet pays ou sectoriel, agenda B2B/B2G et session pratique sur l’accès aux marchés.',
+          benefits: [
+            'Générer des leads qualifiés',
+            'Promouvoir les services d’accompagnement',
+            'Mettre en valeur les secteurs prioritaires',
+          ],
+          expectedReturn:
+            'Des opportunités concrètes d’investissement, de commerce et d’expansion pour les entreprises accompagnées.',
+        },
+        {
+          num: '03',
+          title: 'Partenaire Deal Room & Financement',
+          subtitle: 'Capital, crédit et transactions',
+          profiles:
+            'Banques commerciales et de développement, fonds, investisseurs et gestionnaires d’actifs',
+          rationale:
+            'La Deal Room donne accès à un pipeline préparé et permet d’orienter chaque rencontre vers une décision de financement ou d’investissement.',
+          positioning:
+            'Partenaire financier de la Deal Room, présence dans les cliniques de financement et accès aux dossiers qualifiés sous confidentialité.',
+          benefits: [
+            'Originer des opérations',
+            'Acquérir de nouveaux clients PME',
+            'Structurer des cofinancements et solutions de trade finance',
+          ],
+          expectedReturn:
+            'Un pipeline qualifié et des transactions suivies à 30, 60 et 90 jours.',
+        },
+        {
+          num: '04',
+          title: 'Partenaire Garanties & Préparation des PME',
+          subtitle: 'Réduction du risque et bancabilité',
+          profiles:
+            'Fonds de garantie, institutions de développement, cabinets-conseils, accélérateurs et experts juridiques ou financiers',
+          rationale:
+            'La préparation des entreprises et le partage du risque améliorent la qualité des dossiers et accélèrent les décisions.',
+          positioning:
+            'Soutien à la cohorte de PME, cliniques de préparation, outils pratiques et orientation vers les mécanismes adaptés.',
+          benefits: [
+            'Déployer garanties et assistance technique',
+            'Identifier les dossiers matures',
+            'Renforcer les partenariats bancaires',
+          ],
+          expectedReturn:
+            'Davantage de dossiers finançables et des diligences plus rapides.',
+        },
+        {
+          num: '05',
+          title: 'Partenaire Commerce Transfrontalier & Logistique',
+          subtitle: 'Corridors, paiements et exécution',
+          profiles:
+            'Logisticiens, compagnies aériennes, transporteurs, assureurs, opérateurs de paiement et solutions douanières',
+          rationale:
+            'La réussite d’une transaction dépend de la circulation des marchandises, des paiements, de l’assurance et de la conformité.',
+          positioning:
+            'Session corridor, démonstrations et rendez-vous B2B avec exportateurs, acheteurs et institutions.',
+          benefits: [
+            'Accéder à des entreprises avec des flux réels',
+            'Tester des solutions',
+            'Générer des contrats commerciaux',
+          ],
+          expectedReturn:
+            'Des leads commerciaux qualifiés et des solutions déployées sur les corridors prioritaires.',
+        },
+        {
+          num: '06',
+          title: 'Partenaire Technologie, Données & NexoraPME',
+          subtitle: 'Confiance numérique et matchmaking',
+          profiles:
+            'Télécoms, entreprises technologiques, cloud et cybersécurité, données, KYC et fintechs',
+          rationale:
+            'NexoraPME repose sur la qualité des données, la connectivité et des mécanismes de confiance numérique.',
+          positioning:
+            'Partenaire du Digital Trust Lab et de NexoraPME, démonstrations, expertise technique et activation auprès des utilisateurs.',
+          benefits: [
+            'Présenter des cas d’usage',
+            'Accéder à des utilisateurs qualifiés',
+            'Renforcer le positionnement innovation',
+          ],
+          expectedReturn:
+            'Une adoption accrue des outils et de nouvelles opportunités de services numériques.',
+        },
+        {
+          num: '07',
+          title: 'Partenaire Inclusion, Femmes & Impact',
+          subtitle: 'SheFlies to Trade et entrepreneuriat inclusif',
+          profiles:
+            'Fonds d’impact, fondations, organisations de développement, compagnies aériennes, logisticiens et réseaux de femmes',
+          rationale:
+            'Les obstacles de financement, de mobilité et d’accès aux marchés nécessitent des solutions coordonnées et mesurables.',
+          positioning:
+            'Soutien à une cohorte, mentorat, dispositif de mobilité ou d’accès au marché et séquence SheFlies to Trade.',
+          benefits: [
+            'Produire un impact mesurable',
+            'Rencontrer des entrepreneures à fort potentiel',
+            'Valoriser les engagements ESG et RSE',
+          ],
+          expectedReturn:
+            'Des bénéficiaires accompagnées, des engagements pris et des partenariats suivis après le Forum.',
+        },
+      ],
+
+      measuredEyebrow: 'Un Investissement Suivi, Documenté et Mesurable',
+      measuredTitle: 'Un Reporting Proportionné à Votre Programme',
+      measuredBody:
+        'Chaque partenaire reçoit un reporting proportionné à son programme : visibilité obtenue, rendez-vous réalisés, secteurs et pays rencontrés, contacts qualifiés, opportunités identifiées et négociations ouvertes.',
+      measuredNote:
+        'Le suivi à 30, 60 et 90 jours permet de documenter les avancées, les conversions et les prochaines actions nécessaires à la concrétisation des opérations.',
+      followUp: [
+        { day: '30 jours', desc: 'Avancées et premières conversions documentées' },
+        { day: '60 jours', desc: 'Négociations suivies et prochaines actions définies' },
+        { day: '90 jours', desc: 'Opérations menées vers leur concrétisation' },
+      ],
+
+      contactEyebrow: 'Contact et Prochaines Étapes',
+      contactTitle: 'Construisons un Partenariat à Fort Impact',
+      contactBody:
+        'L’équipe CBFF-SME est disponible pour adapter les modalités de partenariat, les contreparties, les contenus et les objectifs business à votre organisation.',
+      contactCta: 'Discuter sur WhatsApp',
+      contactEmail: 'info@netkigali.com',
+      contactKigali: '+250 788 991 551 (Kigali)',
+      contactBrussels: '+32 491 23 54 47 (Bruxelles)',
+      contactWestAfrica: 'partenariat@salonpmeuemoa.org (Afrique de l’Ouest)',
     },
   },
 };
