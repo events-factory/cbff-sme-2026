@@ -286,6 +286,11 @@ export default function SponsorsPage() {
               </div>
             ))}
           </div>
+          <div style={{ marginTop: 32 }}>
+            <Link href="/partnership-opportunities" style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--navy)", textDecoration: "none", borderBottom: "2px solid var(--gold)", paddingBottom: 4 }}>
+              {t[lang].partnerships.positioningCta}
+            </Link>
+          </div>
         </div>
       </section>
 
