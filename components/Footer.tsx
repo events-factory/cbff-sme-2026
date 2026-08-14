@@ -51,8 +51,10 @@ export default function Footer() {
   const navLinks = [
     { href: '/about', label: navT.about },
     { href: '/speakers', label: navT.speakers },
+    { href: '/panelists', label: navT.panelists },
     { href: '/destination', label: navT.destination },
     { href: '/sponsors', label: navT.sponsor },
+    { href: '/partnership-opportunities', label: navT.partnerships },
     { href: '/exhibition', label: navT.exhibition },
     { href: '/registration', label: navT.register },
   ];

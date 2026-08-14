@@ -10,6 +10,9 @@ const partners = [
   { logo: "/logos/boa.png", name: "Bank of Africa", desc: "Regional banking partner" },
 ];
 
+// Partners carousel hidden for now — flip to true to bring the section back.
+const SHOW_PARTNERS = false;
+
 export default function Home() {
   const { lang } = useLanguage();
   const T = t[lang].home;
@@ -133,6 +136,11 @@ export default function Home() {
                 <p style={{ fontSize: 13.5, color: "rgba(255,255,255,.65)", lineHeight: 1.65 }}>{theme.desc}</p>
               </div>
             ))}
+          </div>
+          <div style={{ marginTop: 36 }}>
+            <Link href="/panelists" style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--white)", textDecoration: "none", borderBottom: "2px solid var(--gold)", paddingBottom: 4 }}>
+              {T.themesCta}
+            </Link>
           </div>
         </div>
       </section>
@@ -299,6 +307,7 @@ export default function Home() {
       </section>
 
       {/* ── Partners carousel ──────────────────────── */}
+      {SHOW_PARTNERS && (
       <section style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           <Image src="/banner3.jpeg" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
@@ -332,6 +341,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ── Sponsor CTA ────────────────────────────── */}
       <section style={{ background: "var(--navy)", padding: "56px 24px", borderTop: "1px solid rgba(201,151,43,.25)" }}>
