@@ -323,7 +323,7 @@ export const t = {
       ],
       womenYouthStat:
         '40% of selected SMEs reserved for women-led & youth-led enterprises',
-      womenYouthCTA: 'Register as a Women or Youth-Led Enterprise →',
+      womenYouthCTA: 'Register for the Forum →',
       threeDaysLabel: 'Forum Programme',
       threeDaysTitle: 'Two Days of Impact',
       threeDays: [
@@ -1957,7 +1957,7 @@ export const t = {
       ],
       womenYouthStat:
         '40% des PME sélectionnées réservées aux entreprises féminines & jeunes',
-      womenYouthCTA: "S'inscrire en tant qu'Entreprise Féminine ou Jeune →",
+      womenYouthCTA: "S'inscrire au Forum →",
       threeDaysLabel: 'Programme du Forum',
       threeDaysTitle: "Deux Jours d'Impact",
       threeDays: [
