@@ -20,7 +20,7 @@ const SMARTEVENT_API = '/api/smartevent';
 const registrationFaq = [
   {
     q: 'What is included in my registration fee?',
-    a: 'Delegate Registration (USD 250) includes access to all panels, one month of standard Deal Room access, the networking cocktail, a visit to the Kigali Genocide Memorial, airport transfers, hotel–venue transfers, breakfast and lunch, and preferential hotel and airline rates. Delegate Registration, Deal Room & VIP Dinner (USD 500) includes all of the above plus three months of Premium Pro Deal Room access, personalised matchmaking, dedicated support for B2B & B2G meetings, speed coaching with experts and panellists, and the VIP Dinner.',
+    a: 'Delegate Registration (USD 199, early bird — normally USD 250) includes access to all panels, standard access to the Deal Room for one month, the networking cocktail reception, a visit to the Memorial to the Genocide against the Tutsi, airport meet-and-greet and transfer, hotel–venue transfers during both Forum days, breakfast and lunch, and preferential hotel and airline rates. Delegate Registration, Deal Room (USD 399, early bird — normally USD 500) includes all of the above plus Premium Pro access to the Deal Room for three months, personalised matchmaking, tailored support for B2B and B2G meetings, speed coaching with experts and panellists, and the VIP Dinner.',
   },
   {
     q: 'Can I register for virtual attendance?',
@@ -42,11 +42,11 @@ const registrationFaq = [
 
 const basicDelegateBenefits = [
   'Access to all panels',
-  'Standard Deal Room access for one month',
-  'Networking cocktail',
-  'Visit to the Kigali Genocide Memorial',
-  'Airport-to-hotel welcome & transfer on arrival',
-  'Hotel–venue transfers for both event days',
+  'Standard access to the Deal Room for one month',
+  'Networking cocktail reception',
+  'Visit to the Memorial to the Genocide against the Tutsi',
+  'Airport meet-and-greet and transfer to the hotel upon arrival',
+  'Transfers between the hotel and the event venue during both Forum days',
   'Breakfast at the event hotel',
   'Lunch at the event venue',
   'Preferential rates negotiated with partner hotels',
@@ -55,15 +55,15 @@ const basicDelegateBenefits = [
 
 const premiumDelegateBenefits = [
   'Access to all panels',
-  'Premium Pro Deal Room access for three months',
+  'Premium Pro access to the Deal Room for three months',
   'Personalised matchmaking',
-  'Dedicated support for B2B & B2G meetings',
-  'Networking cocktail',
+  'Tailored support for B2B and B2G meetings',
+  'Networking cocktail reception',
   'Speed coaching with experts and panellists',
   'VIP Dinner',
-  'Visit to the Kigali Genocide Memorial',
-  'Airport-to-hotel welcome & transfer on arrival',
-  'Hotel–venue transfers for both event days',
+  'Visit to the Memorial to the Genocide against the Tutsi',
+  'Airport meet-and-greet and transfer to the hotel upon arrival',
+  'Transfers between the hotel and the event venue during both Forum days',
   'Breakfast at the event hotel',
   'Lunch at the event venue',
   'Preferential rates negotiated with partner hotels',
@@ -73,7 +73,7 @@ const premiumDelegateBenefits = [
 function getCategoryBenefits(name: string): string[] | null {
   const n = name.toLowerCase();
   if (!n.includes('delegate registration')) return null;
-  return n.includes('deal room') && n.includes('vip')
+  return n.includes('deal room')
     ? premiumDelegateBenefits
     : basicDelegateBenefits;
 }
@@ -92,6 +92,7 @@ interface RegistrationCategory {
   name_english: string;
   name_french: string;
   fee: string;
+  normal_fee?: string;
   early_payment_date: string;
   end_date: string;
 }
@@ -1182,6 +1183,13 @@ export default function RegistrationPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {categories.map((category) => {
                   const isFree = !requiresPayment(category.fee);
+                  const discountedFrom =
+                    !isFree &&
+                    category.normal_fee &&
+                    parseFeeAmount(category.normal_fee) >
+                      parseFeeAmount(category.fee)
+                      ? category.normal_fee
+                      : null;
                   const benefits = getCategoryBenefits(
                     decodeHtml(category.name_english),
                   );
@@ -1209,10 +1217,18 @@ export default function RegistrationPage() {
                         {decodeHtml(category.name_english)}
                       </h3>
                       <p
-                        className="text-2xl font-bold mb-3"
+                        className="text-2xl font-bold mb-3 flex items-baseline gap-2 flex-wrap"
                         style={{ color: isFree ? '#16a34a' : 'var(--gold)' }}
                       >
-                        {category.fee}
+                        <span>{category.fee}</span>
+                        {discountedFrom && (
+                          <span
+                            className="text-base font-semibold line-through"
+                            style={{ color: 'var(--muted)' }}
+                          >
+                            {discountedFrom}
+                          </span>
+                        )}
                       </p>
                       <p
                         className="text-sm font-bold mb-5 inline-block px-3 py-1.5 rounded-md"
@@ -1503,6 +1519,16 @@ export default function RegistrationPage() {
                             className="font-medium tabular-nums"
                             style={{ color: 'var(--text)' }}
                           >
+                            {selectedCategory.normal_fee &&
+                              parseFeeAmount(selectedCategory.normal_fee) >
+                                base && (
+                                <span
+                                  className="mr-2 font-normal line-through"
+                                  style={{ color: 'var(--muted)' }}
+                                >
+                                  {selectedCategory.normal_fee}
+                                </span>
+                              )}
                             {selectedCategory.fee}
                           </span>
                         </div>
