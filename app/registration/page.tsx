@@ -5,6 +5,8 @@ import Link from 'next/link';
 import PaymentModal from '@/components/PaymentModal';
 import PawaPayModal from '@/components/PawaPayModal';
 import Faq, { faqJsonLd } from '@/components/Faq';
+import { useLanguage } from '@/lib/LanguageContext';
+import { t } from '@/locales/translations';
 import {
   initializePayment,
   processPayment,
@@ -17,65 +19,40 @@ import {
 
 const SMARTEVENT_API = '/api/smartevent';
 
-const registrationFaq = [
-  {
-    q: 'What is included in my registration fee?',
-    a: 'Delegate Registration (USD 199, early bird — normally USD 250) includes access to all panels, standard access to the Deal Room for one month, the networking cocktail reception, a visit to the Memorial to the Genocide against the Tutsi, airport meet-and-greet and transfer, hotel–venue transfers during both Forum days, breakfast and lunch, and preferential hotel and airline rates. Delegate Registration, Deal Room (USD 399, early bird — normally USD 500) includes all of the above plus Premium Pro access to the Deal Room for three months, personalised matchmaking, tailored support for B2B and B2G meetings, speed coaching with experts and panellists, and the VIP Dinner.',
-  },
-  {
-    q: 'Can I register for virtual attendance?',
-    a: 'Where the event is set up as hybrid, you can choose virtual attendance during registration and follow all sessions online.',
-  },
-  {
-    q: 'What payment methods are accepted?',
-    a: 'Visa / MasterCard (online payment), Mobile Money, and bank transfer, depending on the registration category selected.',
-  },
-  {
-    q: 'Can I add a site visit to my registration?',
-    a: 'Yes, an optional site visit can be added for a flat fee of USD 70 during the registration form. The visit covers the RDB One Stop Centre, the Kigali Special Economic Zone (industrial zone) and the Gift Market.',
-  },
-  {
-    q: 'Who do I contact if I have a payment or registration issue?',
-    a: 'Email info@cbffsme.com or use the WhatsApp button on this site for a faster response.',
-  },
-];
-
-const basicDelegateBenefits = [
-  'Access to all panels',
-  'Standard access to the Deal Room for one month',
-  'Networking cocktail reception',
-  'Visit to the Memorial to the Genocide against the Tutsi',
-  'Airport meet-and-greet and transfer to the hotel upon arrival',
-  'Transfers between the hotel and the event venue during both Forum days',
-  'Breakfast at the event hotel',
-  'Lunch at the event venue',
-  'Preferential rates negotiated with partner hotels',
-  'Discount codes with RwandAir, Brussels Airlines and Ethiopian Airlines',
-];
-
-const premiumDelegateBenefits = [
-  'Access to all panels',
-  'Premium Pro access to the Deal Room for three months',
-  'Personalised matchmaking',
-  'Tailored support for B2B and B2G meetings',
-  'Networking cocktail reception',
-  'Speed coaching with experts and panellists',
-  'VIP Dinner',
-  'Visit to the Memorial to the Genocide against the Tutsi',
-  'Airport meet-and-greet and transfer to the hotel upon arrival',
-  'Transfers between the hotel and the event venue during both Forum days',
-  'Breakfast at the event hotel',
-  'Lunch at the event venue',
-  'Preferential rates negotiated with partner hotels',
-  'Discount codes with RwandAir, Brussels Airlines and Ethiopian Airlines',
-];
-
-function getCategoryBenefits(name: string): string[] | null {
+function getCategoryBenefits(
+  name: string,
+  basic: readonly string[],
+  premium: readonly string[],
+): readonly string[] | null {
   const n = name.toLowerCase();
   if (!n.includes('delegate registration')) return null;
-  return n.includes('deal room')
-    ? premiumDelegateBenefits
-    : basicDelegateBenefits;
+  return n.includes('deal room') ? premium : basic;
+}
+
+// SmartEvent returns dates as English text ("15 September 2026"); swap the
+// month name so French cards don't mix languages. Unrecognised formats pass
+// through untouched.
+const FRENCH_MONTHS: Record<string, string> = {
+  january: 'janvier',
+  february: 'février',
+  march: 'mars',
+  april: 'avril',
+  may: 'mai',
+  june: 'juin',
+  july: 'juillet',
+  august: 'août',
+  september: 'septembre',
+  october: 'octobre',
+  november: 'novembre',
+  december: 'décembre',
+};
+
+function localizeDate(date: string, lang: 'en' | 'fr'): string {
+  if (lang !== 'fr' || !date) return date;
+  return date.replace(
+    /[A-Za-z]+/g,
+    (word) => FRENCH_MONTHS[word.toLowerCase()] ?? word,
+  );
 }
 
 function decodeHtml(str: string): string {
@@ -147,6 +124,8 @@ async function smartEventJson<T>(endpoint: string, body: object): Promise<T> {
 }
 
 export default function RegistrationPage() {
+  const { lang } = useLanguage();
+  const R = t[lang].registrationPage;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [eventType, setEventType] = useState<
@@ -199,7 +178,7 @@ export default function RegistrationPage() {
         await loadCategories(type);
       }
     } catch {
-      setError('Failed to load registration page');
+      setError(R.loadPageError);
     }
     setLoading(false);
   }
@@ -216,7 +195,7 @@ export default function RegistrationPage() {
       );
       setCategories(data.data || []);
     } catch {
-      setError('Failed to load categories');
+      setError(R.loadCategoriesError);
     }
     setLoading(false);
   }
@@ -268,10 +247,27 @@ export default function RegistrationPage() {
         }));
       }
     } catch {
-      setError('Failed to load registration form');
+      setError(R.loadFormError);
     }
     setLoading(false);
   }
+
+  // SmartEvent returns both locales for form labels and options; the submitted
+  // value stays English so the API and the payment-method checks keep matching.
+  const fieldLabel = useCallback(
+    (input: Pick<FormInput, 'nameEnglish' | 'nameFrench'>) =>
+      (lang === 'fr' && input.nameFrench) || input.nameEnglish,
+    [lang],
+  );
+  const optionLabel = useCallback(
+    (opt: FormInputOption) => {
+      const label = (lang === 'fr' && opt.contentFrench) || opt.contentEnglish;
+      if (opt.contentEnglish === 'Online Payment') return R.visaMastercard;
+      if (opt.contentEnglish === 'PawaPay') return R.mobileMoney;
+      return label;
+    },
+    [lang, R],
+  );
 
   const validateStep = useCallback(() => {
     const currentGroup = formGroups[currentStep];
@@ -288,7 +284,7 @@ export default function RegistrationPage() {
         (typeof value === 'string' && value.trim() === '');
 
       if (input.is_mandatory === 'YES' && isEmpty) {
-        const msg = `${input.nameEnglish} is required`;
+        const msg = R.fieldRequired.replace('{field}', fieldLabel(input));
         errors.push(msg);
         fieldErrs[input.inputcode] = msg;
         return;
@@ -297,7 +293,7 @@ export default function RegistrationPage() {
       if (!isEmpty && typeof value === 'string') {
         if (input.inputtype.id === 5) {
           if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-            const msg = `${input.nameEnglish} must be a valid email address`;
+            const msg = R.fieldEmail.replace('{field}', fieldLabel(input));
             errors.push(msg);
             fieldErrs[input.inputcode] = msg;
           }
@@ -307,7 +303,7 @@ export default function RegistrationPage() {
             !/^[\d\s+()-]+$/.test(value) ||
             value.replace(/\D/g, '').length < 7
           ) {
-            const msg = `${input.nameEnglish} must be a valid phone number`;
+            const msg = R.fieldPhone.replace('{field}', fieldLabel(input));
             errors.push(msg);
             fieldErrs[input.inputcode] = msg;
           }
@@ -325,7 +321,7 @@ export default function RegistrationPage() {
     }
 
     return errors.length === 0;
-  }, [currentStep, formGroups, formValues]);
+  }, [currentStep, formGroups, formValues, R, fieldLabel]);
 
   function handleInputChange(inputCode: string, value: string | string[]) {
     setFormValues((prev) => ({ ...prev, [inputCode]: value }));
@@ -396,7 +392,7 @@ export default function RegistrationPage() {
       submitForm.append('delegate_data', JSON.stringify(delegateData));
       submitForm.append('ticket_id', String(selectedCategory.id));
       submitForm.append('attendence_type', attendanceType || 'PHYSICAL');
-      submitForm.append('user_language', 'english');
+      submitForm.append('user_language', lang === 'fr' ? 'french' : 'english');
       submitForm.append('accompanied', 'NO');
       submitForm.append('registration_type', 'single');
 
@@ -454,11 +450,11 @@ export default function RegistrationPage() {
       } else {
         const msg = Array.isArray(result.message)
           ? result.message
-          : [result.message || 'Registration failed'];
+          : [result.message || R.registrationFailed];
         setFormErrors(msg);
       }
     } catch {
-      setFormErrors(['Failed to submit registration. Please try again.']);
+      setFormErrors([R.submitError]);
     } finally {
       setSubmitting(false);
     }
@@ -600,14 +596,10 @@ export default function RegistrationPage() {
               }}
               required={isRequired}
             >
-              <option value="">Select...</option>
+              <option value="">{R.selectPlaceholder}</option>
               {options.map((opt) => (
                 <option key={opt.id} value={opt.contentEnglish}>
-                  {opt.contentEnglish === 'Online Payment'
-                    ? 'Visa / MasterCard'
-                    : opt.contentEnglish === 'PawaPay'
-                      ? 'Mobile Money'
-                      : opt.contentEnglish}
+                  {optionLabel(opt)}
                 </option>
               ))}
             </select>
@@ -711,7 +703,7 @@ export default function RegistrationPage() {
                         className="w-4 h-4 accent-primary-500"
                         required={isRequired}
                       />
-                      <span>{opt.contentEnglish}</span>
+                      <span>{optionLabel(opt)}</span>
                     </label>
                   );
                 })}
@@ -799,7 +791,7 @@ export default function RegistrationPage() {
                     }}
                     className="w-4 h-4"
                   />
-                  <span>{opt.contentEnglish}</span>
+                  <span>{optionLabel(opt)}</span>
                 </label>
               ))}
             </div>
@@ -813,7 +805,7 @@ export default function RegistrationPage() {
       case 17:
         return (
           <p className="text-gray-600 bg-gray-50 p-4 rounded-lg">
-            {input.nameEnglish}
+            {fieldLabel(input)}
           </p>
         );
       default:
@@ -869,12 +861,12 @@ export default function RegistrationPage() {
                 fontFamily: 'var(--font-poppins),sans-serif',
               }}
             >
-              Registration {paymentData.transactionId ? 'and Payment' : ''}{' '}
-              Successful!
+              {paymentData.transactionId
+                ? R.successTitleWithPayment
+                : R.successTitle}
             </h2>
             <p className="mb-6" style={{ color: 'var(--muted)' }}>
-              Thank you for registering for CBFF SME Forum 2026. You will
-              receive a confirmation email shortly.
+              {R.successBody}
             </p>
             {badgeId && (
               <div
@@ -888,7 +880,7 @@ export default function RegistrationPage() {
                   className="text-xs uppercase tracking-wide font-semibold"
                   style={{ color: 'var(--gold)' }}
                 >
-                  Registration number
+                  {R.registrationNumber}
                 </p>
                 <p
                   className="text-2xl font-bold font-mono mt-1"
@@ -897,31 +889,33 @@ export default function RegistrationPage() {
                   {badgeId}
                 </p>
                 <p className="text-xs mt-1" style={{ color: 'var(--muted)' }}>
-                  Please keep this for check-in.
+                  {R.keepForCheckIn}
                 </p>
               </div>
             )}
             {paymentData.transactionId && (
               <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg text-left">
                 <h3 className="text-sm font-semibold text-green-800 mb-3">
-                  Payment Details
+                  {R.paymentDetails}
                 </h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Transaction ID:</span>
+                    <span className="text-gray-600">
+                      {R.transactionIdLabel}
+                    </span>
                     <span className="font-mono font-medium">
                       {paymentData.transactionId}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Order ID:</span>
+                    <span className="text-gray-600">{R.orderIdLabel}</span>
                     <span className="font-mono font-medium">
                       {paymentData.orderId}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Status:</span>
-                    <span className="text-green-600 font-medium">Paid</span>
+                    <span className="text-gray-600">{R.statusLabel}</span>
+                    <span className="text-green-600 font-medium">{R.paid}</span>
                   </div>
                 </div>
               </div>
@@ -931,7 +925,7 @@ export default function RegistrationPage() {
               className="inline-block mt-6 px-6 py-3 rounded-lg text-white font-semibold transition-colors"
               style={{ background: 'var(--navy)' }}
             >
-              Back to Home
+              {R.backToHome}
             </Link>
           </div>
         </div>
@@ -999,7 +993,7 @@ export default function RegistrationPage() {
               marginBottom: 12,
             }}
           >
-            CBFF SME FORUM 2026
+            {R.eyebrow}
           </p>
           <h1
             style={{
@@ -1011,7 +1005,7 @@ export default function RegistrationPage() {
               maxWidth: 700,
             }}
           >
-            Conference Registration
+            {R.title}
           </h1>
           <p
             style={{
@@ -1021,7 +1015,7 @@ export default function RegistrationPage() {
               maxWidth: 600,
             }}
           >
-            Register to attend the Continental Business & Finance Forum for SMEs 2026.
+            {R.subtitle}
           </p>
         </div>
       </div>
@@ -1044,9 +1038,7 @@ export default function RegistrationPage() {
                 borderTopColor: 'transparent',
               }}
             ></div>
-            <p style={{ color: 'var(--muted)' }}>
-              Loading registration form...
-            </p>
+            <p style={{ color: 'var(--muted)' }}>{R.loading}</p>
           </div>
         ) : error ? (
           <div className="bg-white rounded-xl shadow p-8 text-center">
@@ -1056,7 +1048,7 @@ export default function RegistrationPage() {
               className="px-6 py-2 rounded-lg text-white"
               style={{ background: 'var(--navy)' }}
             >
-              Try Again
+              {R.tryAgain}
             </button>
           </div>
         ) : eventType === 'HYBRID' && !attendanceType ? (
@@ -1069,7 +1061,7 @@ export default function RegistrationPage() {
                 color: 'var(--navy)',
               }}
             >
-              Select Your Attendance Type
+              {R.selectAttendance}
             </h2>
             <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               {(['PHYSICAL', 'VIRTUAL'] as const).map((type) => (
@@ -1128,14 +1120,10 @@ export default function RegistrationPage() {
                       fontFamily: 'var(--font-poppins),sans-serif',
                     }}
                   >
-                    {type === 'PHYSICAL'
-                      ? 'Physical Attendance'
-                      : 'Virtual Attendance'}
+                    {type === 'PHYSICAL' ? R.physicalTitle : R.virtualTitle}
                   </h3>
                   <p className="text-sm" style={{ color: 'var(--muted)' }}>
-                    {type === 'PHYSICAL'
-                      ? 'Attend the event in person at the venue'
-                      : 'Attend the event online from anywhere'}
+                    {type === 'PHYSICAL' ? R.physicalDesc : R.virtualDesc}
                   </p>
                 </button>
               ))}
@@ -1152,7 +1140,7 @@ export default function RegistrationPage() {
                   color: 'var(--navy)',
                 }}
               >
-                Select Registration Category
+                {R.selectCategory}
               </h2>
               {eventType === 'HYBRID' && (
                 <button
@@ -1160,13 +1148,14 @@ export default function RegistrationPage() {
                   className="text-sm"
                   style={{ color: 'var(--blue)' }}
                 >
-                  Change attendance type
+                  {R.changeAttendance}
                 </button>
               )}
             </div>
             <p className="text-sm mb-6" style={{ color: 'var(--muted)' }}>
-              All registration fees are listed in <strong>USD</strong>. For
-              support or payment questions, contact{' '}
+              {R.feeNoteBefore}
+              <strong>USD</strong>
+              {R.feeNoteAfter}
               <a
                 href="mailto:info@cbffsme.com"
                 style={{ color: 'var(--blue)' }}
@@ -1177,7 +1166,7 @@ export default function RegistrationPage() {
             </p>
             {categories.length === 0 ? (
               <p className="text-center py-8" style={{ color: 'var(--muted)' }}>
-                No registration categories available at this time.
+                {R.noCategories}
               </p>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1192,6 +1181,8 @@ export default function RegistrationPage() {
                       : null;
                   const benefits = getCategoryBenefits(
                     decodeHtml(category.name_english),
+                    R.basicBenefits,
+                    R.premiumBenefits,
                   );
                   return (
                     <div
@@ -1204,7 +1195,7 @@ export default function RegistrationPage() {
                           className="absolute top-0 right-0 text-white text-xs font-bold px-3 py-1 rounded-bl-lg"
                           style={{ background: '#16a34a' }}
                         >
-                          FREE
+                          {R.free}
                         </div>
                       )}
                       <h3
@@ -1214,7 +1205,10 @@ export default function RegistrationPage() {
                           fontFamily: 'var(--font-poppins),sans-serif',
                         }}
                       >
-                        {decodeHtml(category.name_english)}
+                        {decodeHtml(
+                          (lang === 'fr' && category.name_french) ||
+                            category.name_english,
+                        )}
                       </h3>
                       <p
                         className="text-2xl font-bold mb-3 flex items-baseline gap-2 flex-wrap"
@@ -1239,8 +1233,14 @@ export default function RegistrationPage() {
                         }
                       >
                         {category.early_payment_date
-                          ? `Early bird ends: ${category.early_payment_date}`
-                          : `Registration closes: ${category.end_date}`}
+                          ? R.earlyBirdEnds.replace(
+                              '{date}',
+                              localizeDate(category.early_payment_date, lang),
+                            )
+                          : R.registrationCloses.replace(
+                              '{date}',
+                              localizeDate(category.end_date, lang),
+                            )}
                       </p>
                       {benefits && (
                         <ul
@@ -1262,7 +1262,7 @@ export default function RegistrationPage() {
                           background: isFree ? '#16a34a' : 'var(--navy)',
                         }}
                       >
-                        Register
+                        {R.registerCta}
                       </button>
                     </div>
                   );
@@ -1298,7 +1298,8 @@ export default function RegistrationPage() {
                             : '#6b7280',
                     }}
                   >
-                    {group.group.name}
+                    {(lang === 'fr' && group.group.nameFrench) ||
+                      group.group.name}
                   </button>
                 ))}
               </div>
@@ -1321,7 +1322,7 @@ export default function RegistrationPage() {
                     </svg>
                     <div>
                       <h3 className="text-sm font-semibold text-red-800 mb-2">
-                        Please fix the following errors:
+                        {R.fixErrors}
                       </h3>
                       <ul className="list-disc list-inside text-red-700 text-sm space-y-1">
                         {formErrors.map((err, i) => (
@@ -1356,7 +1357,8 @@ export default function RegistrationPage() {
                           fontFamily: 'var(--font-poppins),sans-serif',
                         }}
                       >
-                        {group.group.name}
+                        {(lang === 'fr' && group.group.nameFrench) ||
+                          group.group.name}
                       </h3>
 
                       {/* Site visit is a paid add-on — its own selectable, priced card. */}
@@ -1406,16 +1408,13 @@ export default function RegistrationPage() {
                                   className="text-sm font-semibold"
                                   style={{ color: 'var(--navy)' }}
                                 >
-                                  Site visit
+                                  {R.siteVisitTitle}
                                 </p>
                                 <p
                                   className="text-sm mt-0.5"
                                   style={{ color: 'var(--muted)' }}
                                 >
-                                  Add an optional site visit to your
-                                  registration — RDB One Stop Centre, Kigali
-                                  Special Economic Zone (industrial zone) and
-                                  the Gift Market.
+                                  {R.siteVisitDesc}
                                 </p>
                               </div>
                             </div>
@@ -1460,7 +1459,7 @@ export default function RegistrationPage() {
                                       className="block text-sm font-medium mb-1.5"
                                       style={{ color: 'var(--text)' }}
                                     >
-                                      {input.nameEnglish}
+                                      {fieldLabel(input)}
                                       {input.is_mandatory === 'YES' && (
                                         <span className="text-red-500 ml-1">
                                           *
@@ -1507,13 +1506,13 @@ export default function RegistrationPage() {
                           className="text-sm font-semibold"
                           style={{ color: 'var(--navy)' }}
                         >
-                          Payment summary
+                          {R.paymentSummary}
                         </span>
                       </div>
                       <div className="space-y-2.5">
                         <div className="flex items-center justify-between text-sm">
                           <span style={{ color: 'var(--muted)' }}>
-                            Registration fee
+                            {R.registrationFee}
                           </span>
                           <span
                             className="font-medium tabular-nums"
@@ -1535,7 +1534,7 @@ export default function RegistrationPage() {
                         {siteVisitSelected && (
                           <div className="flex items-center justify-between text-sm">
                             <span style={{ color: 'var(--muted)' }}>
-                              Site visit
+                              {R.siteVisitTitle}
                             </span>
                             <span
                               className="font-medium tabular-nums"
@@ -1553,7 +1552,7 @@ export default function RegistrationPage() {
                             className="text-sm font-semibold"
                             style={{ color: 'var(--navy)' }}
                           >
-                            Total due
+                            {R.totalDue}
                           </span>
                           <span
                             className="text-lg font-bold tabular-nums"
@@ -1580,8 +1579,7 @@ export default function RegistrationPage() {
                             d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                           />
                         </svg>
-                        Secure payment — you&apos;ll be redirected to complete
-                        it after you continue.
+                        {R.securePayment}
                       </p>
                     </div>
                   );
@@ -1592,8 +1590,7 @@ export default function RegistrationPage() {
                   <div className="flex items-center gap-3">
                     <div className="animate-spin w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full"></div>
                     <p className="text-sm font-medium text-blue-800">
-                      Processing Payment — please complete the payment in the
-                      popup window...
+                      {R.processingPaymentNotice}
                     </p>
                   </div>
                 </div>
@@ -1609,7 +1606,7 @@ export default function RegistrationPage() {
                       disabled={submitting || processingPayment}
                       className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
                     >
-                      Previous
+                      {R.previous}
                     </button>
                   ) : (
                     <button
@@ -1618,7 +1615,7 @@ export default function RegistrationPage() {
                       disabled={submitting || processingPayment}
                       className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
                     >
-                      Change Category
+                      {R.changeCategory}
                     </button>
                   )}
                 </div>
@@ -1631,7 +1628,7 @@ export default function RegistrationPage() {
                       className="px-6 py-2 rounded-lg text-white font-semibold transition-colors disabled:opacity-50"
                       style={{ background: 'var(--navy)' }}
                     >
-                      Next
+                      {R.next}
                     </button>
                   ) : (
                     <button
@@ -1643,17 +1640,17 @@ export default function RegistrationPage() {
                       {processingPayment ? (
                         <>
                           <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>{' '}
-                          Processing Payment...
+                          {R.processingPayment}
                         </>
                       ) : submitting ? (
                         <>
                           <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>{' '}
-                          Submitting...
+                          {R.submittingLabel}
                         </>
                       ) : paymentRequired ? (
-                        'Proceed to Payment'
+                        R.proceedToPayment
                       ) : (
-                        'Submit Registration'
+                        R.submitRegistration
                       )}
                     </button>
                   )}
@@ -1667,14 +1664,10 @@ export default function RegistrationPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqJsonLd(registrationFaq)),
+          __html: JSON.stringify(faqJsonLd(R.faq)),
         }}
       />
-      <Faq
-        eyebrow="Questions"
-        title="Registration FAQ"
-        items={registrationFaq}
-      />
+      <Faq eyebrow={R.faqEyebrow} title={R.faqTitle} items={R.faq} />
 
       {/* Mastercard embedded checkout */}
       {paymentSession && selectedCategory && (
@@ -1684,7 +1677,10 @@ export default function RegistrationPage() {
             parseFeeAmount(selectedCategory.fee) + (siteVisitSelected ? 70 : 0)
           }
           currency={extractCurrency(selectedCategory.fee)}
-          categoryName={decodeHtml(selectedCategory.name_english)}
+          categoryName={decodeHtml(
+            (lang === 'fr' && selectedCategory.name_french) ||
+              selectedCategory.name_english,
+          )}
           customerEmail={(formValues['input_id_52307'] as string) || ''}
           isOpen={showPaymentModal}
           onClose={() => {
