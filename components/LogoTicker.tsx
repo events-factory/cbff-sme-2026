@@ -4,7 +4,7 @@ const logos = [
   { code: "RDB",       name: "Rwanda Dev. Board",      img: "/logos/rdb.png" },
   { code: "BOK",       name: "Bank of Kigali",          img: "/logos/bok.png" },
   { code: "I&M",       name: "I&M Bank",                img: "/logos/imbank.png" },
-  { code: "BOA",       name: "Bank of Africa",          img: "/logos/boa.png" },
+  { code: "BOA",       name: "Bank of Africa",          img: "/logos/boa-on-light.png" },
   { code: "MINECOFIN", name: "Ministry of Finance",     img: "/logos/minecofin.svg" },
   { code: "FAGACE",    name: "FAGACE",                  img: "/logos/fagace.png" },
   { code: "BRD",       name: "BRD Rwanda",              img: "/logos/brd.svg" },
