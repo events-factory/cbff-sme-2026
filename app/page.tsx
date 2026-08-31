@@ -7,11 +7,11 @@ import { useLanguage } from "@/lib/LanguageContext";
 import { t } from "@/locales/translations";
 
 const partners = [
-  { logo: "/logos/boa.png", name: "Bank of Africa", desc: "Regional banking partner" },
+  { logo: "/logos/boa-on-light.png", name: "Bank of Africa" },
 ];
 
-// Partners carousel hidden for now — flip to true to bring the section back.
-const SHOW_PARTNERS = false;
+// Partners carousel — flip to false to hide the section again.
+const SHOW_PARTNERS = true;
 
 export default function Home() {
   const { lang } = useLanguage();
@@ -321,21 +321,16 @@ export default function Home() {
             {lang === "fr" ? "Nos Partenaires" : "Our Partners"}
           </h2>
           <div style={{ width: 60, height: 3, background: "var(--gold)", marginBottom: 40 }} />
-        </div>
-        <div style={{ background: "var(--navy)", padding: "48px 0", position: "relative", zIndex: 2, overflow: "hidden" }}>
           <div
             className={partners.length >= 4 ? "animate-ticker" : ""}
-            style={{ display: "flex", width: partners.length >= 4 ? "max-content" : "100%", justifyContent: partners.length >= 4 ? "flex-start" : "center", flexWrap: partners.length >= 4 ? "nowrap" : "wrap" }}
+            style={{ display: "flex", gap: 16, width: partners.length >= 4 ? "max-content" : "100%", flexWrap: partners.length >= 4 ? "nowrap" : "wrap" }}
           >
             {(partners.length >= 4 ? [...partners, ...partners] : partners).map((p, idx) => (
-              <div key={idx} style={{ border: "1px solid rgba(255,255,255,.15)", padding: "22px 16px", textAlign: "center", width: 220, flexShrink: 0, marginRight: 16 }}>
-                <div style={{ width: 96, height: 56, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 14px", overflow: "hidden" }}>
-                  <div style={{ background: "#fff", borderRadius: 4, padding: "4px 6px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <Image src={p.logo} alt={p.name} width={76} height={44} style={{ objectFit: "contain", maxWidth: "100%", maxHeight: "100%" }} />
-                  </div>
+              <div key={idx} style={{ background: "var(--white)", border: "1px solid var(--border)", borderTop: "3px solid var(--gold)", padding: "24px 22px", width: 260, flexShrink: 0 }}>
+                <div style={{ height: 34, display: "flex", alignItems: "center", marginBottom: 18 }}>
+                  <Image src={p.logo} alt={p.name} width={150} height={28} style={{ objectFit: "contain", objectPosition: "left center", maxWidth: 150, maxHeight: 34 }} />
                 </div>
-                <h4 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 14, color: "var(--white)", fontWeight: 700, marginBottom: 4 }}>{p.name}</h4>
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,.55)" }}>{p.desc}</p>
+                <h4 style={{ fontFamily: "var(--font-poppins),sans-serif", fontSize: 15, color: "var(--navy)", fontWeight: 700, margin: 0 }}>{p.name}</h4>
               </div>
             ))}
           </div>
